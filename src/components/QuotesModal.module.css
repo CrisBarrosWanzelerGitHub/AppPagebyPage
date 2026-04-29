@@ -1,0 +1,123 @@
+.bookName {
+  font-size: 0.78rem;
+  color: var(--warm-gray);
+  margin: 0.15rem 0 0;
+  line-height: 1.3;
+}
+
+/* Override Modal body gap */
+.body {
+  gap: 0.75rem !important;
+}
+
+/* ─── Empty state ─────────────────────────────────────────────────────────── */
+.empty {
+  font-size: 0.85rem;
+  color: var(--warm-gray);
+  font-style: italic;
+  text-align: center;
+  padding: 1.25rem 0;
+  margin: 0;
+}
+
+/* ─── Quote item ──────────────────────────────────────────────────────────── */
+.quoteItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem 0.85rem;
+  background: var(--off-white);
+  border-radius: var(--radius-sm, 8px);
+  border-left: 3px solid var(--accent-surface);
+}
+
+.quoteText {
+  flex: 1;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--accent-text);
+  line-height: 1.65;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+.quoteActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.quoteBtn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: var(--warm-gray);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.2rem 0.3rem;
+  border-radius: 4px;
+  transition: background 0.12s, color 0.12s;
+}
+.quoteBtn:hover { background: var(--border); color: var(--text); }
+
+.quoteBtnDanger:hover { background: rgba(180,50,50,0.08); color: var(--danger, #c0392b); }
+
+/* ─── Edit mode ───────────────────────────────────────────────────────────── */
+.editBlock {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.editTextarea {
+  resize: vertical;
+}
+
+.editActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+/* ─── Divider ─────────────────────────────────────────────────────────────── */
+.divider {
+  height: 0.5px;
+  background: var(--border);
+  margin: 0.25rem 0;
+}
+
+/* ─── Add section ─────────────────────────────────────────────────────────── */
+.addSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.addRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.addHint {
+  font-size: 0.7rem;
+  color: var(--warm-gray);
+  opacity: 0.7;
+}
+
+/* ─── Draft textarea ──────────────────────────────────────────────────────── */
+.draftTextarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+/* ─── Footer padding ──────────────────────────────────────────────────────── */
+.footer {
+  padding-bottom: 1.25rem !important;
+  margin-top: 0 !important;
+}

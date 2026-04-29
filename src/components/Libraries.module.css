@@ -1,0 +1,230 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ─── Header ───────────────────────────────────────────────────────────────── */
+.topBar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.heading {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.2rem;
+}
+
+.sub {
+  font-size: 0.82rem;
+  color: var(--warm-gray);
+  margin: 0;
+}
+
+/* ─── Form card ─────────────────────────────────────────────────────────────── */
+.formCard {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.formTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 1.1rem;
+}
+
+.optional {
+  font-weight: 400;
+  color: var(--warm-gray);
+  font-size: 0.8em;
+}
+
+.noteArea {
+  resize: vertical;
+  min-height: 4.5rem;
+  line-height: 1.55;
+  font-family: var(--font-body);
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 0.5px solid var(--border);
+}
+
+/* ─── List ──────────────────────────────────────────────────────────────────── */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+}
+
+.itemMain {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemName {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+}
+
+.itemLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--gold-dark, #a88800);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s;
+}
+.itemLink:hover { color: var(--gold); text-decoration: underline; }
+
+.itemMeta {
+  font-size: 0.8rem;
+  color: var(--warm-gray);
+  margin: 0.2rem 0 0;
+}
+
+.itemNote {
+  font-size: 0.78rem;
+  color: var(--warm-gray);
+  margin: 0.2rem 0 0;
+  font-style: italic;
+}
+
+.itemActions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+/* ─── Tags — filtro ──────────────────────────────────────────────────────────── */
+.tagFilterRow {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tagFilterChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.75rem;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--warm-gray);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.tagFilterChip:hover { border-color: var(--gold); color: var(--gold); }
+.tagFilterChipActive {
+  background: var(--accent-soft);
+  border-color: var(--gold);
+  color: var(--gold-dark, #a88800);
+  font-weight: 600;
+}
+
+/* ─── Tags — formulário ──────────────────────────────────────────────────────── */
+.tagChipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.45rem;
+}
+
+.tagChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 99px;
+  background: var(--accent-soft);
+  border: 1px solid var(--gold);
+  color: var(--gold-dark, #a88800);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.tagChipRemove {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
+  opacity: 0.7;
+  transition: opacity 0.12s;
+}
+.tagChipRemove:hover { opacity: 1; }
+
+.tagSuggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.45rem;
+}
+
+.tagSuggestionChip {
+  padding: 0.18rem 0.55rem;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--warm-gray);
+  font-size: 0.72rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.12s;
+  font-family: var(--font-body);
+}
+.tagSuggestionChip:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ─── Tags — item da lista ───────────────────────────────────────────────────── */
+.itemTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+}
+
+.itemTag {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--warm-gray);
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 0.1rem 0.5rem;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .topBar { flex-wrap: wrap; }
+  .formCard { padding: 1rem; }
+  .formActions { flex-direction: column-reverse; }
+  .formActions button { width: 100%; justify-content: center; }
+  .item { padding: 0.85rem 1rem; }
+}

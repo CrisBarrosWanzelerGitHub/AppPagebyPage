@@ -1,0 +1,778 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ─── 2-column grid for paired charts ────────────────────────────────────── */
+.chartGrid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* ─── 3-column grid for Local / Formato / Idioma doughnuts ───────────────── */
+.chartGrid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+/* Previne grid blowout: canvas do chart.js tem largura intrínseca grande */
+.chartGrid3 > * {
+  min-width: 0;
+  overflow: hidden;
+}
+@media (max-width: 640px) {
+  .chartGrid3 { grid-template-columns: 1fr; }
+}
+
+/* ─── Doughnut chart container ────────────────────────────────────────────── */
+.doughnutWrapper {
+  height: 220px;
+  width: 100%;
+  position: relative;
+}
+
+/* Menor — usada dentro dos cards em 3 colunas */
+.doughnutWrapperSm {
+  height: 190px;
+  width: 100%;
+  position: relative;
+}
+
+/* ─── Total histórico card ────────────────────────────────────────────────── */
+.totalCard {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding: 1rem 1.25rem;
+}
+
+.totalBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+}
+
+.totalDivider {
+  width: 1px;
+  background: var(--border);
+  margin: 0 1.25rem;
+  flex-shrink: 0;
+}
+
+.totalValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.totalSub {
+  font-size: 0.78rem;
+  color: var(--warm-gray);
+}
+
+
+.yearSelect {
+  width: 100%;
+  text-align: center;
+  font-size: 0.88rem !important;
+  padding-top: 0.3rem !important;
+  padding-bottom: 0.3rem !important;
+}
+
+/* ─── Section ─────────────────────────────────────────────────────────────── */
+.section { padding: 1.5rem; }
+
+.sectionTitle {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--warm-gray);
+  margin-bottom: 1.1rem;
+}
+
+.empty {
+  font-size: 0.85rem;
+  color: var(--warm-gray);
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+/* ─── Chart ───────────────────────────────────────────────────────────────── */
+.chartWrapper {
+  height: 200px;
+  position: relative;
+}
+
+/* ─── Heatmap ─────────────────────────────────────────────────────────────── */
+.heatmapScroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.5rem;
+  display: flex;
+  justify-content: center; /* center when fits; scroll when overflows */
+}
+
+.heatmapContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: max-content;
+}
+
+.monthLabels {
+  display: grid;
+  gap: 2px;
+  height: 16px;
+}
+
+.monthLabel {
+  font-size: 0.65rem;
+  color: var(--warm-gray);
+  white-space: nowrap;
+}
+
+.heatmapGrid {
+  display: grid;
+  grid-template-rows: repeat(7, 13px);
+  gap: 2px;
+  grid-auto-flow: column;
+}
+
+.heatCell {
+  width: 13px;
+  height: 13px;
+  border-radius: 2px;
+}
+
+.heatHintRow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2.5rem;
+  margin-top: 0.5rem;
+  min-height: 1.2em;
+  font-size: 0.7rem;
+  color: var(--warm-gray);
+  padding-right: 44px;
+}
+
+.heatHintLeft {
+  min-width: 7rem;
+  text-align: right;
+  visibility: hidden;
+  transition: opacity 0.12s;
+  opacity: 0;
+}
+
+.heatHintLeft.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.heatLegend {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 0.5rem;
+  font-size: 0.68rem;
+  color: var(--warm-gray);
+}
+.heatLegend span { margin: 0 2px; }
+
+/* ─── Stat Grid ───────────────────────────────────────────────────────────── */
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.65rem 1rem !important;
+}
+
+.statValue {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  width: 100%;
+  text-align: right;
+}
+
+.statSub {
+  font-size: 0.78rem;
+  color: var(--warm-gray);
+  width: 100%;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Performance Hero ───────────────────────────────────────────────────── */
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Título + subtítulo: grupo visual coeso + respiro antes do seletor */
+.heroHeading {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 2rem;
+}
+
+/* Toolbar espelha exatamente as colunas do statFunnelGrid */
+.heroToolbar {
+  display: grid;
+  grid-template-columns: 1.5fr 1.35fr 1.15fr 1.15fr 1fr;
+  gap: 1rem;
+}
+
+/* Seletor na última coluna, mesmo tamanho do card Hoje */
+.heroToolbar > select {
+  grid-column: 5;
+  width: 100%;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--accent-text);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.heroSub {
+  font-size: 0.83rem;
+  color: var(--warm-gray);
+  margin: 0;
+}
+
+/* Frase introdutória em itálico, antes dos cards de métricas */
+.heroIntro {
+  margin: 1.5rem 0 0;
+  font-size: 0.82rem;
+  color: var(--warm-gray);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+/* Número em destaque dentro da frase introdutória */
+.heroIntroNum {
+  font-weight: 700;
+  color: var(--accent-text-hover);
+}
+
+
+/* ─── Journey Section ────────────────────────────────────────────────────── */
+.journeyHint {
+  font-size: 0.75rem;
+  color: var(--warm-gray);
+  margin: -0.6rem 0 1.25rem;
+  line-height: 1.5;
+}
+
+.journeyRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.journeyScroll {
+  flex: 1;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.journeyScroll::-webkit-scrollbar { display: none; }
+
+.journeyTrack {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 2.5rem 0.5rem 2rem;
+  min-width: max-content;
+  gap: 0;
+}
+
+.journeyLine {
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  height: 1px;
+  background: var(--border-subtle);
+  top: 50%;
+  z-index: 0;
+}
+
+.journeyItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  flex: 1;
+  min-width: 68px;
+  position: relative;
+  z-index: 1;
+}
+
+.journeyPages {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  min-height: 1em;
+  line-height: 1;
+}
+
+.journeyCircle {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.journeyCircle:hover { transform: scale(1.07); }
+
+.journeyCircleBest {
+  box-shadow: 0 4px 16px rgba(107,68,35,0.28);
+}
+
+.journeyMonthLabel {
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  user-select: none;
+}
+
+.journeyNarrative {
+  font-size: 0.68rem;
+  color: var(--warm-gray);
+  min-height: 1em;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.journeyNarrativeBold {
+  font-weight: 700;
+  color: var(--accent-text);
+}
+
+.journeyLegend {
+  font-size: 0.7rem;
+  color: var(--warm-gray);
+  margin: 1rem 0 0;
+  opacity: 0.7;
+  line-height: 1.5;
+}
+
+/* Virada card */
+.viradaCard {
+  background: var(--accent-text);
+  color: white;
+  border-radius: var(--radius-lg, var(--radius));
+  padding: 1rem 1.1rem;
+  min-width: 130px;
+  max-width: 170px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-self: center;
+}
+
+.viradaLabel {
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.65;
+}
+
+.viradaText {
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0;
+  font-family: var(--font-display);
+}
+
+/* ─── Two-column layout ──────────────────────────────────────────────────── */
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+/* ─── Achievements ───────────────────────────────────────────────────────── */
+.achievementsTrack {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  margin-top: 1rem;
+  padding-bottom: 0.25rem;
+}
+
+.achievementsConnector {
+  position: absolute;
+  top: 16px; /* center of 32px dot */
+  left: 16px;
+  right: 16px;
+  height: 1px;
+  background: var(--border);
+  z-index: 0;
+}
+
+.achievementItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.achievementDot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--border);
+  border: 2.5px solid var(--bg-card);
+  flex-shrink: 0;
+  transition: background 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.achievementDotUnlocked {
+  background: var(--accent-surface);
+  box-shadow: 0 0 8px rgba(212,167,44,0.45);
+}
+
+.achievementIcon {
+  font-size: 0.85rem;
+  line-height: 1;
+  color: var(--bg-card);
+}
+.achievementDotUnlocked .achievementIcon {
+  color: #1A1614;
+}
+
+.achievementDotLabel {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.3;
+  max-width: 60px;
+}
+
+.achievementDotLabelMuted {
+  opacity: 0.35;
+}
+
+/* ─── Insight Card ───────────────────────────────────────────────────────── */
+.insightCard {
+  background: var(--accent-text);
+  color: white;
+  border-radius: var(--radius-lg, var(--radius));
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  min-height: 130px;
+}
+
+.insightLabel {
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
+.insightTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0;
+  font-family: var(--font-display);
+}
+
+.insightSub {
+  font-size: 0.8rem;
+  opacity: 0.78;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ─── Next Chapter Card ──────────────────────────────────────────────────── */
+.nextChapterCard {
+  display: flex !important;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.nextChapterLabel {
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--warm-gray);
+}
+
+.nextChapterText {
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin: 0;
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* ─── CTA ────────────────────────────────────────────────────────────────── */
+.nextReadsCTA {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent-surface);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  font-family: var(--font-body);
+  transition: opacity 0.15s;
+}
+.nextReadsCTA:hover { opacity: 0.7; }
+
+/* ─── Isso me marcou ─────────────────────────────────────────────────────── */
+.quoteSection {
+  background: var(--bg-card);
+}
+
+.quoteCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.5rem 0 0.25rem 1.25rem;
+  border-left: 3px solid var(--accent-surface);
+}
+
+.quoteText {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--accent-text);
+  line-height: 1.7;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.quoteAttrib {
+  font-size: 0.75rem;
+  color: var(--warm-gray);
+  margin: 0;
+  font-style: normal;
+}
+
+.quotePlaceholder {
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--warm-gray);
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.7;
+}
+
+.quoteSectionTappable {
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.15s;
+}
+.quoteSectionTappable:hover { opacity: 0.88; }
+
+/* ─── Typewriter state ──────────────────────────────────────────────────── */
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.quoteTyping .quoteText::after {
+  content: '|';
+  font-style: normal;
+  font-weight: 400;
+  margin-left: 1px;
+  color: var(--accent-text);
+  animation: cursorBlink 0.55s step-end infinite;
+}
+
+.quoteTapHint {
+  font-size: 0.65rem;
+  color: var(--warm-gray);
+  opacity: 0.55;
+  letter-spacing: 0.03em;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* ─── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .twoCol { grid-template-columns: 1fr; }
+  .heroHeading { margin-bottom: 1rem; }
+  .heroToolbar { grid-template-columns: 1fr 1fr; }
+  .heroToolbar > select { grid-column: 2; }
+  .statFunnelGrid { grid-template-columns: 1fr 1fr; }
+  .heroTitle { font-size: 1.25rem; }
+  .viradaCard { max-width: none; min-width: 0; width: 100%; align-self: stretch; }
+  .journeyRow { flex-direction: column; }
+  .chartWrapper { height: 160px; }
+  .section { padding: 1rem; }
+  .statGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .statValue {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Em telas muito pequenas, 1 coluna para stats */
+  .statGrid { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .statGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ─── Achievements Summary ───────────────────────────────────────────────── */
+.achievementsSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.achievementSummaryItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.achievementSummaryIcon {
+  font-size: 1.1rem;
+  line-height: 1.3;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+  color: var(--accent-surface);
+}
+
+.achievementSummaryTitle {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.achievementSummaryDesc {
+  font-size: 0.78rem;
+  color: var(--warm-gray);
+  line-height: 1.45;
+  margin-top: 0.1rem;
+}
+
+/* ─── Stat Funnel Grid ────────────────────────────────────────────────────── */
+.statFunnelGrid {
+  display: grid;
+  grid-template-columns: 1.5fr 1.35fr 1.15fr 1.15fr 1fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+@media (max-width: 768px) {
+  .statFunnelGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .statFunnelGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Today Badge — invite state ─────────────────────────────────────────── */
+.todayBadgeInvite {
+  background: transparent;
+  border: 1.5px dashed var(--border);
+  color: var(--warm-gray);
+  font-weight: 500;
+  font-size: 0.82rem;
+  box-shadow: none;
+  cursor: pointer;
+  transition: opacity 0.15s, border-color 0.15s;
+  line-height: 1.55;
+}
+.todayBadgeInvite:hover {
+  opacity: 0.75;
+  border-color: var(--accent-surface);
+}
+
+/* ─── Year Chart Header ───────────────────────────────────────────────────── */
+.yearChartHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.yearChartTotal {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--accent-surface);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0;
+  font-family: var(--font-display);
+}
+
+.yearChartTotalSub {
+  font-size: 0.78rem;
+  color: var(--warm-gray);
+  margin: 0;
+}
+
+.yearChartLabel {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  align-self: flex-start;
+}

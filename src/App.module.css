@@ -1,0 +1,365 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+/* ─── Header ──────────────────────────────────────────────────────────────── */
+.header {
+  background: var(--bg-surface);
+  border-bottom: 0.5px solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.headerInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brandIcon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.brandLogo {
+  width: 2rem;
+  height: auto;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.brandName {
+  font-size: 1.1rem;
+  font-weight: 400;
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.brandTagline {
+  font-size: 0.68rem;
+  color: var(--warm-gray);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+/* ─── Hamburger ───────────────────────────────────────────────────────────── */
+.hamburger {
+  display: none; /* hidden on desktop */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4.5px;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.15s, background 0.15s;
+}
+.hamburger:hover {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.hLine {
+  display: block;
+  width: 15px;
+  height: 1.5px;
+  background: var(--warm-gray);
+  border-radius: 2px;
+  transform-origin: center;
+  transition: transform 0.22s ease, opacity 0.22s ease, width 0.22s ease;
+}
+.hamburgerOpen .hLine:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburgerOpen .hLine:nth-child(2) { opacity: 0; width: 0; }
+.hamburgerOpen .hLine:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ─── Mobile Menu ─────────────────────────────────────────────────────────── */
+.mobileMenuOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 98;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.mobileMenu {
+  display: none; /* shown only on mobile via @media */
+}
+
+.mobileMenuItem {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.9rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--warm-gray);
+  background: transparent;
+  border: none;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s, color 0.12s;
+  width: 100%;
+}
+.mobileMenuItem:hover {
+  background: var(--off-white);
+  color: var(--text);
+}
+.mobileMenuItemActive {
+  color: var(--text-primary);
+  font-weight: 700;
+  border-left-color: var(--accent-surface);
+  background: var(--bg-primary);
+}
+.mobileMenuIcon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.mobileMenuSupport {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.9rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--warm-gray);
+  text-decoration: none;
+  border-top: 0.5px solid var(--border-subtle);
+  margin-top: 0.25rem;
+  transition: background 0.12s, color 0.12s;
+}
+.mobileMenuSupport:hover {
+  background: var(--off-white);
+  color: var(--text);
+}
+
+/* ─── Theme Toggle ────────────────────────────────────────────────────────── */
+.themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  font-size: 1.05rem;
+  font-style: normal;
+  cursor: pointer;
+  color: var(--warm-gray);
+  transition: border-color 0.15s, background 0.15s;
+  flex-shrink: 0;
+}
+.themeToggle:hover {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  color: var(--text);
+}
+
+/* ─── Nav blur frame — fica no espaço ENTRE header e nav ─────────────────── */
+/* Header termina ~72px; nav começa em 112px → frame preenche os 40px de gap  */
+.navBlurFrame {
+  position: sticky;   /* sticky acompanha o bounce nativo — fixed quebrava no overscroll */
+  top: 72px;
+  height: 40px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(245, 239, 227, 0.28);
+  z-index: 98;
+  pointer-events: none;
+}
+
+:global([data-theme="dark"]) .navBlurFrame {
+  background: rgba(22, 22, 27, 0.28);
+}
+
+@media (max-width: 640px) {
+  .navBlurFrame { display: none; }
+}
+
+/* ─── Nav ─────────────────────────────────────────────────────────────────── */
+.nav {
+  background: var(--bg-surface);
+  border-bottom: 0.5px solid var(--border-subtle);
+  position: sticky;
+  top: 112px; /* afastado do header para abrir espaço ao frame de blur */
+  z-index: 99;
+}
+
+.navScroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.navScroll::-webkit-scrollbar { display: none; }
+
+.navInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  gap: 0;
+  min-width: max-content;
+}
+
+.navTab {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.85rem 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--warm-gray);
+  background: transparent;
+  border: none;
+  border-bottom: 2.5px solid transparent;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.navTab:hover { color: var(--text); }
+
+.navTabActive {
+  color: var(--text-primary);
+  font-weight: 700;
+  border-bottom-color: var(--accent-surface);
+}
+
+.navTabDragging {
+  opacity: 0.35;
+}
+
+.navTabDropBefore {
+  border-left: 2px solid var(--gold);
+}
+
+.navTabDropAfter {
+  border-right: 2px solid var(--gold);
+}
+
+.navGrip {
+  display: inline-flex;
+  align-items: center;
+  color: var(--warm-gray);
+  opacity: 0.25;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+  cursor: grab;
+}
+.navTab:hover .navGrip { opacity: 0.55; }
+
+.navIcon {
+  font-size: 0.88rem;
+  line-height: 1;
+  display: inline-flex;
+  min-width: 1.1rem;
+  flex-shrink: 0;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+  font-style: normal;
+}
+.navLabel { line-height: 1; }
+
+/* ─── Main ────────────────────────────────────────────────────────────────── */
+.main {
+  flex: 1;
+  padding: 2.5rem 2rem 5rem;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ─── FAB ─────────────────────────────────────────────────────────────────── */
+.fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: var(--accent-surface);
+  color: #1A1614;
+  font-size: 1.75rem;
+  font-weight: 300;
+  line-height: 1;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.fab:hover {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-glow);
+}
+
+/* ─── Responsive ──────────────────────────────────────────────────────────── */
+/* ─── Keyboard protection — FAB sobe quando o teclado iOS aparece ─────────── */
+@media (max-height: 500px) {
+  .fab { bottom: 0.75rem; right: 0.75rem; }
+}
+
+@media (max-width: 640px) {
+  .headerInner { padding: 1rem 1.25rem; }
+  .brandTagline { display: none; }
+
+  /* Hide horizontal nav, show hamburger */
+  .nav { display: none; }
+  .hamburger { display: flex; }
+
+  /* Mobile dropdown menu */
+  .mobileMenu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 68px;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background: var(--bg-surface);
+    border-bottom: 0.5px solid var(--border-subtle);
+    box-shadow: var(--shadow-lg);
+    padding: 0.35rem 0;
+  }
+
+  .main { padding: 1.5rem 1.25rem 3rem; }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .headerInner { padding: 1.25rem 1.5rem; }
+  .navInner { padding: 0 1.5rem; }
+  .main { padding: 2rem 1.5rem 4rem; }
+}

@@ -1,0 +1,406 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 720px;
+}
+
+.section { padding: 1.5rem; }
+
+.sectionTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.hint {
+  font-size: 0.72rem;
+  color: var(--warm-gray);
+  margin-top: 0.3rem;
+}
+
+.actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ─── Stats ───────────────────────────────────────────────────────────────── */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1rem;
+  background: var(--off-white);
+  border-radius: var(--radius-sm);
+  border: 0.5px solid var(--border);
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--olive);
+}
+
+/* ─── Export ──────────────────────────────────────────────────────────────── */
+.desc {
+  font-size: 0.85rem;
+  color: var(--warm-gray);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.exportDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.fileItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--off-white);
+  border-radius: var(--radius-sm);
+  border: 0.5px solid var(--border);
+}
+
+.fileIcon { font-size: 1rem; flex-shrink: 0; }
+
+.fileName {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  font-family: monospace;
+}
+
+.fileDesc {
+  font-size: 0.75rem;
+  color: var(--warm-gray);
+  margin-top: 0.1rem;
+}
+
+/* ─── Danger ──────────────────────────────────────────────────────────────── */
+.dangerSection {
+  border-color: #f4d0cc;
+}
+
+.dangerTitle {
+  color: var(--danger);
+}
+
+.confirmBox {
+  background: var(--danger-light);
+  border: 1px solid #f4d0cc;
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.confirmText {
+  font-size: 0.85rem;
+  color: var(--danger);
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.confirmActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ─── Hidden file input ───────────────────────────────────────────────────── */
+.hiddenInput { display: none; }
+
+/* ─── Mode Toggle ─────────────────────────────────────────────────────────── */
+.modeToggle {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+  width: fit-content;
+}
+
+.modeBtn {
+  padding: 0.45rem 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: var(--font-body);
+  background: transparent;
+  border: none;
+  color: var(--warm-gray);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.modeBtn + .modeBtn { border-left: 1px solid var(--border); }
+.modeBtnActive {
+  background: var(--olive);
+  color: #fff;
+}
+
+/* In dark mode --olive becomes yellow — swap to dark text */
+:global([data-theme="dark"]) .modeBtnActive { color: #1c1b1a; }
+
+/* ─── Quick History rows ──────────────────────────────────────────────────── */
+.histHeader {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.histRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.histFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 0.5px solid var(--border);
+  flex-wrap: wrap;
+}
+
+/* ─── Historical Viewer ───────────────────────────────────────────────────── */
+.histDivider {
+  border: none;
+  border-top: 0.5px solid var(--border);
+  margin: 1.25rem 0 1rem;
+}
+
+.histViewerHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.histViewerLabel {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--warm-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.histTotal {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--olive);
+  margin-left: 0.75rem;
+  background: color-mix(in srgb, var(--olive) 10%, transparent);
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+}
+
+.histViewer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.histViewerRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--off-white);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.histViewerMonth {
+  flex: 1;
+  font-size: 0.85rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.histViewerPages {
+  font-size: 0.82rem;
+  color: var(--warm-gray);
+  flex-shrink: 0;
+}
+
+/* ─── Google Books API Key ────────────────────────────────────────────────── */
+.apiRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.apiToggleVisible {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0;
+  line-height: 1;
+  color: var(--olive);
+  opacity: 0.7;
+}
+.apiToggleVisible:hover { opacity: 1; }
+
+.apiHint {
+  font-size: 0.75rem;
+  color: var(--warm-gray);
+  margin: 0;
+}
+
+.apiLink {
+  color: var(--olive);
+  text-decoration: underline;
+  font-size: inherit;
+}
+
+/* ─── CSV Import Preview ──────────────────────────────────────────────────── */
+.csvPreviewBox {
+  background: var(--off-white);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.csvPreviewRow {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.csvStat {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  min-width: 2rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.csvStatSkipped { color: var(--warm-gray); }
+.csvStatAdd     { color: var(--olive); }
+
+.csvStatLabel {
+  font-size: 0.83rem;
+  color: var(--warm-gray);
+}
+
+.csvErrors {
+  font-size: 0.75rem;
+  color: var(--danger);
+  margin-top: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-top: 0.5rem;
+  border-top: 0.5px solid var(--border);
+}
+
+/* ─── Inline goal row (label + small input side by side) ─────────────────── */
+.inlineGoalRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+.inlineGoalLabel {
+  flex: 1;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--warm-gray);
+  min-width: 140px;
+}
+.inlineGoalInput {
+  width: 110px !important;
+  flex-shrink: 0;
+}
+
+/* ─── Monthly Goals Grid ──────────────────────────────────────────────────── */
+.monthGoalYearRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.monthGoalGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem 0.75rem;
+}
+
+.monthGoalItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+/* ─── Trash button (monthly goals card corner) ────────────────────────────── */
+.trashBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--warm-gray);
+  padding: 0.35rem;
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-sm);
+  transition: color 0.15s, background 0.15s;
+}
+.trashBtn:hover {
+  color: var(--danger);
+  background: rgba(220, 80, 60, 0.08);
+}
+
+/* ─── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .row2 { grid-template-columns: 1fr; }
+  .statsGrid { grid-template-columns: 1fr; }
+  .monthGoalGrid { grid-template-columns: repeat(2, 1fr); }
+  .section { padding: 1rem; }
+  .confirmActions { flex-direction: column; }
+  .confirmActions button { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  /* Em telas muito pequenas, grid de metas mensais fica em 1 coluna */
+  .monthGoalGrid { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .statsGrid { grid-template-columns: repeat(3, 1fr); }
+}

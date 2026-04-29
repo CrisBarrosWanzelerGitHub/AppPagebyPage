@@ -1,0 +1,950 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ─── Filter Pills ────────────────────────────────────────────────────────── */
+.filterPills {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filterPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.38rem 0.75rem;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--warm-gray);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.filterPill:hover,
+.filterPillOpen {
+  border-color: var(--olive);
+  color: var(--olive);
+}
+.filterPillActive {
+  background: var(--olive);
+  border-color: var(--olive);
+  color: #fff;
+}
+.filterPillActive:hover,
+.filterPillActive.filterPillOpen {
+  opacity: 0.88;
+}
+:global([data-theme="dark"]) .filterPillActive { color: #1c1b1a; }
+
+.pillValue {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.28);
+  border-radius: 99px;
+  padding: 0.05rem 0.45rem;
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.filterPill:not(.filterPillActive) .pillValue {
+  background: var(--off-white);
+  color: var(--warm-gray);
+}
+
+/* ─── Expanded filter panel ───────────────────────────────────────────────── */
+.filterPanel {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  padding: 0.6rem 0.75rem;
+  background: var(--off-white);
+  border-radius: var(--radius-sm);
+  border: 0.5px solid var(--border);
+}
+
+/* ─── Clear all filters button ────────────────────────────────────────────── */
+.clearAllBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.38rem 0.6rem;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--warm-gray);
+  cursor: pointer;
+  transition: all 0.15s;
+  line-height: 0;
+}
+.clearAllBtn:hover {
+  border-color: var(--danger, #c0392b);
+  color: var(--danger, #c0392b);
+}
+
+/* ─── Status filter buttons (inside panel) ────────────────────────────────── */
+.filterBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--warm-gray);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.filterBtn:hover { border-color: var(--olive); color: var(--olive); }
+.filterBtnActive {
+  background: var(--olive);
+  border-color: var(--olive);
+  color: #fff;
+}
+/* hover no botão já ativo — mantém fundo, só escurece levemente */
+.filterBtnActive:hover {
+  background: var(--olive);
+  border-color: var(--olive);
+  color: #fff;
+  opacity: 0.88;
+}
+
+/* ─── Botão limpar filtro (ícone) ─────────────────────────────────────────── */
+.clearFilterBtn {
+  padding: 0.3rem 0.5rem;
+  line-height: 0;
+  flex-shrink: 0;
+}
+
+.filterCount {
+  font-size: 0.7rem;
+  background: rgba(255,255,255,0.25);
+  border-radius: 99px;
+  padding: 0.05rem 0.4rem;
+  font-weight: 600;
+}
+.filterBtnActive .filterCount { background: rgba(255,255,255,0.3); }
+.filterBtn:not(.filterBtnActive) .filterCount { background: var(--off-white); color: var(--warm-gray); }
+
+/* ─── Search Box ──────────────────────────────────────────────────────────── */
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 0.4rem 0.85rem;
+  transition: border-color 0.15s;
+}
+.searchBox:focus-within { border-color: var(--olive); }
+
+.searchIcon {
+  font-size: 1rem;
+  color: var(--warm-gray);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.searchInput {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.82rem;
+  color: var(--text);
+  font-family: inherit;
+  flex: 1;
+  min-width: 0;
+}
+.searchInput::placeholder { color: var(--warm-gray); }
+
+.searchClear {
+  background: none;
+  border: none;
+  color: var(--warm-gray);
+  font-size: 1rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+.searchClear:hover { color: var(--text); }
+
+/* ─── Tag Chips ───────────────────────────────────────────────────────────── */
+.tagChips {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.tagChip {
+  padding: 0.25rem 0.7rem;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--warm-gray);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.tagChip:hover { border-color: var(--gold); color: var(--gold); }
+.tagChipActive {
+  background: var(--gold-light);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ─── Library Summary Bar ────────────────────────────────────────────────── */
+.librarySummary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.85rem;
+  background: var(--white);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  flex-wrap: wrap;
+}
+
+.summaryItem {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+}
+
+.summaryValue {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.summaryLabel {
+  font-size: 0.75rem;
+  color: var(--warm-gray);
+}
+
+.summarySep {
+  color: var(--border);
+  font-size: 0.8rem;
+  user-select: none;
+}
+
+/* ─── Book List ───────────────────────────────────────────────────────────── */
+.bookList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ─── Book Card (perspective container) ───────────────────────────────────── */
+.bookCard {
+  background: var(--white);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s;
+  perspective: 1200px;
+  position: relative;
+  cursor: pointer;
+}
+.bookCard:hover { border-color: var(--olive-light); }
+
+/* ─── Flip Mechanics ──────────────────────────────────────────────────────── */
+.cardFlipInner {
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.45s ease;
+  /* grid: both faces occupy the same cell → taller one defines height */
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.flipped {
+  transform: rotateX(180deg);
+}
+
+.cardFront {
+  grid-row: 1;
+  grid-column: 1;
+  display: flex;
+  gap: 0;
+  padding: 0;
+  align-items: stretch;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.cardBack {
+  grid-row: 1;
+  grid-column: 1;
+  padding: 1rem;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: rotateX(180deg);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  background: var(--white);
+  border-radius: var(--radius);
+}
+
+/* ─── Back face ───────────────────────────────────────────────────────────── */
+.backInfo {
+  flex-shrink: 0;
+}
+
+.backBookTitle {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.backBookMeta {
+  font-size: 0.74rem;
+  color: var(--warm-gray);
+  margin-top: 0.1rem;
+}
+
+.backFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  flex-shrink: 0;
+  align-items: start;
+}
+
+.backHint {
+  font-size: 0.72rem;
+  color: var(--warm-gray);
+  flex-shrink: 0;
+  margin: 0;
+  text-align: right;
+}
+
+/* ─── Toggle row acima do grid de campos ─────────────────────────────────── */
+.backToggleRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.3rem;
+}
+
+.modeToggle {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+  padding: 2px;
+  gap: 2px;
+}
+
+.modeBtn {
+  flex: 1;
+  padding: 0.18rem 0.75rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  font-family: inherit;
+  background: transparent;
+  border: none;
+  border-radius: 99px;
+  color: var(--warm-gray);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
+}
+.modeBtn:hover:not(:disabled) { background: var(--off-white); color: var(--text); }
+.modeBtn:disabled { opacity: 0.35; cursor: default; }
+.modeBtnActive {
+  background: var(--olive);
+  color: var(--white);
+}
+:global([data-theme="dark"]) .modeBtnActive { color: #1c1b1a; }
+
+.backActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+  flex-shrink: 0;
+}
+
+.backActions button {
+  flex: 1;
+}
+
+/* ─── Cover ───────────────────────────────────────────────────────────────── */
+.cardCover {
+  flex-shrink: 0;
+  width: 130px;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius) 0 0 var(--radius);
+  align-self: stretch;
+}
+.cardCover img {
+  width: 130px;
+  height: 100%;
+  min-height: 170px;
+  object-fit: cover;
+  display: block;
+}
+.cardCoverPlaceholder {
+  width: 130px;
+  height: 100%;
+  min-height: 170px;
+  background: var(--off-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.8rem;
+}
+
+/* ─── Status Ribbon ───────────────────────────────────────────────────────── */
+.statusRibbon {
+  position: absolute;
+  top: 13px;
+  left: -20px;
+  width: 80px;
+  transform: rotate(-45deg);
+  text-align: center;
+  font-size: 0.48rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 3px 0;
+  text-transform: uppercase;
+  z-index: 1;
+  line-height: 1;
+  pointer-events: none;
+}
+.ribbon_reading   { background: var(--accent-surface); color: #1A1614; }
+.ribbon_rereading { background: var(--accent-surface); color: #1A1614; }
+.ribbon_done      { background: var(--accent-surface); color: #1A1614; }
+.ribbon_abandoned { background: var(--accent-editorial); color: #fff; }
+
+/* ─── Reread count label (in cardMeta) ───────────────────────────────────── */
+.rereadCount {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--accent-text);
+  background: var(--accent-soft);
+  border-radius: 99px;
+  padding: 0.1rem 0.55rem;
+  letter-spacing: 0.01em;
+  flex-shrink: 0;
+}
+
+/* ─── Card Info ───────────────────────────────────────────────────────────── */
+.cardInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.cardTitleGroup {
+  flex: 1;
+  min-width: 0;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.cardHeaderRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.cardIconActions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.iconBtn {
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--warm-gray);
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  line-height: 1;
+}
+.iconBtn:hover {
+  background: var(--accent-light);
+  color: var(--text);
+  border-color: var(--accent);
+}
+.iconBtnDanger:hover {
+  background: var(--danger-light);
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+/* ─── Quote icon button ───────────────────────────────────────────────────── */
+.quoteIconBtn {
+  position: relative;
+}
+
+.quoteIconBtnActive {
+  color: var(--accent-surface);
+  border-color: var(--accent-surface);
+}
+
+.quoteIconBtnActive:hover {
+  background: rgba(212,167,44,0.1) !important;
+  color: var(--accent-surface) !important;
+  border-color: var(--accent-surface) !important;
+}
+
+.quoteIconDot {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-surface);
+  border: 1px solid var(--bg-card);
+}
+
+.cardTagsTop {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  max-width: 140px;
+}
+
+.cardTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.cardAuthor {
+  font-size: 0.8rem;
+  color: var(--warm-gray);
+}
+
+.cardMeta {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.77rem;
+  color: var(--warm-gray);
+  flex-wrap: wrap;
+}
+
+/* Formato badge (Físico / Digital) */
+.formatBadge {
+  font-size: 0.72rem;
+  color: var(--warm-gray);
+}
+
+/* Local de aquisição */
+.storeLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.74rem;
+  color: var(--warm-gray);
+  margin-top: 0.1rem;
+}
+
+.storeIcon {
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+
+/* ─── Stats ───────────────────────────────────────────────────────────────── */
+.cardStats {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--off-white);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.3rem 0.65rem;
+  min-width: 60px;
+}
+
+.statLabel {
+  font-size: 0.65rem;
+  color: var(--warm-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.statValue {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.statPct {
+  color: var(--olive);
+}
+
+.statItemMuted {
+  opacity: 0.55;
+}
+
+.statItemAccent {
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+}
+
+:global([data-theme="dark"]) .filterBtnActive {
+  color: #1c1b1a;
+}
+
+/* ─── Progress ────────────────────────────────────────────────────────────── */
+.cardProgress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ─── Tags ────────────────────────────────────────────────────────────────── */
+.cardTags {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.5rem;
+  background: var(--off-white);
+  border: 0.5px solid var(--border);
+  border-radius: 99px;
+  color: var(--warm-gray);
+}
+
+/* ─── Flip Hint ───────────────────────────────────────────────────────────── */
+.flipHint {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.55rem;
+  font-size: 1rem;
+  color: var(--warm-gray);
+  opacity: 0.28;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.2s;
+  line-height: 1;
+}
+.bookCard:hover .flipHint { opacity: 0.6; }
+
+/* ─── Linha inline: previsão + tags ─────────────────────────────────────── */
+.estimateLine {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+/* ─── Completion Estimate ────────────────────────────────────────────────── */
+.cardEstimate {
+  font-size: 0.7rem;
+  color: var(--warm-gray);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.cardEstimate strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ─── Card Actions ────────────────────────────────────────────────────────── */
+.cardActions {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.statusSelect {
+  max-width: 130px;
+  padding: 0.35rem 1.5rem 0.35rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+.cardDateRange {
+  font-size: 0.72rem;
+  color: var(--warm-gray);
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+/* ─── Reread icon button (back of card) ──────────────────────────────────── */
+.rereadIconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 6px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  color: var(--accent-text);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+.rereadIconBtn:hover {
+  background: rgba(245, 197, 24, 0.2);
+  border-color: var(--accent-text);
+}
+
+/* ─── Abandon reread pill button (back of card, top-right) ───────────────── */
+.abandonRereadBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0 0.5rem;
+  height: 1.65rem;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: var(--warm-gray, #8a7f72);
+  font-size: 0.7rem;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.abandonRereadBtn:hover {
+  background: rgba(192, 57, 43, 0.08);
+  border-color: rgba(192, 57, 43, 0.4);
+  color: var(--danger, #c0392b);
+}
+
+/* ─── Floating Action Button ──────────────────────────────────────────────── */
+.fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: var(--accent-surface);
+  color: #1A1614;
+  font-size: 1.75rem;
+  font-weight: 300;
+  line-height: 1;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.fab:hover {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-glow);
+}
+
+/* ─── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cardCover { width: 80px; }
+  .cardCover img { width: 80px; min-height: 130px; }
+  .cardCoverPlaceholder { width: 80px; min-height: 130px; font-size: 2rem; }
+  .backFields {
+    grid-template-columns: 1fr;
+  }
+  .cardActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cardActions button,
+  .cardActions select {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+  }
+  .cardActions .btn-icon {
+    width: 100%;
+    border-radius: var(--radius-sm);
+  }
+  .fab {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+  /* Legibilidade em telas pequenas */
+  .cardTitle  { font-size: 1rem; }
+  .cardAuthor { font-size: 0.875rem; }
+  .filterPill { font-size: 0.875rem; min-height: 2.25rem; }
+}
+
+/* ─── Task 3: Want DnD ─────────────────────────────────────────────────────── */
+.wantReorderHint {
+  font-size: 0.73rem;
+  color: var(--warm-gray);
+  margin: 0;
+  text-align: center;
+  font-style: italic;
+}
+
+.wantDragItem {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  transition: opacity 0.15s, transform 0.15s;
+  cursor: grab;
+}
+.wantDragItem:active { cursor: grabbing; }
+
+.wantDragHandle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  flex-shrink: 0;
+  color: var(--warm-gray);
+  opacity: 0.35;
+  transition: opacity 0.15s;
+}
+.wantDragItem:hover .wantDragHandle { opacity: 0.65; }
+
+.wantDragItemDragging {
+  opacity: 0.4;
+}
+
+.wantDragItemOver {
+  transform: translateY(-2px);
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 2px var(--gold);
+}
+
+/* ─── Task 4: Done period filter ───────────────────────────────────────────── */
+.donePeriodRow {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.donePeriodSep {
+  color: var(--border);
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.doneDateRange {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.doneDateInput {
+  font-size: 0.76rem;
+  font-family: var(--font-body);
+  color: var(--warm-gray);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.28rem 0.45rem;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  width: 7.5rem;
+}
+.doneDateInput:focus { outline: none; border-color: var(--gold); color: var(--text); }
+.doneDateInput::-webkit-calendar-picker-indicator { opacity: 0.4; cursor: pointer; }
+
+.doneDateDash {
+  font-size: 0.8rem;
+  color: var(--warm-gray);
+}
+
+.doneDateClear {
+  background: none;
+  border: none;
+  color: var(--warm-gray);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.15rem;
+  transition: color 0.12s;
+}
+.doneDateClear:hover { color: var(--danger); }
+
+.doneYearRow {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.doneYearChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.75rem;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--warm-gray);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.doneYearChip:hover { border-color: var(--gold); color: var(--gold); }
+
+.doneYearChipActive {
+  background: var(--accent-soft);
+  border-color: var(--gold);
+  color: var(--gold-dark, #a88800);
+  font-weight: 600;
+}
