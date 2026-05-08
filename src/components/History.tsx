@@ -41,11 +41,13 @@ interface Props {
   [key: string]: unknown;
 }
 
-export default function History({ state, onNavigateToNextReads, onNavigateToToday }: Props) {
+export default function History({ state, onNavigateToNextReads }: Props) {
   const { logs, goals, books } = state;
   const now = new Date();
   const currentYear  = now.getFullYear();
   const currentMonth = now.getMonth() + 1;
+
+  const [showBooksModal, setShowBooksModal] = useState(false);
 
   const [isDark, setIsDark] = useState(
     document.documentElement.getAttribute('data-theme') === 'dark'
@@ -57,6 +59,13 @@ export default function History({ state, onNavigateToNextReads, onNavigateToToda
     obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     return () => obs.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (!showBooksModal) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setShowBooksModal(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [showBooksModal]);
 
   // ─── Year selector ────────────────────────────────────────────────────────
   const availableYears = useMemo(() => {
@@ -85,6 +94,13 @@ export default function History({ state, onNavigateToNextReads, onNavigateToToda
   const month            = selectedYear === currentYear ? currentMonth : 12;
   const monthPages       = useMemo(() => getPagesInMonth(logs, selectedYear, month), [logs, selectedYear, month]);
   const booksYTD         = useMemo(() => getBooksCompletedInYear(books, selectedYear), [books, selectedYear]);
+
+  const booksReadInYear  = useMemo(() =>
+    books
+      .filter(b => b.status === 'done' && b.endDate?.startsWith(String(selectedYear)))
+      .sort((a, b) => (b.endDate ?? '').localeCompare(a.endDate ?? '')),
+    [books, selectedYear]
+  );
   const currentMonthGoal = useMemo(() => getMonthGoal(goals, selectedYear, month), [goals, selectedYear, month]);
   const yearPct  = goals.yearPages  > 0 ? Math.min(100, Math.round((yearPages  / goals.yearPages)  * 100)) : 0;
   const monthPct = currentMonthGoal > 0 ? Math.min(100, Math.round((monthPages / currentMonthGoal) * 100)) : 0;
@@ -458,6 +474,7 @@ export default function History({ state, onNavigateToNextReads, onNavigateToToda
           value={String(booksYTD)}
           sub={booksYTD === 1 ? 'livro concluído' : 'livros concluídos'}
           color="gold"
+          onClick={booksYTD > 0 ? () => setShowBooksModal(true) : undefined}
         />
         <StatCard
           label="Sequência atual"
@@ -827,37 +844,97 @@ export default function History({ state, onNavigateToNextReads, onNavigateToToda
         </button>
       )}
 
+      {/* ─── Modal: livros lidos no ano ───────────────────────────────── */}
+      {showBooksModal && (
+        <div
+          className={styles.booksModalOverlay}
+          onClick={e => { if (e.target === e.currentTarget) setShowBooksModal(false); }}
+        >
+          <div className={styles.booksModal}>
+            <div className={styles.booksModalHeader}>
+              <h2 className={styles.booksModalTitle}>
+                Livros lidos em {selectedYear}
+                <span className={styles.booksModalCount}>{booksReadInYear.length}</span>
+              </h2>
+              <button
+                className={styles.booksModalClose}
+                onClick={() => setShowBooksModal(false)}
+                aria-label="Fechar"
+              >×</button>
+            </div>
+            <div className={styles.booksModalBody}>
+              {booksReadInYear.map(book => (
+                <div key={book.id} className={styles.booksModalItem}>
+                  {book.cover ? (
+                    <img src={book.cover} alt="" className={styles.booksModalCover} />
+                  ) : (
+                    <div className={styles.booksModalCoverPlaceholder}>📖</div>
+                  )}
+                  <div className={styles.booksModalInfo}>
+                    <p className={styles.booksModalBookTitle}>{book.title}</p>
+                    <p className={styles.booksModalAuthor}>{book.author}</p>
+                    <p className={styles.booksModalMeta}>
+                      {book.startDate && toDisplayDate(book.startDate)}
+                      {book.startDate && book.endDate && ' → '}
+                      {book.endDate && toDisplayDate(book.endDate)}
+                      {book.pages > 0 && (
+                        <span className={styles.booksModalPages}>
+                          · {book.pages.toLocaleString('pt-BR')} páginas
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
 
 // ─── Stat Card ───────────────────────────────────────────────────────────────
-function StatCard({ label, value, sub, color, highlight }: {
-  label: string; value: string; sub: string; color: 'olive' | 'gold'; highlight?: boolean;
+function StatCard({ label, value, sub, color, highlight, onClick }: {
+  label: string; value: string; sub: string; color: 'olive' | 'gold'; highlight?: boolean; onClick?: () => void;
 }) {
+  const isChocolate = !!onClick;
+
+  const cardStyle = isChocolate
+    ? { background: 'rgba(245, 196, 0, 0.18)' }
+    : highlight
+    ? { background: 'var(--accent-surface)', boxShadow: 'var(--shadow-md)' }
+    : undefined;
+
+  const labelStyle = isChocolate
+    ? { color: 'var(--accent-text-hover)' }
+    : highlight
+    ? { color: 'rgba(26,22,20,0.6)' }
+    : undefined;
+
+  const valueStyle = {
+    color: isChocolate ? 'var(--accent-text-hover)' : highlight ? '#1A1614' : color === 'gold' ? 'var(--gold)' : 'var(--olive)',
+  };
+
+  const subStyle = isChocolate
+    ? { color: 'var(--accent-text-hover)', opacity: 0.7 }
+    : highlight
+    ? { color: 'rgba(26,22,20,0.65)' }
+    : undefined;
+
   return (
     <div
-      className={`card ${styles.statCard}`}
-      style={highlight ? { background: 'var(--accent-surface)', boxShadow: 'var(--shadow-md)' } : undefined}
+      className={`card ${styles.statCard} ${isChocolate ? styles.statCardClickable : ''}`}
+      style={cardStyle}
+      onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={onClick ? e => { if (e.key === 'Enter' || e.key === ' ') onClick(); } : undefined}
     >
-      <span
-        className="label"
-        style={highlight ? { color: 'rgba(26,22,20,0.6)' } : undefined}
-      >
-        {label}
-      </span>
-      <div
-        className={styles.statValue}
-        style={{ color: highlight ? '#1A1614' : color === 'gold' ? 'var(--gold)' : 'var(--olive)' }}
-      >
-        {value}
-      </div>
-      <div
-        className={styles.statSub}
-        style={highlight ? { color: 'rgba(26,22,20,0.65)' } : undefined}
-      >
-        {sub}
-      </div>
+      <span className="label" style={labelStyle}>{label}</span>
+      <div className={styles.statValue} style={valueStyle}>{value}</div>
+      <div className={styles.statSub} style={subStyle}>{sub}</div>
     </div>
   );
 }

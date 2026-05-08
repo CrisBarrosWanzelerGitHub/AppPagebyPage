@@ -463,6 +463,7 @@ export default function AddBookModal({ onClose, onAdd, existingTags, existingSto
       format: '',
       store: '',
       language: v.language ? resolveLanguage(v.language) : '',
+      quote: '',
     });
     setFromSearch(true);
     setFormCoverFailed(false);

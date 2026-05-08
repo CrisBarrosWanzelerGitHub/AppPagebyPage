@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PageByPage · Design System v2.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Questrial&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   TOKENS — DARK MODE (default)
+   ============================================ */
+:root {
+  --bg-primary: #0F0F12;
+  --bg-surface: #16161B;
+  --bg-card: #1C1C22;
+  --bg-card-hover: #22222A;
+  --bg-input: #0F0F12;
+  --border-subtle: #2A2A33;
+  --border-default: #3A3A45;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B8B8C0;
+  --text-muted: #6E6E78;
+  --text-disabled: #45454F;
+
+  /* Sistema dual amarelo */
+  --accent-text: #F5C518;
+  --accent-text-hover: #FFD43B;
+  --accent-surface: #F5C518;
+  --accent-surface-hover: #FFD43B;
+  --accent-surface-muted: #8B7010;
+  --accent-soft: rgba(245, 197, 24, 0.12);
+  --accent-border: #F5C518;
+
+  --accent-editorial: #C9584E;
+  --accent-editorial-soft: rgba(201, 88, 78, 0.10);
+
+  --danger: #EF5A5A;
+  --danger-soft: rgba(239, 90, 90, 0.12);
+
+  --font-display: 'Questrial', sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+
+  --space-1: 4px; --space-2: 8px; --space-3: 12px;
+  --space-4: 16px; --space-5: 20px; --space-6: 24px;
+  --space-8: 32px; --space-10: 40px; --space-12: 48px;
+
+  --radius-sm: 6px; --radius-md: 10px; --radius-lg: 14px;
+  --radius-xl: 20px; --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 24px rgba(245, 197, 24, 0.25);
+
+  --transition-fast: 120ms ease-out;
+  --transition-base: 200ms ease-out;
+  --transition-slow: 320ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  color-scheme: dark;
+}
+
+/* ============================================
+   TOKENS — LIGHT MODE (Sand Edition)
+   ============================================ */
+[data-theme="light"] {
+  --bg-primary: #EDE6D9;
+  --bg-surface: #F5EFE3;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FAF6EC;
+  --bg-input: #FFFFFF;
+  --border-subtle: #E0D8C8;
+  --border-default: #CFC5B0;
+  --text-primary: #1A1614;
+  --text-secondary: #5C554D;
+  --text-muted: #8A8272;
+  --text-disabled: #BFB8A8;
+
+  /* Sistema dual: chocolate pra texto, mostarda pra superfície */
+  --accent-text: #6B4423;
+  --accent-text-hover: #4A2E1A;
+  --accent-surface: #D4A72C;
+  --accent-surface-hover: #E6B63D;
+  --accent-surface-muted: #A88820;
+  --accent-soft: rgba(107, 68, 35, 0.10);
+  --accent-border: #6B4423;
+
+  --accent-editorial: #B5463C;
+  --accent-editorial-soft: rgba(181, 70, 60, 0.08);
+
+  --danger: #B5463C;
+  --danger-soft: rgba(181, 70, 60, 0.10);
+
+  --shadow-sm: 0 1px 2px rgba(92, 85, 77, 0.06);
+  --shadow-md: 0 4px 14px rgba(92, 85, 77, 0.08);
+  --shadow-lg: 0 12px 32px rgba(92, 85, 77, 0.12);
+  --shadow-glow: 0 6px 20px rgba(212, 167, 44, 0.35);
+
+  color-scheme: light;
+}
+
+/* ============================================
+   BASE
+   ============================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: background-color var(--transition-slow),
+              border-color var(--transition-slow),
+              color var(--transition-slow);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  padding-bottom: var(--space-12);
+}
+
+.display { font-family: var(--font-display); font-weight: 400; }
+
+/* ============================================
+   STORYBOOK LAYOUT
+   ============================================ */
+.sb-header {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: var(--space-5) var(--space-8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+
+.sb-logo h1 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.sb-logo p {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.sb-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-10) var(--space-6);
+}
+
+.sb-section { margin-bottom: var(--space-12); }
+
+.sb-section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-editorial);
+  margin-bottom: var(--space-3);
+}
+
+.edit-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent-editorial);
+  font-size: 14px;
+}
+
+.sb-section-heading {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.02em;
+}
+
+.sb-section-desc {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-8);
+  max-width: 680px;
+  font-size: 0.9375rem;
+}
+
+.sb-subsection { margin-bottom: var(--space-8); }
+
+.sb-subsection h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin-bottom: var(--space-4);
+}
+
+.sb-grid { display: grid; gap: var(--space-4); }
+.sb-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.sb-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.sb-grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+@media (max-width: 768px) {
+  .sb-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .sb-grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .sb-grid-4, .sb-grid-3, .sb-grid-2 { grid-template-columns: 1fr; }
+}
+
+.sb-divider {
+  height: 1px;
+  background: var(--border-subtle);
+  margin: var(--space-12) 0;
+}
+
+/* ============================================
+   DUAL TOKEN EXPLANATION
+   ============================================ */
+.dual-explain {
+  background: var(--accent-editorial-soft);
+  border-left: 3px solid var(--accent-editorial);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  margin-bottom: var(--space-8);
+}
+
+.dual-explain h4 {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 400;
+  margin-bottom: var(--space-3);
+  color: var(--accent-editorial);
+}
+
+.dual-explain p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-2);
+}
+
+.dual-explain p:last-child { margin-bottom: 0; }
+
+.dual-explain code {
+  background: var(--bg-card);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'SF Mono', monospace;
+  font-size: 0.8125rem;
+  color: var(--accent-text);
+}
+
+/* ============================================
+   COLOR SWATCHES
+   ============================================ */
+.color-swatch {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.color-chip { height: 80px; }
+
+.color-info { padding: var(--space-3) var(--space-4); }
+
+.color-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.color-value {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: 'SF Mono', Menlo, monospace;
+}
+
+.color-role {
+  font-size: 0.6875rem;
+  color: var(--accent-editorial);
+  margin-top: 4px;
+  font-style: italic;
+  font-family: var(--font-display);
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+.type-row {
+  display: flex;
+  align-items: baseline;
+  padding: var(--space-4) 0;
+  border-bottom: 1px dashed var(--border-subtle);
+  gap: var(--space-6);
+}
+
+.type-row:last-child { border-bottom: none; }
+
+.type-label {
+  width: 140px;
+  flex-shrink: 0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.type-sample { flex: 1; }
+
+.type-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: 'SF Mono', monospace;
+}
+
+/* ============================================
+   CARD
+   ============================================ */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  transition: background var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.card:hover {
+  background: var(--bg-card-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.card-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.card-value {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--accent-text);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.card-value--neutral { color: var(--text-primary); }
+
+.card-hint {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-top: var(--space-3);
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-5);
+  height: 40px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn:active { transform: scale(0.98); }
+
+.btn--primary {
+  background: var(--accent-surface);
+  color: #1A1A1F;
+}
+.btn--primary:hover { background: var(--accent-surface-hover); }
+
+.btn--secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+}
+.btn--secondary:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--text-muted);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+.btn--ghost:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+.btn--danger {
+  background: var(--danger);
+  color: white;
+}
+.btn--danger:hover { filter: brightness(1.1); }
+
+.btn--editorial {
+  background: transparent;
+  color: var(--accent-editorial);
+  border: 1px solid var(--accent-editorial);
+}
+.btn--editorial:hover { background: var(--accent-editorial-soft); }
+
+.btn--sm { height: 32px; font-size: 0.8125rem; padding: 0 var(--space-4); }
+.btn--lg { height: 48px; font-size: 0.9375rem; padding: 0 var(--space-6); }
+
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+.btn-icon:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--text-muted);
+}
+
+/* ============================================
+   INPUTS
+   ============================================ */
+.input {
+  width: 100%;
+  height: 40px;
+  padding: 0 var(--space-4);
+  background: var(--bg-input);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.input::placeholder { color: var(--text-muted); }
+
+.input-label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+}
+
+/* ============================================
+   TABS
+   ============================================ */
+.tabs {
+  display: flex;
+  gap: var(--space-1);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0 var(--space-2);
+}
+
+.tab {
+  padding: var(--space-4) var(--space-5);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  transition: color var(--transition-fast);
+}
+
+.tab:hover { color: var(--text-secondary); }
+
+.tab--active {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.tab--active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: var(--space-3);
+  right: var(--space-3);
+  height: 2px;
+  background: var(--accent-surface);
+  border-radius: var(--radius-full);
+}
+
+/* ============================================
+   PROGRESS
+   ============================================ */
+.progress {
+  width: 100%;
+  height: 6px;
+  background: var(--border-subtle);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress__fill {
+  height: 100%;
+  background: var(--accent-surface);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-slow);
+}
+
+.progress__fill--danger { background: var(--danger); }
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.progress-title { font-weight: 600; font-size: 0.9375rem; }
+
+.progress-value {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--accent-text);
+  font-size: 1.125rem;
+}
+
+.progress-value--danger { color: var(--danger); }
+
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-2);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+/* ============================================
+   BADGES & PILLS
+   ============================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.badge--filled {
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+
+.badge--outline {
+  background: transparent;
+  border: 1px solid var(--accent-border);
+  color: var(--accent-text);
+}
+
+.badge--filled-terracota {
+  background: var(--accent-editorial-soft);
+  color: var(--accent-editorial);
+}
+
+.badge--outline-terracota {
+  background: transparent;
+  border: 1px solid var(--accent-editorial);
+  color: var(--accent-editorial);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.pill--active {
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+  color: var(--accent-text);
+}
+
+/* ============================================
+   BOOK CARD
+   ============================================ */
+.book-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: var(--space-5);
+  align-items: start;
+  box-shadow: var(--shadow-sm);
+}
+
+.book-cover {
+  width: 90px;
+  height: 130px;
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #F5E6A8 0%, #E5C168 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #5A4A1F;
+  text-align: center;
+  padding: var(--space-2);
+  line-height: 1.3;
+}
+
+.book-ribbon {
+  position: absolute;
+  top: 14px;
+  left: -22px;
+  background: var(--accent-surface);
+  color: #1A1A1F;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 3px var(--space-6);
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  font-family: var(--font-body);
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.book-title {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.book-author {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+.book-genre {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.book-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+}
+
+.stat-pill {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  text-align: center;
+}
+
+.stat-pill__label {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.stat-pill__value {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+.stat-pill--accent .stat-pill__value { color: var(--accent-text); }
+
+.book-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* ============================================
+   FAB
+   ============================================ */
+.fab {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: var(--accent-surface);
+  color: #1A1A1F;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-glow);
+  transition: transform var(--transition-spring), box-shadow var(--transition-base);
+  z-index: 50;
+  animation: fabPulse 1s ease-out 0.3s;
+}
+
+@keyframes fabPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 36px rgba(245, 197, 24, 0.5);
+}
+.fab:active { transform: scale(0.95); }
+
+/* ============================================
+   THEME TOGGLE
+   ============================================ */
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  transition: all var(--transition-base);
+}
+
+.theme-toggle:hover {
+  background: var(--bg-card-hover);
+  color: var(--accent-text);
+  transform: rotate(15deg);
+}
+
+/* ============================================
+   HEATMAP
+   ============================================ */
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(30, 1fr);
+  gap: 3px;
+  max-width: 480px;
+}
+
+.heatmap-cell {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--border-subtle);
+  transition: transform var(--transition-fast);
+}
+
+.heatmap-cell:hover {
+  transform: scale(1.3);
+  z-index: 2;
+  position: relative;
+}
+
+.heatmap-cell--l1 { background: rgba(139, 112, 16, 0.4); }
+.heatmap-cell--l2 { background: rgba(139, 112, 16, 0.7); }
+.heatmap-cell--l3 { background: rgba(245, 197, 24, 0.7); }
+.heatmap-cell--l4 { background: var(--accent-surface); }
+
+[data-theme="light"] .heatmap-cell--l1 { background: rgba(168, 136, 32, 0.3); }
+[data-theme="light"] .heatmap-cell--l2 { background: rgba(168, 136, 32, 0.55); }
+[data-theme="light"] .heatmap-cell--l3 { background: rgba(212, 167, 44, 0.75); }
+[data-theme="light"] .heatmap-cell--l4 { background: var(--accent-surface); }
+
+/* ============================================
+   ACHIEVEMENT
+   ============================================ */
+.achievement {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  align-items: flex-start;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.achievement--unlocked { border-color: var(--accent-border); }
+
+.achievement-icon {
+  width: 32px;
+  height: 32px;
+  color: var(--accent-text);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.achievement--locked .achievement-icon { color: var(--text-disabled); }
+
+.achievement-content h4 {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 400;
+  margin-bottom: var(--space-2);
+}
+
+.achievement-content p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.achievement-status {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--accent-text);
+}
+
+.achievement--locked .achievement-status { color: var(--text-muted); font-weight: 500; }
+
+/* ============================================
+   DANGER ZONE
+   ============================================ */
+.danger-zone {
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.danger-zone h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--danger);
+  margin-bottom: var(--space-3);
+}
+
+/* ============================================
+   EDITORIAL LIST
+   ============================================ */
+.editorial-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.editorial-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: var(--space-5);
+  align-items: baseline;
+  padding-bottom: var(--space-5);
+  border-bottom: 1px dashed var(--border-subtle);
+}
+
+.editorial-item:last-child { border-bottom: none; }
+
+.editorial-item__num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent-editorial);
+  font-size: 1.25rem;
+}
+
+.editorial-item__content h4 {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.editorial-item__content p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ============================================
+   CODE
+   ============================================ */
+.code-block {
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  font-family: 'SF Mono', Menlo, monospace;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  overflow-x: auto;
+  line-height: 1.7;
+}
+
+/* ============================================
+   DUAL DEMO — shows text vs surface role
+   ============================================ */
+.dual-demo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+@media (max-width: 768px) { .dual-demo { grid-template-columns: 1fr; } }
+
+.dual-demo__card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.dual-demo__kicker {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-editorial);
+  margin-bottom: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.dual-demo__title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin-bottom: var(--space-4);
+}
+
+.dual-demo__sample-text {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 400;
+  color: var(--accent-text);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-2);
+}
+
+.dual-demo__sample-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.dual-demo__surface-samples {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: var(--space-3);
+}
+
+.dual-demo__fab-mini {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent-surface);
+  color: #1A1A1F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+  border: none;
+}
+
+.dual-demo__ribbon {
+  background: var(--accent-surface);
+  color: #1A1A1F;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px var(--space-3);
+  border-radius: var(--radius-sm);
+}
+
+.dual-demo__progress {
+  width: 120px;
+  height: 6px;
+  background: var(--border-subtle);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.dual-demo__progress-fill {
+  height: 100%;
+  width: 68%;
+  background: var(--accent-surface);
+  border-radius: var(--radius-full);
+}
+
+.dual-demo__explanation {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.dual-demo__explanation code {
+  background: var(--accent-soft);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'SF Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent-text);
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="sb-header">
+  <div class="sb-logo">
+    <h1>PageByPage · Design System v2.1</h1>
+    <p>Não é sobre quantidade. É sobre constância.</p>
+  </div>
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" aria-label="Alternar tema">☾</button>
+</header>
+
+<main class="sb-container">
+
+<!-- INTRO -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">00</span> · Storybook</div>
+  <h2 class="sb-section-heading">v2.1 — Sistema dual de amarelo</h2>
+  <p class="sb-section-desc">O amarelo tem duas funções no app: <strong>texto</strong> (números, valores — precisa contraste) e <strong>superfície</strong> (FAB, fita, progress — precisa impacto visual). Esta versão usa dois tokens calibrados: <strong>chocolate</strong> pra textos e <strong>mostarda</strong> pra superfícies. Alterna o tema no topo pra ver em ação.</p>
+
+  <div class="dual-explain">
+    <h4>🎯 Como entender o sistema dual</h4>
+    <p><code>--accent-text</code> → chocolate <code>#6B4423</code> no light, para números, valores, texto destacado (contraste AAA).</p>
+    <p><code>--accent-surface</code> → mostarda <code>#D4A72C</code> no light, para FAB, fita LENDO, progress fills, heatmap (preserva a vibe marca-texto).</p>
+    <p>No <strong>dark mode</strong>, ambos são o mesmo amarelo vibrante <code>#F5C518</code> — contraste já é perfeito sobre o escuro.</p>
+  </div>
+</section>
+
+<!-- DEMONSTRAÇÃO DO SISTEMA DUAL -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">01</span> · Sistema dual em ação</div>
+  <h2 class="sb-section-heading">Texto vs. Superfície</h2>
+
+  <div class="dual-demo">
+    <div class="dual-demo__card">
+      <div class="dual-demo__kicker"><span class="edit-num">A</span> · Função TEXTO</div>
+      <div class="dual-demo__title">Chocolate</div>
+      <div class="dual-demo__sample-label">Páginas em 2026</div>
+      <div class="dual-demo__sample-text">2.485</div>
+      <div class="dual-demo__explanation">
+        Usado onde o amarelo é lido como <strong>conteúdo</strong>: números grandes, valores de %, texto destacado em badges, bordas de input em foco.
+        Token: <code>--accent-text</code>
+      </div>
+    </div>
+
+    <div class="dual-demo__card">
+      <div class="dual-demo__kicker"><span class="edit-num">B</span> · Função SUPERFÍCIE</div>
+      <div class="dual-demo__title">Mostarda</div>
+      <div class="dual-demo__sample-label">Elementos de destaque visual</div>
+      <div class="dual-demo__surface-samples">
+        <button class="dual-demo__fab-mini">+</button>
+        <span class="dual-demo__ribbon">LENDO</span>
+        <div class="dual-demo__progress"><div class="dual-demo__progress-fill"></div></div>
+      </div>
+      <div class="dual-demo__explanation">
+        Usado onde o amarelo é lido como <strong>área</strong>: FAB, fita LENDO no book card, progress bar fills, células preenchidas do heatmap.
+        Token: <code>--accent-surface</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- CORES -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">02</span> · Tokens</div>
+  <h2 class="sb-section-heading">Cores</h2>
+
+  <div class="sb-subsection">
+    <h3>Superfícies</h3>
+    <div class="sb-grid sb-grid-4">
+      <div class="color-swatch"><div class="color-chip" style="background:var(--bg-primary)"></div><div class="color-info"><div class="color-name">bg-primary</div><div class="color-value">varia por tema</div></div></div>
+      <div class="color-swatch"><div class="color-chip" style="background:var(--bg-surface)"></div><div class="color-info"><div class="color-name">bg-surface</div><div class="color-value">varia por tema</div></div></div>
+      <div class="color-swatch"><div class="color-chip" style="background:var(--bg-card)"></div><div class="color-info"><div class="color-name">bg-card</div><div class="color-value">varia por tema</div></div></div>
+      <div class="color-swatch"><div class="color-chip" style="background:var(--bg-card-hover)"></div><div class="color-info"><div class="color-name">bg-card-hover</div><div class="color-value">varia por tema</div></div></div>
+    </div>
+  </div>
+
+  <div class="sb-subsection">
+    <h3>Accent TEXTO (chocolate no light)</h3>
+    <div class="sb-grid sb-grid-4">
+      <div class="color-swatch"><div class="color-chip" style="background:#F5C518"></div><div class="color-info"><div class="color-name">dark / text</div><div class="color-value">#F5C518</div><div class="color-role">amarelo vibrante</div></div></div>
+      <div class="color-swatch"><div class="color-chip" style="background:#6B4423"></div><div class="color-info"><div class="color-name">sand / text</div><div class="color-value">#6B4423</div><div class="color-role">chocolate médio</div></div></div>
+      <div class="color-swatch"><div class="color-chip" style="background:#FFD43B"></div><div class="color-info"><div class="color-name">dark hover</div><div class="color-value">#FFD43B</div></div></div>
+      <div class="color-swatch"><div class="color-chip" style="background:#4A2E1A"></div><div class="color-info"><div class="color-name">sand hover</div><div class="color-value">#4A2E1A</div><div class="color-role">chocolate escuro</div></div></div>
+    </div>
+  </div>
+
+  <div class="sb-subsection">
+    <h3>Accent SUPERFÍCIE (mostarda no light)</h3>
+    <div class="sb-grid sb-grid-4">
+      <div class="color-swatch"><div class="color-chip" style="background:#F5C518"></div><div class="color-info"><div class="color-name">dark / surface</div><div class="color-value">#F5C518</div><div class="color-role">amarelo vibrante</div></div></div>
+      <div class="color-swatch"><div class="color-chip" style="background:#D4A72C"></div><div class="color-info"><div class="color-name">sand / surface</div><div class="color-value">#D4A72C</div><div class="color-role">mostarda terroso</div></div></div>
+      <div class="color-swatch"><div class="color-chip" style="background:#8B7010"></div><div class="color-info"><div class="color-name">dark muted</div><div class="color-value">#8B7010</div></div></div>
+      <div class="color-swatch"><div class="color-chip" style="background:#A88820"></div><div class="color-info"><div class="color-name">sand muted</div><div class="color-value">#A88820</div></div></div>
+    </div>
+  </div>
+
+  <div class="sb-subsection">
+    <h3>Accent EDITORIAL (terracota)</h3>
+    <div class="sb-grid sb-grid-4">
+      <div class="color-swatch"><div class="color-chip" style="background:#C9584E"></div><div class="color-info"><div class="color-name">dark / editorial</div><div class="color-value">#C9584E</div></div></div>
+      <div class="color-swatch"><div class="color-chip" style="background:#B5463C"></div><div class="color-info"><div class="color-name">sand / editorial</div><div class="color-value">#B5463C</div></div></div>
+      <div class="color-swatch"><div class="color-chip" style="background:rgba(201,88,78,0.10);border:1px solid #C9584E"></div><div class="color-info"><div class="color-name">dark soft</div><div class="color-value">alpha 10%</div></div></div>
+      <div class="color-swatch"><div class="color-chip" style="background:rgba(181,70,60,0.08);border:1px solid #B5463C"></div><div class="color-info"><div class="color-name">sand soft</div><div class="color-value">alpha 8%</div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- TIPOGRAFIA -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">03</span> · Tokens</div>
+  <h2 class="sb-section-heading">Tipografia</h2>
+
+  <div class="card">
+    <div class="type-row">
+      <div class="type-label">display</div>
+      <div class="type-sample display" style="font-size:2.5rem;line-height:1.1;letter-spacing:-0.02em;color:var(--accent-text)">2.485</div>
+      <div class="type-meta">Questrial · 400</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">h1 · logo</div>
+      <div class="type-sample display" style="font-size:1.75rem;letter-spacing:-0.01em">PageByPage</div>
+      <div class="type-meta">Questrial · 400</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">h2 · seção</div>
+      <div class="type-sample display" style="font-size:1.25rem">Lendo agora</div>
+      <div class="type-meta">Questrial · 400</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">h3 · card</div>
+      <div class="type-sample" style="font-size:1rem;font-weight:600">21 lições para o século 21</div>
+      <div class="type-meta">Inter · 600</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">body</div>
+      <div class="type-sample" style="font-size:0.875rem">Não é sobre quantidade. É sobre constância.</div>
+      <div class="type-meta">Inter · 400</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">label</div>
+      <div class="type-sample" style="font-size:0.6875rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted)">Páginas em 2026</div>
+      <div class="type-meta">Inter · 600 caps</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">editorial</div>
+      <div class="type-sample display" style="font-size:1rem;font-style:italic;color:var(--accent-editorial)">01 · 02 · 03</div>
+      <div class="type-meta">Questrial italic</div>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- BUTTONS -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">04</span> · Componentes</div>
+  <h2 class="sb-section-heading">Buttons</h2>
+  <p class="sb-section-desc">Botão primary usa <code style="background:var(--accent-soft);padding:2px 6px;border-radius:4px;color:var(--accent-text);font-family:monospace;font-size:0.8125rem">--accent-surface</code> — é uma superfície amarela com texto escuro. Contraste perfeito.</p>
+
+  <div class="card">
+    <h3 style="margin-bottom:var(--space-4)">Variantes</h3>
+    <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-bottom:var(--space-6)">
+      <button class="btn btn--primary">Salvar meta anual</button>
+      <button class="btn btn--secondary">Cancelar</button>
+      <button class="btn btn--ghost">Pular</button>
+      <button class="btn btn--editorial">Ver mais →</button>
+      <button class="btn btn--danger">Resetar todos os dados</button>
+    </div>
+
+    <h3 style="margin-bottom:var(--space-4)">Tamanhos</h3>
+    <div style="display:flex;gap:var(--space-3);align-items:center;flex-wrap:wrap;margin-bottom:var(--space-6)">
+      <button class="btn btn--primary btn--sm">Small</button>
+      <button class="btn btn--primary">Medium</button>
+      <button class="btn btn--primary btn--lg">Large</button>
+    </div>
+
+    <h3 style="margin-bottom:var(--space-4)">Ícones</h3>
+    <div style="display:flex;gap:var(--space-2);flex-wrap:wrap">
+      <button class="btn-icon">+</button>
+      <button class="btn-icon">✎</button>
+      <button class="btn-icon">×</button>
+      <button class="btn-icon">↻</button>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- INPUTS -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">05</span> · Componentes</div>
+  <h2 class="sb-section-heading">Inputs</h2>
+  <p class="sb-section-desc">Focus ring usa <code style="background:var(--accent-soft);padding:2px 6px;border-radius:4px;color:var(--accent-text);font-family:monospace;font-size:0.8125rem">--accent-border</code> (chocolate). Clique num input pra ver.</p>
+  <div class="card">
+    <div class="sb-grid sb-grid-2" style="gap:var(--space-6)">
+      <div>
+        <label class="input-label">Meta de páginas por ano</label>
+        <input class="input" type="text" value="3650" />
+      </div>
+      <div>
+        <label class="input-label">Meta padrão mensal</label>
+        <input class="input" type="text" placeholder="Ex: 300" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- TABS -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">06</span> · Componentes</div>
+  <h2 class="sb-section-heading">Tabs</h2>
+  <p class="sb-section-desc">Underline do tab ativo usa <code style="background:var(--accent-soft);padding:2px 6px;border-radius:4px;color:var(--accent-text);font-family:monospace;font-size:0.8125rem">--accent-surface</code> (mostarda) — é elemento de superfície.</p>
+  <div class="card" style="padding:0;overflow:hidden">
+    <div class="tabs">
+      <button class="tab tab--active">🏠 Início</button>
+      <button class="tab">📚 Biblioteca</button>
+      <button class="tab">◉ Registros</button>
+      <button class="tab">📈 Performance</button>
+      <button class="tab">◇ Conquistas</button>
+      <button class="tab">⚙ Configurações</button>
+    </div>
+    <div style="padding:var(--space-6);color:var(--text-muted);font-size:0.875rem">Conteúdo da tab ativa aparece aqui.</div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- CARDS MÉTRICA -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">07</span> · Componentes</div>
+  <h2 class="sb-section-heading">Cards de métrica</h2>
+  <p class="sb-section-desc">Números usam <code style="background:var(--accent-soft);padding:2px 6px;border-radius:4px;color:var(--accent-text);font-family:monospace;font-size:0.8125rem">--accent-text</code> (chocolate no light). Contraste AAA garantido.</p>
+
+  <div class="sb-grid sb-grid-4">
+    <div class="card">
+      <div class="card-label">Páginas em 2026</div>
+      <div class="card-value card-value--neutral">2.485</div>
+      <div class="card-hint">de 3.650 · 68%</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Páginas no mês</div>
+      <div class="card-value card-value--neutral">559</div>
+      <div class="card-hint">de 300 · 100%</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Livros lidos em 2026</div>
+      <div class="card-value">12</div>
+      <div class="card-hint">livros concluídos</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Sequência atual</div>
+      <div class="card-value">0 dias</div>
+      <div class="card-hint">Leia hoje para começar!</div>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- PROGRESS -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">08</span> · Componentes</div>
+  <h2 class="sb-section-heading">Progress</h2>
+  <p class="sb-section-desc">Fill da barra = <code style="background:var(--accent-soft);padding:2px 6px;border-radius:4px;color:var(--accent-text);font-family:monospace;font-size:0.8125rem">--accent-surface</code> (mostarda). Valor % = <code style="background:var(--accent-soft);padding:2px 6px;border-radius:4px;color:var(--accent-text);font-family:monospace;font-size:0.8125rem">--accent-text</code> (chocolate). Clássico exemplo do sistema dual.</p>
+
+  <div class="sb-grid sb-grid-2">
+    <div class="card">
+      <div class="progress-row">
+        <div class="progress-title">Meta anual</div>
+        <div class="progress-value">68%</div>
+      </div>
+      <div class="progress"><div class="progress__fill" style="width:68%"></div></div>
+      <div class="progress-meta">
+        <span>2.485 páginas lidas</span>
+        <span>Meta: 3.650</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="progress-row">
+        <div class="progress-title">Meta mensal</div>
+        <div class="progress-value">100%</div>
+      </div>
+      <div class="progress"><div class="progress__fill" style="width:100%"></div></div>
+      <div class="progress-meta">
+        <span>559 páginas lidas</span>
+        <span>Meta: 300</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="progress-row">
+        <div class="progress-title">Fevereiro (abaixo da meta)</div>
+        <div class="progress-value progress-value--danger">73%</div>
+      </div>
+      <div class="progress"><div class="progress__fill progress__fill--danger" style="width:73%"></div></div>
+      <div class="progress-meta">
+        <span>439 páginas</span>
+        <span>Meta: 600</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="progress-row">
+        <div class="progress-title">Março (superou)</div>
+        <div class="progress-value">248%</div>
+      </div>
+      <div class="progress"><div class="progress__fill" style="width:100%"></div></div>
+      <div class="progress-meta">
+        <span>745 páginas</span>
+        <span>Meta: 300</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- BADGES & PILLS -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">09</span> · Componentes</div>
+  <h2 class="sb-section-heading">Badges & Pills</h2>
+  <div class="card">
+    <h3 style="margin-bottom:var(--space-4)">Badges (texto chocolate no light)</h3>
+    <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-bottom:var(--space-6)">
+      <span class="badge badge--filled">4ª LEITURA</span>
+      <span class="badge badge--filled">2ª LEITURA</span>
+      <span class="badge badge--outline">FAVORITO</span>
+      <span class="badge badge--outline">QUERO LER</span>
+    </div>
+
+    <h3 style="margin-bottom:var(--space-4)">Badges terracota (editorial, raras)</h3>
+    <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-bottom:var(--space-6)">
+      <span class="badge badge--filled-terracota">CLÁSSICO</span>
+      <span class="badge badge--filled-terracota">RECOMENDAÇÃO</span>
+      <span class="badge badge--outline-terracota">DESTAQUE</span>
+      <span class="badge badge--outline-terracota">NOVIDADE</span>
+    </div>
+
+    <h3 style="margin-bottom:var(--space-4)">Pills de filtro</h3>
+    <div style="display:flex;gap:var(--space-2);flex-wrap:wrap">
+      <button class="pill pill--active">Todas</button>
+      <button class="pill">Favorito</button>
+      <button class="pill">Lendo</button>
+      <button class="pill">Pausado</button>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- BOOK CARD -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">10</span> · Componente signature</div>
+  <h2 class="sb-section-heading">Book Card</h2>
+  <p class="sb-section-desc">Perfeita demonstração do sistema dual: fita "LENDO" é mostarda (superfície visual), valor "10%" dentro do card é chocolate (texto).</p>
+
+  <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+    <div class="book-card">
+      <div class="book-cover">
+        <div class="book-ribbon">LENDO</div>
+        <div>21 lições<br>para o<br>século 21</div>
+      </div>
+      <div class="book-info">
+        <div class="book-title">21 lições para o século 21</div>
+        <div class="book-author">Yuval Noah Harari</div>
+        <div class="book-genre">Não ficção / História <span class="badge badge--filled">4ª LEITURA</span></div>
+        <div class="book-stats">
+          <div class="stat-pill"><span class="stat-pill__label">Páginas</span><span class="stat-pill__value">432</span></div>
+          <div class="stat-pill"><span class="stat-pill__label">Lidas</span><span class="stat-pill__value">45</span></div>
+          <div class="stat-pill"><span class="stat-pill__label">Restantes</span><span class="stat-pill__value">387</span></div>
+          <div class="stat-pill stat-pill--accent"><span class="stat-pill__label">Lido</span><span class="stat-pill__value">10%</span></div>
+        </div>
+        <div class="progress"><div class="progress__fill" style="width:10%"></div></div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-icon">+</button>
+        <button class="btn-icon">✎</button>
+        <button class="btn-icon">×</button>
+      </div>
+    </div>
+
+    <div class="book-card">
+      <div class="book-cover" style="background:linear-gradient(135deg,#2a2a2a,#4a4a4a);color:#F5C518">
+        <div class="book-ribbon">LENDO</div>
+        <div>A Revolução<br>dos Bichos</div>
+      </div>
+      <div class="book-info">
+        <div class="book-title">A Revolução dos Bichos</div>
+        <div class="book-author">George Orwell</div>
+        <div class="book-genre">Ficção / Sátira política <span class="badge badge--filled">2ª LEITURA</span> <span class="badge badge--outline-terracota">CLÁSSICO</span></div>
+        <div class="book-stats">
+          <div class="stat-pill"><span class="stat-pill__label">Páginas</span><span class="stat-pill__value">106</span></div>
+          <div class="stat-pill"><span class="stat-pill__label">Lidas</span><span class="stat-pill__value">45</span></div>
+          <div class="stat-pill"><span class="stat-pill__label">Restantes</span><span class="stat-pill__value">61</span></div>
+          <div class="stat-pill stat-pill--accent"><span class="stat-pill__label">Lido</span><span class="stat-pill__value">42%</span></div>
+        </div>
+        <div class="progress"><div class="progress__fill" style="width:42%"></div></div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-icon">+</button>
+        <button class="btn-icon">✎</button>
+        <button class="btn-icon">×</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- EDITORIAL LIST -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">11</span> · Componente</div>
+  <h2 class="sb-section-heading">Editorial List</h2>
+
+  <div class="card">
+    <div class="editorial-list">
+      <div class="editorial-item">
+        <div class="editorial-item__num">01</div>
+        <div class="editorial-item__content">
+          <h4>Ler ao menos 10 páginas por dia</h4>
+          <p>A meta não é um sprint — é uma constância suave. 10 páginas diárias fazem 3.650 no ano.</p>
+        </div>
+      </div>
+      <div class="editorial-item">
+        <div class="editorial-item__num">02</div>
+        <div class="editorial-item__content">
+          <h4>Revisitar clássicos esquecidos</h4>
+          <p>Livros de estante têm seu tempo. Às vezes voltar é melhor que começar.</p>
+        </div>
+      </div>
+      <div class="editorial-item">
+        <div class="editorial-item__num">03</div>
+        <div class="editorial-item__content">
+          <h4>Anotar o que tocou</h4>
+          <p>Uma frase marcada vale mais que um livro inteiro esquecido.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- HEATMAP -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">12</span> · Componentes</div>
+  <h2 class="sb-section-heading">Heatmap</h2>
+  <p class="sb-section-desc">Células usam <code style="background:var(--accent-soft);padding:2px 6px;border-radius:4px;color:var(--accent-text);font-family:monospace;font-size:0.8125rem">--accent-surface</code> — preservam o glow vibrante da mostarda.</p>
+
+  <div class="card">
+    <div class="card-label" style="margin-bottom:var(--space-5)">Mapa de atividade</div>
+    <div class="heatmap" id="heatmap"></div>
+    <div style="margin-top:var(--space-5);display:flex;gap:var(--space-3);align-items:center;font-size:0.75rem;color:var(--text-muted)">
+      <span>Menos</span>
+      <div class="heatmap-cell" style="width:12px;height:12px"></div>
+      <div class="heatmap-cell heatmap-cell--l1" style="width:12px;height:12px"></div>
+      <div class="heatmap-cell heatmap-cell--l2" style="width:12px;height:12px"></div>
+      <div class="heatmap-cell heatmap-cell--l3" style="width:12px;height:12px"></div>
+      <div class="heatmap-cell heatmap-cell--l4" style="width:12px;height:12px"></div>
+      <span>Mais</span>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- ACHIEVEMENTS -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">13</span> · Componentes</div>
+  <h2 class="sb-section-heading">Achievement Cards</h2>
+
+  <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+    <div class="achievement achievement--unlocked">
+      <div class="achievement-icon">◆</div>
+      <div class="achievement-content">
+        <h4>Meta mensal atingida!</h4>
+        <p>Você leu 300 páginas em um mês. Constância é tudo!</p>
+        <div class="achievement-status">✓ Conquistado!</div>
+      </div>
+    </div>
+    <div class="achievement achievement--unlocked">
+      <div class="achievement-icon">◐</div>
+      <div class="achievement-content">
+        <h4>Metade do caminho</h4>
+        <p>Você chegou na metade. A segunda parte começa!</p>
+        <div class="achievement-status">✓ Conquistado!</div>
+      </div>
+    </div>
+    <div class="achievement achievement--locked">
+      <div class="achievement-icon">◔</div>
+      <div class="achievement-content">
+        <h4>Três quartos lá</h4>
+        <p>75% concluído. O fim está próximo!</p>
+        <div class="achievement-status">Faltam 253 páginas</div>
+        <div class="progress" style="margin-top:var(--space-2)"><div class="progress__fill" style="width:68%;opacity:0.5"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- DANGER -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">14</span> · Padrões</div>
+  <h2 class="sb-section-heading">Danger Zone</h2>
+  <div class="danger-zone">
+    <h3>Zona de perigo</h3>
+    <p style="color:var(--text-secondary);margin-bottom:var(--space-4);font-size:0.875rem">Esta ação irá apagar <strong>todos</strong> os seus livros, registros e metas. Não há como desfazer.</p>
+    <button class="btn btn--danger">Resetar todos os dados</button>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- ACESSIBILIDADE -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">15</span> · Acessibilidade</div>
+  <h2 class="sb-section-heading">Contraste garantido</h2>
+  <p class="sb-section-desc">Testes de contraste no <strong>light sand mode</strong> (o mais crítico). No dark mode, contraste já é muito superior.</p>
+
+  <div class="card">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 80px;gap:var(--space-4);font-size:0.8125rem;padding-bottom:var(--space-3);border-bottom:1px solid var(--border-subtle);margin-bottom:var(--space-3)">
+      <div style="font-weight:600;color:var(--text-muted);text-transform:uppercase;font-size:0.6875rem;letter-spacing:0.1em">Elemento</div>
+      <div style="font-weight:600;color:var(--text-muted);text-transform:uppercase;font-size:0.6875rem;letter-spacing:0.1em">Cor</div>
+      <div style="font-weight:600;color:var(--text-muted);text-transform:uppercase;font-size:0.6875rem;letter-spacing:0.1em">Fundo</div>
+      <div style="font-weight:600;color:var(--text-muted);text-transform:uppercase;font-size:0.6875rem;letter-spacing:0.1em">Ratio</div>
+      <div style="font-weight:600;color:var(--text-muted);text-transform:uppercase;font-size:0.6875rem;letter-spacing:0.1em">WCAG</div>
+    </div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 80px;gap:var(--space-4);font-size:0.875rem;padding:var(--space-2) 0">
+      <div>Número grande</div>
+      <div style="font-family:monospace;font-size:0.75rem">#6B4423</div>
+      <div style="font-family:monospace;font-size:0.75rem">#FFFFFF</div>
+      <div style="font-weight:600">8.2:1</div>
+      <div style="color:var(--accent-text);font-weight:600">AAA ✓</div>
+    </div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 80px;gap:var(--space-4);font-size:0.875rem;padding:var(--space-2) 0">
+      <div>Número direto no sand</div>
+      <div style="font-family:monospace;font-size:0.75rem">#6B4423</div>
+      <div style="font-family:monospace;font-size:0.75rem">#EDE6D9</div>
+      <div style="font-weight:600">7.3:1</div>
+      <div style="color:var(--accent-text);font-weight:600">AAA ✓</div>
+    </div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 80px;gap:var(--space-4);font-size:0.875rem;padding:var(--space-2) 0">
+      <div>Texto corpo preto</div>
+      <div style="font-family:monospace;font-size:0.75rem">#1A1614</div>
+      <div style="font-family:monospace;font-size:0.75rem">#EDE6D9</div>
+      <div style="font-weight:600">~15:1</div>
+      <div style="color:var(--accent-text);font-weight:600">AAA ✓</div>
+    </div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 80px;gap:var(--space-4);font-size:0.875rem;padding:var(--space-2) 0">
+      <div>Botão primary (texto)</div>
+      <div style="font-family:monospace;font-size:0.75rem">#1A1614</div>
+      <div style="font-family:monospace;font-size:0.75rem">#D4A72C</div>
+      <div style="font-weight:600">7.8:1</div>
+      <div style="color:var(--accent-text);font-weight:600">AAA ✓</div>
+    </div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 80px;gap:var(--space-4);font-size:0.875rem;padding:var(--space-2) 0">
+      <div>Label muted</div>
+      <div style="font-family:monospace;font-size:0.75rem">#8A8272</div>
+      <div style="font-family:monospace;font-size:0.75rem">#EDE6D9</div>
+      <div style="font-weight:600">3.2:1</div>
+      <div style="color:var(--accent-editorial);font-weight:600">AA Lg</div>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- IMPLEMENTAÇÃO -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">16</span> · Implementação</div>
+  <h2 class="sb-section-heading">Como usar no Claude Code</h2>
+  <div class="card">
+    <p style="color:var(--text-secondary);margin-bottom:var(--space-4);font-size:0.9375rem">Regra mental pra escolher o token certo:</p>
+    <div class="code-block">
+<span style="color:var(--text-muted)">/* PERGUNTA: o amarelo aqui é lido como TEXTO ou como ÁREA? */</span><br><br>
+<span style="color:var(--text-muted)">/* ➜ TEXTO: uso --accent-text (chocolate no light) */</span><br>
+.card-value { color: <span style="color:var(--accent-text)">var(--accent-text)</span>; }<br>
+.progress-value { color: <span style="color:var(--accent-text)">var(--accent-text)</span>; }<br>
+.badge--outline { border-color: <span style="color:var(--accent-text)">var(--accent-border)</span>; }<br>
+.input:focus { border-color: <span style="color:var(--accent-text)">var(--accent-border)</span>; }<br><br>
+<span style="color:var(--text-muted)">/* ➜ SUPERFÍCIE: uso --accent-surface (mostarda no light) */</span><br>
+.btn--primary { background: <span style="color:var(--accent-text)">var(--accent-surface)</span>; }<br>
+.fab { background: <span style="color:var(--accent-text)">var(--accent-surface)</span>; }<br>
+.book-ribbon { background: <span style="color:var(--accent-text)">var(--accent-surface)</span>; }<br>
+.progress__fill { background: <span style="color:var(--accent-text)">var(--accent-surface)</span>; }<br>
+.heatmap-cell--l4 { background: <span style="color:var(--accent-text)">var(--accent-surface)</span>; }
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FAB -->
+<button class="fab" aria-label="Adicionar leitura">+</button>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.getElementById('themeBtn').textContent = next === 'dark' ? '☾' : '☀';
+  localStorage.setItem('pbp-theme', next);
+}
+
+const saved = localStorage.getItem('pbp-theme');
+if (saved) {
+  document.documentElement.setAttribute('data-theme', saved);
+  document.getElementById('themeBtn').textContent = saved === 'dark' ? '☾' : '☀';
+}
+
+const heatmap = document.getElementById('heatmap');
+const levels = ['', 'heatmap-cell--l1', 'heatmap-cell--l2', 'heatmap-cell--l3', 'heatmap-cell--l4'];
+for (let i = 0; i < 210; i++) {
+  const cell = document.createElement('div');
+  const mes = Math.floor(i / 30);
+  let level;
+  if (mes < 4) {
+    level = Math.random() < 0.1 ? 0 : Math.floor(Math.random() * 4) + 1;
+  } else {
+    level = 0;
+  }
+  cell.className = 'heatmap-cell ' + (levels[level] || '');
+  cell.title = `Dia ${i + 1}`;
+  heatmap.appendChild(cell);
+}
+</script>
+
+</body>
+</html>

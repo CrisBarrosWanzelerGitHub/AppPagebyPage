@@ -718,7 +718,7 @@ export default function Library({
 export function BookCard({
   book,
   logs,
-  isNew,
+  isNew: _isNew,
   onEdit,
   onLog,
   onDelete,

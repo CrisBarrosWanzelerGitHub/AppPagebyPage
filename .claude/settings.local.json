@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create:*)",
+      "Bash(printf '\\\\n')",
+      "Bash(mv temp_init/* temp_init/.gitignore .)",
+      "Bash(rm -rf temp_init)",
+      "Bash(npx tsc:*)",
+      "Bash(iconv -f utf-8 -t utf-8 \"/Users/crisbarroswanzeler/Downloads/pagebypage_modelo1.csv\")",
+      "Bash(python3 -c \" import sys with open\\('/Users/crisbarroswanzeler/Downloads/pagebypage_modelo1.csv', 'rb'\\) as f: raw = f.read\\(\\) print\\(repr\\(raw[:2000]\\)\\) \")",
+      "Bash(xxd \"/Users/crisbarroswanzeler/Downloads/pagebypage_modelo1.csv\")",
+      "Bash(ipconfig getifaddr *)",
+      "Bash(npm run *)",
+      "Bash(sed -i '' \"s|from './Dashboard.module.css'|from './Dashboard2.module.css'|g\" \"/Users/crisbarroswanzeler/Desktop/Projetos Claude Code/pagebypage/src/components/Dashboard2.tsx\")",
+      "Bash(sed -i '' \"s|export default function Dashboard\\(|export default function Dashboard2\\(|g\" \"/Users/crisbarroswanzeler/Desktop/Projetos Claude Code/pagebypage/src/components/Dashboard2.tsx\")",
+      "Bash(npx vite *)"
+    ]
+  }
+}
