@@ -35,7 +35,7 @@
   color: var(--warm-gray);
   margin-top: 0.25rem;
 }
-.bookCurrent strong { color: var(--olive); }
+.bookCurrent strong { color: var(--accent-text); }
 
 .pageHint {
   font-size: 0.7rem;

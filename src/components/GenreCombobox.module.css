@@ -49,7 +49,7 @@
 
 .optionSelected {
   font-weight: 600;
-  color: var(--olive);
+  color: var(--accent-text);
 }
 
 .optionActive {

@@ -16,7 +16,7 @@
 .totalValue {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--gold);
+  color: var(--accent-text);
   letter-spacing: -0.02em;
   line-height: 1;
 }
@@ -288,7 +288,7 @@
 .goalPct {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--olive);
+  color: var(--accent-text);
 }
 
 .goalMeta {
@@ -385,7 +385,7 @@
   line-height: 1.2;
 }
 
-.goalStatGold { color: var(--gold); }
+.goalStatGold { color: var(--accent-text); }
 .goalStatWarn { color: var(--warm-gray); }
 
 /* ─── Projection status dot ───────────────────────────────────────────────── */
@@ -638,8 +638,8 @@
   transition: border-color 0.15s, background 0.15s, color 0.15s;
 }
 .wantChip:hover {
-  border-color: var(--olive);
-  background: var(--olive);
+  border-color: var(--accent-text);
+  background: var(--accent-text);
   color: #fff;
 }
 
@@ -662,7 +662,7 @@
 }
 .mecLink:hover {
   opacity: 1;
-  color: var(--olive);
+  color: var(--accent-text);
 }
 .mecLink svg {
   flex-shrink: 0;
@@ -690,11 +690,11 @@
   cursor: pointer;
   transition: all 0.15s;
 }
-.readingTagChip:hover { border-color: var(--gold); color: var(--gold); }
+.readingTagChip:hover { border-color: var(--accent-text); color: var(--accent-text); }
 .readingTagChipActive {
-  background: var(--gold-light);
-  border-color: var(--gold);
-  color: var(--gold);
+  background: var(--accent-soft);
+  border-color: var(--accent-text);
+  color: var(--accent-text);
   font-weight: 500;
 }
 
@@ -713,7 +713,7 @@
   cursor: pointer;
   transition: border-color 0.15s;
 }
-.readingCard:hover { border-color: var(--olive-light); }
+.readingCard:hover { border-color: var(--accent-soft); }
 
 /* ─── Flip mechanics ──────────────────────────────────────────────────────── */
 .readingCardInner {
@@ -808,7 +808,7 @@
 .dashNavBtn:hover {
   background: var(--off-white);
   color: var(--text);
-  border-color: var(--olive);
+  border-color: var(--accent-text);
 }
 
 .cover {
@@ -867,7 +867,7 @@
 .readingPct {
   font-size: 0.78rem;
   font-weight: 600;
-  color: var(--olive);
+  color: var(--accent-text);
   white-space: nowrap;
 }
 
@@ -1131,11 +1131,11 @@
   gap: 0.3rem;
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--gold-dark, #a88800);
+  color: var(--accent-text-hover);
   text-decoration: none;
   transition: color 0.15s;
 }
-.libLink:hover { color: var(--gold); text-decoration: underline; }
+.libLink:hover { color: var(--accent-text); text-decoration: underline; }
 
 .libItemPlain {
   display: inline-flex;
@@ -1237,8 +1237,8 @@
   transition: border-color 0.15s, color 0.15s, background 0.15s;
 }
 .supportLink:hover {
-  border-color: var(--gold);
-  color: var(--gold-dark, #a88800);
+  border-color: var(--accent-text);
+  color: var(--accent-text-hover);
   background: var(--accent-soft);
 }
 

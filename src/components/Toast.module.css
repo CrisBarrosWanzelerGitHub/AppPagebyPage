@@ -25,7 +25,7 @@
 }
 
 .success {
-  background: var(--olive);
+  background: var(--accent-text);
   color: #fff;
 }
 

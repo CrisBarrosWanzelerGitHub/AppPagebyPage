@@ -29,12 +29,12 @@
 }
 .filterPill:hover,
 .filterPillOpen {
-  border-color: var(--olive);
-  color: var(--olive);
+  border-color: var(--accent-text);
+  color: var(--accent-text);
 }
 .filterPillActive {
-  background: var(--olive);
-  border-color: var(--olive);
+  background: var(--accent-text);
+  border-color: var(--accent-text);
   color: #fff;
 }
 .filterPillActive:hover,
@@ -105,16 +105,16 @@
   cursor: pointer;
   transition: all 0.15s;
 }
-.filterBtn:hover { border-color: var(--olive); color: var(--olive); }
+.filterBtn:hover { border-color: var(--accent-text); color: var(--accent-text); }
 .filterBtnActive {
-  background: var(--olive);
-  border-color: var(--olive);
+  background: var(--accent-text);
+  border-color: var(--accent-text);
   color: #fff;
 }
 /* hover no botão já ativo — mantém fundo, só escurece levemente */
 .filterBtnActive:hover {
-  background: var(--olive);
-  border-color: var(--olive);
+  background: var(--accent-text);
+  border-color: var(--accent-text);
   color: #fff;
   opacity: 0.88;
 }
@@ -147,7 +147,7 @@
   padding: 0.4rem 0.85rem;
   transition: border-color 0.15s;
 }
-.searchBox:focus-within { border-color: var(--olive); }
+.searchBox:focus-within { border-color: var(--accent-text); }
 
 .searchIcon {
   font-size: 1rem;
@@ -199,11 +199,11 @@
   cursor: pointer;
   transition: all 0.15s;
 }
-.tagChip:hover { border-color: var(--gold); color: var(--gold); }
+.tagChip:hover { border-color: var(--accent-text); color: var(--accent-text); }
 .tagChipActive {
-  background: var(--gold-light);
-  border-color: var(--gold);
-  color: var(--gold);
+  background: var(--accent-soft);
+  border-color: var(--accent-text);
+  color: var(--accent-text);
 }
 
 /* ─── Library Summary Bar ────────────────────────────────────────────────── */
@@ -258,7 +258,7 @@
   position: relative;
   cursor: pointer;
 }
-.bookCard:hover { border-color: var(--olive-light); }
+.bookCard:hover { border-color: var(--accent-soft); }
 
 /* ─── Flip Mechanics ──────────────────────────────────────────────────────── */
 .cardFlipInner {
@@ -373,7 +373,7 @@
 .modeBtn:hover:not(:disabled) { background: var(--off-white); color: var(--text); }
 .modeBtn:disabled { opacity: 0.35; cursor: default; }
 .modeBtnActive {
-  background: var(--olive);
+  background: var(--accent-text);
   color: var(--white);
 }
 :global([data-theme="dark"]) .modeBtnActive { color: #1c1b1a; }
@@ -622,7 +622,7 @@
 }
 
 .statPct {
-  color: var(--olive);
+  color: var(--accent-text);
 }
 
 .statItemMuted {
@@ -864,7 +864,7 @@
 .wantDragItemOver {
   transform: translateY(-2px);
   border-radius: var(--radius);
-  box-shadow: 0 0 0 2px var(--gold);
+  box-shadow: 0 0 0 2px var(--accent-text);
 }
 
 /* ─── Task 4: Done period filter ───────────────────────────────────────────── */
@@ -899,7 +899,7 @@
   transition: border-color 0.15s;
   width: 7.5rem;
 }
-.doneDateInput:focus { outline: none; border-color: var(--gold); color: var(--text); }
+.doneDateInput:focus { outline: none; border-color: var(--accent-text); color: var(--text); }
 .doneDateInput::-webkit-calendar-picker-indicator { opacity: 0.4; cursor: pointer; }
 
 .doneDateDash {
@@ -940,11 +940,11 @@
   transition: all 0.15s;
   white-space: nowrap;
 }
-.doneYearChip:hover { border-color: var(--gold); color: var(--gold); }
+.doneYearChip:hover { border-color: var(--accent-text); color: var(--accent-text); }
 
 .doneYearChipActive {
   background: var(--accent-soft);
-  border-color: var(--gold);
+  border-color: var(--accent-text);
   color: var(--gold-dark, #a88800);
   font-weight: 600;
 }

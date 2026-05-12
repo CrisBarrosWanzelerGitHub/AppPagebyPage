@@ -90,12 +90,12 @@
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  color: var(--gold-dark, #a88800);
+  color: var(--accent-text-hover);
   text-decoration: none;
   font-weight: 600;
   transition: color 0.15s;
 }
-.itemLink:hover { color: var(--gold); text-decoration: underline; }
+.itemLink:hover { color: var(--accent-text); text-decoration: underline; }
 
 .itemMeta {
   font-size: 0.8rem;
@@ -139,11 +139,11 @@
   transition: all 0.15s;
   white-space: nowrap;
 }
-.tagFilterChip:hover { border-color: var(--gold); color: var(--gold); }
+.tagFilterChip:hover { border-color: var(--accent-text); color: var(--accent-text); }
 .tagFilterChipActive {
   background: var(--accent-soft);
-  border-color: var(--gold);
-  color: var(--gold-dark, #a88800);
+  border-color: var(--accent-text);
+  color: var(--accent-text-hover);
   font-weight: 600;
 }
 
@@ -162,8 +162,8 @@
   padding: 0.2rem 0.55rem;
   border-radius: 99px;
   background: var(--accent-soft);
-  border: 1px solid var(--gold);
-  color: var(--gold-dark, #a88800);
+  border: 1px solid var(--accent-text);
+  color: var(--accent-text-hover);
   font-size: 0.75rem;
   font-weight: 500;
 }
@@ -200,7 +200,7 @@
   transition: all 0.12s;
   font-family: var(--font-body);
 }
-.tagSuggestionChip:hover { border-color: var(--gold); color: var(--gold); }
+.tagSuggestionChip:hover { border-color: var(--accent-text); color: var(--accent-text); }
 
 /* ─── Tags — item da lista ───────────────────────────────────────────────────── */
 .itemTags {

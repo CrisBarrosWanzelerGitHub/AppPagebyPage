@@ -444,7 +444,7 @@ export default function History({ state, onNavigateToNextReads }: Props) {
           <p className={styles.heroIntro}>
             <em>
               Sua jornada de leitura já acumula{' '}
-              <strong className={styles.heroIntroNum}>{totalPages.toLocaleString('pt-BR')}</strong>
+              <span className={styles.heroIntroNum}>{totalPages.toLocaleString('pt-BR')}</span>
               {' passos em páginas.'}
             </em>
           </p>

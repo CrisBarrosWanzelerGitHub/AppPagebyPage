@@ -76,7 +76,7 @@
   margin-top: 0.25rem;
   margin-bottom: 0.5rem;
 }
-.calcHint strong { color: var(--olive); }
+.calcHint strong { color: var(--accent-text); }
 
 .formFooter {
   margin-top: 1rem;
@@ -105,7 +105,7 @@
   line-height: 1.5;
   flex-shrink: 0;
 }
-.badgeReading   { background: var(--olive);          color: #fff; }
+.badgeReading   { background: var(--accent-text);          color: #fff; }
 .badgeDone      { background: var(--accent-surface);  color: #1A1614; }
 .badgeAbandoned { background: var(--accent-editorial); color: #fff; }
 .badgeWant      { background: var(--bg-primary); color: var(--text-muted); border: 0.5px solid var(--border-default); }
@@ -117,7 +117,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  background: var(--yellow-light, rgba(245,196,0,0.08));
+  background: var(--accent-soft);
   border: 0.5px solid rgba(245,196,0,0.3);
   border-radius: var(--radius-sm);
   padding: 0.65rem 0.85rem;
@@ -131,7 +131,7 @@
   font-size: 0.82rem;
 }
 .doneNoticeText strong {
-  color: var(--gold);
+  color: var(--accent-text);
 }
 .doneNoticeText span {
   color: var(--warm-gray);
@@ -145,15 +145,15 @@
   font-family: var(--font-body);
   padding: 0.3rem 0.75rem;
   border-radius: 99px;
-  border: 1px solid var(--gold);
+  border: 1px solid var(--accent-text);
   background: transparent;
-  color: var(--gold);
+  color: var(--accent-text);
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
   white-space: nowrap;
 }
 .doneRereadBtn:hover {
-  background: var(--gold);
+  background: var(--accent-text);
   color: #fff;
 }
 
@@ -186,7 +186,7 @@
   color: var(--warm-gray);
   margin-top: 0.15rem;
 }
-.hintMeta strong { color: var(--olive); }
+.hintMeta strong { color: var(--accent-text); }
 
 /* ─── Book Field Header + Reading Filter ─────────────────────────────────── */
 .bookFieldHeader {
@@ -225,7 +225,7 @@
   transition: background 0.2s;
 }
 .toggleInput:checked ~ .toggleTrack {
-  background: var(--olive);
+  background: var(--accent-text);
 }
 
 .toggleThumb {
@@ -257,7 +257,7 @@
 .autoToggle {
   background: none;
   border: none;
-  color: var(--olive);
+  color: var(--accent-text);
   font-size: 0.72rem;
   cursor: pointer;
   text-decoration: underline;

@@ -52,7 +52,7 @@
 .statValue {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--olive);
+  color: var(--accent-text);
 }
 
 /* ─── Export ──────────────────────────────────────────────────────────────── */
@@ -151,7 +151,7 @@
 }
 .modeBtn + .modeBtn { border-left: 1px solid var(--border); }
 .modeBtnActive {
-  background: var(--olive);
+  background: var(--accent-text);
   color: #fff;
 }
 
@@ -209,9 +209,9 @@
 .histTotal {
   font-size: 0.78rem;
   font-weight: 400;
-  color: var(--olive);
+  color: var(--accent-text);
   margin-left: 0.75rem;
-  background: color-mix(in srgb, var(--olive) 10%, transparent);
+  background: color-mix(in srgb, var(--accent-text) 10%, transparent);
   padding: 0.1rem 0.5rem;
   border-radius: 999px;
 }
@@ -266,7 +266,7 @@
   font-weight: 700;
   padding: 0;
   line-height: 1;
-  color: var(--olive);
+  color: var(--accent-text);
   opacity: 0.7;
 }
 .apiToggleVisible:hover { opacity: 1; }
@@ -278,7 +278,7 @@
 }
 
 .apiLink {
-  color: var(--olive);
+  color: var(--accent-text);
   text-decoration: underline;
   font-size: inherit;
 }
@@ -311,7 +311,7 @@
 }
 
 .csvStatSkipped { color: var(--warm-gray); }
-.csvStatAdd     { color: var(--olive); }
+.csvStatAdd     { color: var(--accent-text); }
 
 .csvStatLabel {
   font-size: 0.83rem;

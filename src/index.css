@@ -190,7 +190,7 @@ img { display: block; max-width: 100%; }
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background: var(--accent-surface-hover);
+  background: var(--accent-surface);
   color: #1A1614;
   border-radius: var(--radius-md);
   padding: 0.55rem 1.1rem;
@@ -203,7 +203,7 @@ img { display: block; max-width: 100%; }
   transition: background var(--transition-fast), opacity var(--transition-fast);
   white-space: nowrap;
 }
-.btn-primary:hover    { background: var(--accent-surface); }
+.btn-primary:hover    { background: var(--accent-surface-hover); }
 .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
 
 .btn-secondary {

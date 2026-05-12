@@ -51,11 +51,43 @@ AppState
 | `libraries` | `Libraries` — physical/digital store list |
 | `settings` | `Settings` — goals, import/export, data reset |
 
+### Design System
+
+**SEMPRE leia o DS antes de qualquer trabalho de UI/CSS:**
+`Design System/files/storybook.html` — fonte da verdade visual do projeto (PageByPage Design System v2.1).
+
+Regras obrigatórias do DS:
+
+#### Sistema de tokens dual (accent)
+- `--accent-text` / `--accent-text-hover` → para **texto e ícones** com cor de destaque
+  - Light: chocolate `#6B4423` / `#4A2E1A`
+  - Dark: amarelo `#F5C518` / `#FFD43B`
+- `--accent-surface` / `--accent-surface-hover` → para **fundos e fills** (botões primários, progress bars, ribbons)
+  - Light: mostarda `#D4A72C` / `#E6B63D`
+  - Dark: amarelo `#F5C518` / `#FFD43B`
+- `--accent-soft` → fundo suave translúcido (hover states, pills ativas)
+- `--accent-editorial` / `--accent-editorial-soft` → terracota, para alertas e ações editoriais
+
+#### Regras críticas de uso
+- **Nunca usar `--accent-surface` como cor de texto** — é token de superfície/fundo
+- **Nunca usar `--accent-text` como fundo de botão primário** — é token de texto
+- **Nunca usar hex hardcoded** — sempre usar tokens semânticos do DS
+- **Nunca usar variáveis legadas** (`--gold`, `--olive`, `--yellow`) — foram migradas para os tokens acima
+- `.btn-primary` usa `--accent-surface` no default e `--accent-surface-hover` no hover (não invertido)
+
+#### Componentes-padrão do DS
+- **Card**: `bg-card`, borda `border-subtle`, `radius-lg`, `shadow-sm`
+- **Botão primário**: fundo `accent-surface`, texto `#1A1A1F`
+- **Botão secundário**: transparente, borda `border-default`, hover `bg-card-hover`
+- **Pill/filtro**: borda `border-subtle`, `bg-card`, cor `text-secondary`; ativo: `accent-soft` + `accent-border` + `accent-text`
+- **Input focus**: borda `accent-border` + `box-shadow: 0 0 0 3px accent-soft`
+- **Tab ativa**: `accent-surface` como underline (2px)
+- **Progress fill**: `accent-surface`
+- **Badge**: fundo `accent-soft`, texto `accent-text`
+
 ### CSS conventions
 
 - Global design tokens live in `src/index.css` (`:root` block). Component styles use CSS Modules (`*.module.css` co-located with the component).
-- **Token aliases**: `--gold`, `--olive`, `--accent` all map to `--accent-text` (`#6B4423` light / `#F5C518` dark). Use the semantic aliases, not the raw hex.
-- The darker brown is `--accent-text-hover` (`#4A2E1A` light). Gold highlight backgrounds use `--accent-surface` (`#D4A72C`).
 - Chart.js doughnut/bar wrappers need `width: 100%; position: relative` and their grid parent needs `min-width: 0` to prevent canvas blowout.
 
 ### Export / Import

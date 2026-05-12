@@ -256,11 +256,11 @@
 }
 
 .navTabDropBefore {
-  border-left: 2px solid var(--gold);
+  border-left: 2px solid var(--accent-text);
 }
 
 .navTabDropAfter {
-  border-right: 2px solid var(--gold);
+  border-right: 2px solid var(--accent-text);
 }
 
 .navGrip {

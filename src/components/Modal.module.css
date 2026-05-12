@@ -252,12 +252,12 @@
   transition: all 0.12s;
   font-family: var(--font-body);
 }
-.tagChip:hover { border-color: var(--gold); color: var(--gold); }
+.tagChip:hover { border-color: var(--accent-text); color: var(--accent-text); }
 
 .tagChipActive {
   background: var(--accent-soft);
-  border-color: var(--gold);
-  color: var(--gold);
+  border-color: var(--accent-text);
+  color: var(--accent-text);
 }
 
 /* ─── Formato toggle (Físico / Digital) ──────────────────────────────────── */
@@ -279,12 +279,12 @@
   transition: all 0.15s;
   text-align: center;
 }
-.formatBtn:hover { border-color: var(--gold); color: var(--gold); }
+.formatBtn:hover { border-color: var(--accent-text); color: var(--accent-text); }
 
 .formatBtnActive {
   background: rgba(245,196,0,0.15);
-  border-color: var(--gold);
-  color: var(--gold-dark, #a88800);
+  border-color: var(--accent-text);
+  color: var(--accent-text-hover);
   font-weight: 600;
 }
 
