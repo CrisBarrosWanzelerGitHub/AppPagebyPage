@@ -250,21 +250,25 @@
 
 /* ─── Book Card (perspective container) ───────────────────────────────────── */
 .bookCard {
-  background: var(--white);
-  border: 0.5px solid var(--border);
+  background: transparent;   /* sem fundo no container — cada face tem o seu */
   border-radius: var(--radius);
-  transition: border-color 0.15s;
-  perspective: 1200px;
+  transition: box-shadow 0.45s ease, transform 0.45s ease;
+  perspective: 1000px;
   position: relative;
   cursor: pointer;
 }
-.bookCard:hover { border-color: var(--accent-soft); }
+
+/* Elevação durante o flip — dá sensação de card saindo da página */
+.bookCard:has(.flipped) {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
 
 /* ─── Flip Mechanics ──────────────────────────────────────────────────────── */
 .cardFlipInner {
   width: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.45s ease;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   /* grid: both faces occupy the same cell → taller one defines height */
   display: grid;
   grid-template-columns: 1fr;
@@ -281,30 +285,38 @@
   display: flex;
   gap: 0;
   padding: 0;
-  align-items: stretch;
+  align-items: center;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   overflow: hidden;
   border-radius: var(--radius);
+  background: var(--bg-card);
+  border: 0.5px solid var(--border);
+  transition: border-color 0.15s;
 }
+.cardFront:hover { border-color: var(--accent-soft); }
 
 .cardBack {
   grid-row: 1;
   grid-column: 1;
-  padding: 1rem;
+  padding: 0.65rem 1rem;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform: rotateX(180deg);
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  background: var(--white);
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  border: 0.5px solid var(--border);
   border-radius: var(--radius);
 }
 
 /* ─── Back face ───────────────────────────────────────────────────────────── */
 .backInfo {
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .backBookTitle {
@@ -314,20 +326,40 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.3;
 }
 
 .backBookMeta {
   font-size: 0.74rem;
   color: var(--warm-gray);
-  margin-top: 0.1rem;
+  margin-top: -6px;   /* compensa a altura extra do modeToggle no row acima */
+  line-height: 1.4;
+}
+
+/* Status selector + datas no verso do card */
+.backStatusRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 4px;
+}
+
+.backStatusSelect {
+  width: auto;
+  font-size: 0.78rem !important;
+  padding: 0.2rem 1.4rem 0.2rem 0.5rem !important;
 }
 
 .backFields {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.6rem;
-  flex-shrink: 0;
   align-items: start;
+}
+
+/* Labels mais próximos dos inputs no verso */
+.backFields :global(.label) {
+  margin-bottom: 0.15rem;
 }
 
 .backHint {
@@ -379,41 +411,46 @@
 :global([data-theme="dark"]) .modeBtnActive { color: #1c1b1a; }
 
 .backActions {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
-  margin-top: 0.35rem;
   flex-shrink: 0;
 }
 
-.backActions button {
-  flex: 1;
+/* Botão Registrar: mantém amarelo legível mesmo em disabled */
+.backActions :global(.btn-primary):disabled {
+  opacity: 0.65;
 }
 
 /* ─── Cover ───────────────────────────────────────────────────────────────── */
 .cardCover {
   flex-shrink: 0;
   width: 130px;
+  height: 130px;
   position: relative;
   overflow: hidden;
-  border-radius: var(--radius) 0 0 var(--radius);
-  align-self: stretch;
+  border-radius: var(--radius-xl);
+  align-self: center;
+  background: var(--bg-primary);
+  padding: var(--space-3);
+  margin: var(--space-4);
 }
 .cardCover img {
-  width: 130px;
+  width: 100%;
   height: 100%;
-  min-height: 170px;
   object-fit: cover;
   display: block;
+  border-radius: var(--radius-sm);
 }
 .cardCoverPlaceholder {
-  width: 130px;
+  width: 100%;
   height: 100%;
-  min-height: 170px;
-  background: var(--off-white);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2.8rem;
+  border-radius: var(--radius-sm);
 }
 
 /* ─── Status Ribbon ───────────────────────────────────────────────────────── */
@@ -457,7 +494,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  padding: 1rem;
+  padding: 0.65rem 1rem;
 }
 
 .cardTitleGroup {
@@ -794,12 +831,9 @@
     flex-direction: column;
     align-items: stretch;
   }
-  .cardCover { width: 80px; }
-  .cardCover img { width: 80px; min-height: 130px; }
-  .cardCoverPlaceholder { width: 80px; min-height: 130px; font-size: 2rem; }
-  .backFields {
-    grid-template-columns: 1fr;
-  }
+  .cardCover { width: 80px; height: 80px; padding: var(--space-2); }
+  .cardCover img { width: 100%; height: 100%; }
+  .cardCoverPlaceholder { width: 100%; height: 100%; font-size: 2rem; }
   .cardActions {
     flex-direction: column;
     align-items: stretch;

@@ -183,8 +183,8 @@ No light sand, vermelho puro brigaria com a paleta quente — por isso danger vi
 --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
 --shadow-glow: 0 0 24px rgba(245, 197, 24, 0.25);
 
-/* Light sand — sombras derivadas de marrom */
---shadow-sm: 0 1px 2px rgba(92, 85, 77, 0.06);
+/* Light sand — sombra neutra com mais presença */
+--shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.12);
 --shadow-md: 0 4px 14px rgba(92, 85, 77, 0.08);
 --shadow-lg: 0 12px 32px rgba(92, 85, 77, 0.12);
 --shadow-glow: 0 6px 20px rgba(212, 167, 44, 0.35);
@@ -242,6 +242,17 @@ No light sand, vermelho puro brigaria com a paleta quente — por isso danger vi
 - Título em Questrial
 - **Fita "LENDO": `--accent-surface`** (mostarda — é uma superfície visual)
 - Stat pill "Lido %": `--accent-text` (chocolate — é texto)
+- **Container da capa:** `background: var(--bg-primary)` · `border-radius: var(--radius-xl)` · `padding: var(--space-3)` · `margin: var(--space-4)` · `width/height: 130px` · `align-self: center` — centralizado verticalmente, com respiro de 16px em relação às bordas do card. Mobile: `80×80px` com `padding: var(--space-2)`. A fita de status permanece com `position: absolute`; a imagem interna recebe `border-radius: var(--radius-sm)` (raio interno = raio externo − padding).
+- **Layout da frente:** `align-items: center` — capa, info e botões de ação ficam no mesmo eixo vertical central. Padding vertical do info: `0.65rem 1rem`.
+- **Flip 3D:** o container `.bookCard` é `background: transparent` e sem borda — cada face tem seu próprio `background: var(--bg-card)` e `border: 0.5px solid var(--border)`. Isso garante que no meio do giro (90°) nenhum fundo aparece, criando o efeito real de carta virando. `perspective: 1000px` · animação `cubic-bezier(0.4, 0, 0.2, 1)` · elevação com `box-shadow` e `translateY(-2px)` quando o verso está ativo (`:has(.flipped)`).
+- **Verso do card — layout geral:** `display: flex; flex-direction: column; justify-content: space-between` — distribui as 3 seções (info · campos · botões) verticalmente pelo espaço do card. Padding `0.65rem 1rem`.
+- **Verso — seção info (`backInfo`):** `display: flex; flex-direction: column`. Contém linha de título+botões (`justify-content: space-between; align-items: flex-start`), linha de autor (`margin-top: -6px` para compensar a altura extra do modeToggle e igualar a distância título→autor da frente) e linha de status+datas (`margin-top: 4px`).
+- **Verso — campos:** DATA e NOVA PÁGINA em grid `1fr 1fr` em todos os tamanhos de tela (sem colapso mobile). Labels com `margin-bottom: 0.15rem` (override do global `0.4rem`).
+- **Verso — botões:** CANCELAR e REGISTRAR em grid `1fr 1fr`.
+- **Botão Registrar disabled:** `opacity: 0.65` (override do global `0.45`) — mantém a cor `--accent-surface` (amarelo) reconhecível mesmo quando o input ainda não é válido.
+- **Toggle Pág/% no verso:** posicionado no canto superior direito da `backInfo`, ao lado dos botões de ação (releitura, ≡). Não ocupa linha própria — elimina espaço morto.
+- **Seletor de status no verso:** compacto, `font-size: 0.78rem`, `width: auto`. Ao mudar o status, o card vira de volta automaticamente.
+- **ISBN no formulário:** sempre `type="text"` (sem `type="number"`). No export CSV, forçar aspas para evitar que o Excel interprete como número e perca dígitos em notação científica.
 
 ### FAB
 

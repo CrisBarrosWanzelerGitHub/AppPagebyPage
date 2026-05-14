@@ -236,7 +236,11 @@ export function parseLibraryCSV(text: string): CsvImportResult {
     const startDateStr = f[IDX.startDate]?.trim()   || '';
     const endDateStr   = f[IDX.endDate]?.trim()     || '';
     const cover        = f[IDX.cover]?.trim()       || '';
-    const isbn         = f[IDX.isbn]?.trim()        || '';
+    const isbnRaw      = f[IDX.isbn]?.trim()        || '';
+    // Normalise scientific notation ISBNs produced by Excel (e.g. "9,79E+12" → "9790000000000")
+    const isbn = /^\d+[,.]?\d*[eE]\+?\d+$/.test(isbnRaw)
+      ? String(Math.round(parseFloat(isbnRaw.replace(',', '.'))))
+      : isbnRaw;
     const store        = IDX.store >= 0 ? (f[IDX.store]?.trim() || '') : '';
 
     if (!title) {

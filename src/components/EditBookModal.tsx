@@ -3,6 +3,17 @@ import type { Book } from '../types';
 import styles from './Modal.module.css';
 import GenreCombobox from './GenreCombobox';
 
+/** Convert scientific-notation ISBNs produced by Excel back to digit string */
+function normalizeIsbnDisplay(raw: string | undefined | null): string {
+  if (!raw) return '';
+  const s = raw.trim();
+  if (/^\d+[,.]?\d*[eE]\+?\d+$/.test(s)) {
+    const n = parseFloat(s.replace(',', '.'));
+    if (!isNaN(n) && isFinite(n)) return String(Math.round(n));
+  }
+  return s;
+}
+
 interface Props {
   book: Book;
   onClose: () => void;
@@ -47,7 +58,7 @@ export default function EditBookModal({ book, onClose, onSave, existingTags, exi
     startDate:       book.startDate || '',
     endDate:         book.endDate   || '',
     currentPage:     String(book.currentPage),
-    isbn:            book.isbn || '',
+    isbn:            normalizeIsbnDisplay(book.isbn),
     pagesAdditional: derived.pagesAdditional,
     firstPageNum:    derived.firstPageNum,
     format:          (book.format || '') as '' | 'physical' | 'digital',

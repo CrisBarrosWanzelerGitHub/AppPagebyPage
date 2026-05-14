@@ -29,6 +29,7 @@ export default function LogTab({ state, addLog, deleteLog, updateBook, startRere
   // When navigating from BookCard, pre-select and filter
   useEffect(() => {
     if (initialBookId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedBookId(initialBookId);
       setHistoryFilterId(initialBookId);
     }
@@ -193,24 +194,24 @@ export default function LogTab({ state, addLog, deleteLog, updateBook, startRere
             </button>
           )}
           <h2 className={styles.cardTitle}>Registrar leitura</h2>
+          <label className={styles.readingToggle} style={{ marginLeft: 'auto' }}>
+            <input
+              type="checkbox"
+              className={styles.toggleInput}
+              checked={onlyReading}
+              onChange={e => setOnlyReading(e.target.checked)}
+            />
+            <span className={styles.toggleTrack}>
+              <span className={styles.toggleThumb} />
+            </span>
+            <span className={styles.toggleLabel}>Lendo e quero ler</span>
+          </label>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className="field">
             <div className={styles.bookFieldHeader}>
               <label className="label">Livro</label>
-              <label className={styles.readingToggle}>
-                <input
-                  type="checkbox"
-                  className={styles.toggleInput}
-                  checked={onlyReading}
-                  onChange={e => setOnlyReading(e.target.checked)}
-                />
-                <span className={styles.toggleTrack}>
-                  <span className={styles.toggleThumb} />
-                </span>
-                <span className={styles.toggleLabel}>Lendo e quero ler</span>
-              </label>
             </div>
             <select
               className="form-select"

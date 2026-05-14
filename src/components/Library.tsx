@@ -87,7 +87,7 @@ export default function Library({
   const [doneTo,   setDoneTo]   = useState('');
 
   const { books } = state;
-  const wantOrder = state.wantOrder ?? [];
+  const wantOrder = useMemo(() => state.wantOrder ?? [], [state.wantOrder]);
 
   const q = searchQuery.trim().toLowerCase();
 
@@ -115,14 +115,17 @@ export default function Library({
 
   // Limpa filtros que deixaram de existir no subconjunto
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (filterTag && !allTags.includes(filterTag)) setFilterTag(null);
   }, [allTags, filterTag]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (filterStore && !allStores.includes(filterStore)) setFilterStore(null);
   }, [allStores, filterStore]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (filterGenre && !allGenres.includes(filterGenre)) setFilterGenre(null);
   }, [allGenres, filterGenre]);
 
@@ -718,7 +721,6 @@ export default function Library({
 export function BookCard({
   book,
   logs,
-  isNew: _isNew,
   onEdit,
   onLog,
   onDelete,
@@ -985,38 +987,6 @@ export function BookCard({
               </div>
             )}
 
-            <div className={styles.cardActions}>
-              <select
-                className={`form-select ${styles.statusSelect}`}
-                value={book.status}
-                onChange={e => onStatusChange(book, e.target.value as Book['status'])}
-                onClick={e => e.stopPropagation()}
-              >
-                {isFullyRead ? (
-                  <>
-                    <option value="done">Lido</option>
-                    <option value="rereading">Reler</option>
-                  </>
-                ) : (
-                  <>
-                    <option value="want">Quero ler</option>
-                    {(hasReadPages || book.status === 'reading') && <option value="reading">Lendo</option>}
-                    {(hasReadPages || book.status === 'rereading') && <option value="rereading">Reler</option>}
-                    <option value="done">Lido</option>
-                    <option value="abandoned">Abandonado</option>
-                  </>
-                )}
-              </select>
-
-              {/* Datas ao lado do status */}
-              {(book.status === 'done' || book.status === 'reading' || book.status === 'rereading') && book.startDate && (
-                <span className={styles.cardDateRange} onClick={e => e.stopPropagation()}>
-                  {toDisplayDate(book.startDate)}
-                  {' → '}
-                  {book.status === 'done' ? (book.endDate ? toDisplayDate(book.endDate) : 'Hoje') : 'Hoje'}
-                </span>
-              )}
-            </div>
           </div>
           <span className={styles.flipHint} aria-hidden="true">↻</span>
         </div>
@@ -1026,7 +996,21 @@ export function BookCard({
           <div className={styles.backInfo}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div className={styles.backBookTitle} style={{ flex: 1, minWidth: 0 }}>{book.title}</div>
-              <div style={{ display: 'flex', gap: '0.25rem', flexShrink: 0, marginLeft: '0.5rem' }}>
+              <div style={{ display: 'flex', gap: '0.4rem', flexShrink: 0, marginLeft: '0.5rem', alignItems: 'center' }} onClick={e => e.stopPropagation()}>
+                {/* Toggle Pág/% no topo direito */}
+                <div className={styles.modeToggle}>
+                  <button
+                    type="button"
+                    className={`${styles.modeBtn} ${inputMode === 'page' ? styles.modeBtnActive : ''}`}
+                    onClick={() => { setInputMode('page'); setLogPct(''); }}
+                  >Pág</button>
+                  <button
+                    type="button"
+                    className={`${styles.modeBtn} ${inputMode === 'pct' ? styles.modeBtnActive : ''}`}
+                    onClick={() => { setInputMode('pct'); setLogCurrentPage(''); }}
+                    disabled={!book.pages}
+                  >%</button>
+                </div>
                 {isDone && (
                   <button
                     className={styles.rereadIconBtn}
@@ -1067,22 +1051,36 @@ export function BookCard({
               {book.author} · pg. {book.currentPage} / {book.pages}
               {lastLog && <> · último: {toDisplayDate(lastLog.date)}</>}
             </div>
-          </div>
 
-          {/* Toggle acima do grid para não desalinhar as colunas */}
-          <div className={styles.backToggleRow} onClick={e => e.stopPropagation()}>
-            <div className={styles.modeToggle}>
-              <button
-                type="button"
-                className={`${styles.modeBtn} ${inputMode === 'page' ? styles.modeBtnActive : ''}`}
-                onClick={() => { setInputMode('page'); setLogPct(''); }}
-              >Pág</button>
-              <button
-                type="button"
-                className={`${styles.modeBtn} ${inputMode === 'pct' ? styles.modeBtnActive : ''}`}
-                onClick={() => { setInputMode('pct'); setLogCurrentPage(''); }}
-                disabled={!book.pages}
-              >%</button>
+            {/* Seletor de status + datas */}
+            <div className={styles.backStatusRow} onClick={e => e.stopPropagation()}>
+              <select
+                className={`form-select ${styles.backStatusSelect}`}
+                value={book.status}
+                onChange={e => { onStatusChange(book, e.target.value as Book['status']); setFlipped(false); }}
+              >
+                {isFullyRead ? (
+                  <>
+                    <option value="done">Lido</option>
+                    <option value="rereading">Reler</option>
+                  </>
+                ) : (
+                  <>
+                    <option value="want">Quero ler</option>
+                    {(hasReadPages || book.status === 'reading') && <option value="reading">Lendo</option>}
+                    {(hasReadPages || book.status === 'rereading') && <option value="rereading">Reler</option>}
+                    <option value="done">Lido</option>
+                    <option value="abandoned">Abandonado</option>
+                  </>
+                )}
+              </select>
+              {(book.status === 'done' || book.status === 'reading' || book.status === 'rereading') && book.startDate && (
+                <span className={styles.cardDateRange}>
+                  {toDisplayDate(book.startDate)}
+                  {' → '}
+                  {book.status === 'done' ? (book.endDate ? toDisplayDate(book.endDate) : 'Hoje') : 'Hoje'}
+                </span>
+              )}
             </div>
           </div>
 

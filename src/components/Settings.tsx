@@ -44,17 +44,7 @@ const MONTHS = [
 export default function Settings({ state, setGoals, resetData, addLogs, addBooks, deleteLogs, importData, showToast }: Props) {
   const { goals, books, logs } = state;
 
-  // ── Google Books API Key ──────────────────────────────────────────────────
-  const [googleApiKey, setGoogleApiKey] = useState(() =>
-    localStorage.getItem('pbp-google-api-key') || ''
-  );
-  const [apiKeyVisible, setApiKeyVisible] = useState(false);
 
-  function handleSaveApiKey() {
-    const trimmed = googleApiKey.trim();
-    localStorage.setItem('pbp-google-api-key', trimmed);
-    showToast(trimmed ? 'Chave de API salva!' : 'Chave de API removida.');
-  }
 
   // ── Goals ────────────────────────────────────────────────────────────────
   const [yearPages,  setYearPages]  = useState(String(goals.yearPages));
@@ -103,7 +93,6 @@ export default function Settings({ state, setGoals, resetData, addLogs, addBooks
   }, [monthlyGoalsYear, goals.monthlyGoals]);
 
   // Atualiza o snapshot de undo quando o ano muda (novo contexto de edição)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     undoSnapshotRef.current = { monthlyGoals: goals.monthlyGoals, monthPages: goals.monthPages };
   // Intencionalmente depende só do ano — não queremos atualizar o snapshot a cada save automático
@@ -413,54 +402,6 @@ export default function Settings({ state, setGoals, resetData, addLogs, addBooks
 
   return (
     <div className={styles.root}>
-
-      {/* ─── Google Books API Key ────────────────────────────────────── */}
-      <div className={`card ${styles.section}`}>
-        <h2 className={styles.sectionTitle}>Busca de livros</h2>
-        <p className={styles.hint} style={{ marginTop: 0, marginBottom: '1rem' }}>
-          A busca usa a API gratuita do Google Books. Sem chave de API, o limite é ~100 buscas/dia
-          compartilhadas pela sua rede. Com uma chave gratuita, você tem 1.000 buscas/dia exclusivas.{' '}
-          <a
-            href="https://console.cloud.google.com/apis/library/books.googleapis.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: 'var(--accent-text)', textDecoration: 'underline' }}
-          >
-            Criar chave gratuita →
-          </a>
-        </p>
-        <div className="field">
-          <label className="label">Chave da API do Google Books <span style={{ fontWeight: 400, color: 'var(--warm-gray)' }}>(opcional)</span></label>
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <input
-              className="form-input"
-              type={apiKeyVisible ? 'text' : 'password'}
-              value={googleApiKey}
-              onChange={e => setGoogleApiKey(e.target.value)}
-              placeholder="AIza..."
-              style={{ flex: 1 }}
-            />
-            <button
-              type="button"
-              className="btn-secondary"
-              onClick={() => setApiKeyVisible(v => !v)}
-              style={{ flexShrink: 0, padding: '0 0.75rem' }}
-            >
-              {apiKeyVisible ? 'Ocultar' : 'Mostrar'}
-            </button>
-          </div>
-        </div>
-        <div className={styles.actions} style={{ justifyContent: 'flex-end' }}>
-          <button
-            type="button"
-            className="btn-primary"
-            onMouseDown={e => e.preventDefault()}
-            onClick={handleSaveApiKey}
-          >
-            Salvar chave
-          </button>
-        </div>
-      </div>
 
       {/* ─── Goals ──────────────────────────────────────────────────── */}
       <div className={`card ${styles.section}`}>
@@ -895,14 +836,22 @@ export default function Settings({ state, setGoals, resetData, addLogs, addBooks
           ou faça um backup completo em <code>.zip</code> com todos os registros de leitura.
         </p>
         <div className={styles.actions} style={{ justifyContent: 'flex-end' }}>
-          <button className="btn-secondary" onClick={handleExport}
-            disabled={exporting || books.length === 0}>
-            {exporting ? 'Gerando...' : '⬇ Exportar .csv'}
-          </button>
-          <button className="btn-primary" onClick={handleBackup}
-            disabled={exporting || books.length === 0}>
-            {exporting ? 'Gerando...' : '⬇ Backup completo (.zip)'}
-          </button>
+          <span
+            className={styles.tooltipWrapper}
+            data-tooltip="Lista de livros com informações e dados de leitura em .csv. Ideal para Excel ou Google Sheets."
+          >
+            <button className="btn-secondary" onClick={handleExport} disabled={exporting || books.length === 0}>
+              {exporting ? 'Gerando...' : '⬇ Exportar .csv'}
+            </button>
+          </span>
+          <span
+            className={styles.tooltipWrapper}
+            data-tooltip="Backup completo com livros e registros de leitura em .zip."
+          >
+            <button className="btn-primary" onClick={handleBackup} disabled={exporting || books.length === 0}>
+              {exporting ? 'Gerando...' : '⬇ Backup completo (.zip)'}
+            </button>
+          </span>
         </div>
       </div>
 

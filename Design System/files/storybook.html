@@ -93,7 +93,7 @@
   --danger: #B5463C;
   --danger-soft: rgba(181, 70, 60, 0.10);
 
-  --shadow-sm: 0 1px 2px rgba(92, 85, 77, 0.06);
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.12);
   --shadow-md: 0 4px 14px rgba(92, 85, 77, 0.08);
   --shadow-lg: 0 12px 32px rgba(92, 85, 77, 0.12);
   --shadow-glow: 0 6px 20px rgba(212, 167, 44, 0.35);
@@ -635,24 +635,76 @@ body {
 /* ============================================
    BOOK CARD
    ============================================ */
+/* ── Flip card container (sem fundo — cada face tem o seu) ── */
 .book-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  background: transparent;
   border-radius: var(--radius-lg);
-  padding: var(--space-5);
+  perspective: 1000px;
+  cursor: pointer;
+  transition: box-shadow 0.45s ease, transform 0.45s ease;
+}
+.book-card:has(.book-card-flip-inner.is-flipped) {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.book-card-flip-inner {
   display: grid;
-  grid-template-columns: 90px 1fr auto;
-  gap: var(--space-5);
-  align-items: start;
-  box-shadow: var(--shadow-sm);
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.book-card-flip-inner.is-flipped { transform: rotateX(180deg); }
+
+/* Face base: cada face tem fundo e borda próprios */
+.book-card-face {
+  grid-row: 1;
+  grid-column: 1;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--bg-card);
+  border: 0.5px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.15s;
+}
+.book-card-face:hover { border-color: var(--accent-soft); }
+
+.book-card-front {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.book-card-back-face {
+  transform: rotateX(180deg);
+  padding: 0.65rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 162px;
 }
 
 .book-cover {
-  width: 90px;
+  width: 130px;
   height: 130px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-xl);   /* raio externo do container */
   position: relative;
   overflow: hidden;
+  background: var(--bg-primary);     /* fundo papel/areia */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3);           /* respiro interno */
+  margin: var(--space-4);
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.book-cover__img {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-sm);   /* raio interno = externo − padding */
   background: linear-gradient(135deg, #F5E6A8 0%, #E5C168 100%);
   display: flex;
   align-items: center;
@@ -663,6 +715,137 @@ body {
   text-align: center;
   padding: var(--space-2);
   line-height: 1.3;
+}
+
+/* ── Back face ── */
+.book-card-back {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 0.65rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: 200px;
+  box-shadow: var(--shadow-sm);
+}
+
+.back-info { display: flex; flex-direction: column; }
+
+.back-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.back-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.back-btns {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+}
+
+.mode-toggle {
+  display: flex;
+  border: 1px solid var(--border-default);
+  border-radius: 99px;
+  overflow: hidden;
+  padding: 2px;
+  gap: 2px;
+}
+
+.mode-btn {
+  padding: 0.18rem 0.75rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  font-family: inherit;
+  background: transparent;
+  border: none;
+  border-radius: 99px;
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1.5;
+}
+
+.mode-btn--active {
+  background: var(--accent-text);
+  color: white;
+}
+
+.back-meta {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  margin-top: -6px;
+  line-height: 1.4;
+}
+
+.back-status-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 4px;
+}
+
+.back-status-select {
+  font-size: 0.78rem;
+  padding: 0.2rem 1.4rem 0.2rem 0.5rem;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.back-date-range {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.back-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.back-field-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.back-field-input {
+  width: 100%;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.85rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--bg-input);
+}
+
+.back-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
 }
 
 .book-ribbon {
@@ -1449,54 +1632,79 @@ body {
   <h2 class="sb-section-heading">Book Card</h2>
   <p class="sb-section-desc">Perfeita demonstração do sistema dual: fita "LENDO" é mostarda (superfície visual), valor "10%" dentro do card é chocolate (texto).</p>
 
+  <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:var(--space-3)">Cover container: <code style="background:var(--accent-soft);padding:2px 6px;border-radius:4px;color:var(--accent-text);font-family:monospace">bg-primary</code> · <code style="background:var(--accent-soft);padding:2px 6px;border-radius:4px;color:var(--accent-text);font-family:monospace">radius-xl</code> · <code style="background:var(--accent-soft);padding:2px 6px;border-radius:4px;color:var(--accent-text);font-family:monospace">padding: space-3</code> · <code style="background:var(--accent-soft);padding:2px 6px;border-radius:4px;color:var(--accent-text);font-family:monospace">margin: space-4</code> · 130×130px · align-self: center</p>
+
   <div style="display:flex;flex-direction:column;gap:var(--space-4)">
-    <div class="book-card">
-      <div class="book-cover">
-        <div class="book-ribbon">LENDO</div>
-        <div>21 lições<br>para o<br>século 21</div>
-      </div>
-      <div class="book-info">
-        <div class="book-title">21 lições para o século 21</div>
-        <div class="book-author">Yuval Noah Harari</div>
-        <div class="book-genre">Não ficção / História <span class="badge badge--filled">4ª LEITURA</span></div>
-        <div class="book-stats">
-          <div class="stat-pill"><span class="stat-pill__label">Páginas</span><span class="stat-pill__value">432</span></div>
-          <div class="stat-pill"><span class="stat-pill__label">Lidas</span><span class="stat-pill__value">45</span></div>
-          <div class="stat-pill"><span class="stat-pill__label">Restantes</span><span class="stat-pill__value">387</span></div>
-          <div class="stat-pill stat-pill--accent"><span class="stat-pill__label">Lido</span><span class="stat-pill__value">10%</span></div>
+
+    <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:var(--space-1)">↻ Clique no card para girar</p>
+
+    <!-- Card com flip interativo -->
+    <div class="book-card" onclick="this.querySelector('.book-card-flip-inner').classList.toggle('is-flipped')">
+      <div class="book-card-flip-inner">
+
+        <!-- Frente -->
+        <div class="book-card-face book-card-front">
+          <div class="book-cover">
+            <div class="book-ribbon">LENDO</div>
+            <div class="book-cover__img">21 lições<br>para o<br>século 21</div>
+          </div>
+          <div class="book-info" style="flex:1;padding:0.65rem 1rem">
+            <div class="book-title">21 lições para o século 21</div>
+            <div class="book-author">Yuval Noah Harari</div>
+            <div class="book-genre">Não ficção / História <span class="badge badge--filled">4ª LEITURA</span></div>
+            <div class="book-stats">
+              <div class="stat-pill"><span class="stat-pill__label">Páginas</span><span class="stat-pill__value">432</span></div>
+              <div class="stat-pill"><span class="stat-pill__label">Lidas</span><span class="stat-pill__value">45</span></div>
+              <div class="stat-pill"><span class="stat-pill__label">Restantes</span><span class="stat-pill__value">387</span></div>
+              <div class="stat-pill stat-pill--accent"><span class="stat-pill__label">Lido</span><span class="stat-pill__value">10%</span></div>
+            </div>
+            <div class="progress"><div class="progress__fill" style="width:10%"></div></div>
+          </div>
+          <div class="book-actions" style="padding:0.65rem 1rem 0.65rem 0">
+            <button class="btn-icon" onclick="event.stopPropagation()">+</button>
+            <button class="btn-icon" onclick="event.stopPropagation()">✎</button>
+            <button class="btn-icon" onclick="event.stopPropagation()">×</button>
+          </div>
         </div>
-        <div class="progress"><div class="progress__fill" style="width:10%"></div></div>
-      </div>
-      <div class="book-actions">
-        <button class="btn-icon">+</button>
-        <button class="btn-icon">✎</button>
-        <button class="btn-icon">×</button>
+
+        <!-- Verso -->
+        <div class="book-card-face book-card-back-face">
+          <div class="back-info">
+            <div class="back-header">
+              <div class="back-title">21 lições para o século 21</div>
+              <div class="back-btns" onclick="event.stopPropagation()">
+                <div class="mode-toggle">
+                  <button class="mode-btn mode-btn--active">Pág</button>
+                  <button class="mode-btn">%</button>
+                </div>
+                <button class="btn-icon" title="Ver registros">≡</button>
+              </div>
+            </div>
+            <div class="back-meta">Yuval Noah Harari · pg. 45 / 432 · último: 14/05/2026</div>
+            <div class="back-status-row" onclick="event.stopPropagation()">
+              <select class="back-status-select"><option>Lendo</option><option>Lido</option></select>
+              <span class="back-date-range">19/04/2026 → Hoje</span>
+            </div>
+          </div>
+          <div class="back-fields" onclick="event.stopPropagation()">
+            <div>
+              <label class="back-field-label">Data</label>
+              <input class="back-field-input" type="date" value="2026-05-14" />
+            </div>
+            <div>
+              <label class="back-field-label">Nova página</label>
+              <input class="back-field-input" type="number" placeholder="46" />
+            </div>
+          </div>
+          <div class="back-actions" onclick="event.stopPropagation()">
+            <button class="btn--secondary" style="width:100%" onclick="this.closest('.book-card').querySelector('.book-card-flip-inner').classList.remove('is-flipped')">Cancelar</button>
+            <button class="btn--primary" style="width:100%">Registrar</button>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <div class="book-card">
-      <div class="book-cover" style="background:linear-gradient(135deg,#2a2a2a,#4a4a4a);color:#F5C518">
-        <div class="book-ribbon">LENDO</div>
-        <div>A Revolução<br>dos Bichos</div>
-      </div>
-      <div class="book-info">
-        <div class="book-title">A Revolução dos Bichos</div>
-        <div class="book-author">George Orwell</div>
-        <div class="book-genre">Ficção / Sátira política <span class="badge badge--filled">2ª LEITURA</span> <span class="badge badge--outline-terracota">CLÁSSICO</span></div>
-        <div class="book-stats">
-          <div class="stat-pill"><span class="stat-pill__label">Páginas</span><span class="stat-pill__value">106</span></div>
-          <div class="stat-pill"><span class="stat-pill__label">Lidas</span><span class="stat-pill__value">45</span></div>
-          <div class="stat-pill"><span class="stat-pill__label">Restantes</span><span class="stat-pill__value">61</span></div>
-          <div class="stat-pill stat-pill--accent"><span class="stat-pill__label">Lido</span><span class="stat-pill__value">42%</span></div>
-        </div>
-        <div class="progress"><div class="progress__fill" style="width:42%"></div></div>
-      </div>
-      <div class="book-actions">
-        <button class="btn-icon">+</button>
-        <button class="btn-icon">✎</button>
-        <button class="btn-icon">×</button>
-      </div>
-    </div>
   </div>
 </section>
 

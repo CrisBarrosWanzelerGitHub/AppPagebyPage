@@ -14,6 +14,12 @@ function esc(value: string | number | undefined | null): string {
   return str;
 }
 
+/** Force-quote a field so Excel always treats it as text (e.g. ISBNs) */
+function escText(value: string | undefined | null): string {
+  if (!value) return '';
+  return `"${String(value).replace(/"/g, '""')}"`;
+}
+
 const STATUS_MAP: Record<Book['status'], string> = {
   want:       'Quero ler',
   reading:    'Lendo',
@@ -85,7 +91,7 @@ function generateLibraryCSV(books: Book[], logs: ReadingLog[]): string {
       esc(rereadsCompleted),
       esc(allTimePagesRead),
       esc(b.cover),
-      esc(b.isbn),
+      escText(b.isbn),
       esc(b.store),
       esc(b.language),
       esc(b.format === 'physical' ? 'Físico' : b.format === 'digital' ? 'Digital' : ''),

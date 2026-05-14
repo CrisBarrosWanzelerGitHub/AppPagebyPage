@@ -55,6 +55,40 @@
   color: var(--accent-text);
 }
 
+/* ─── Tooltip wrapper ─────────────────────────────────────────────────────── */
+.tooltipWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltipWrapper::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  width: 220px;
+  padding: 6px 10px;
+  background: var(--bg-card);
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  white-space: normal;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 100;
+  text-align: left;
+}
+
+.tooltipWrapper:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ─── Export ──────────────────────────────────────────────────────────────── */
 .desc {
   font-size: 0.85rem;

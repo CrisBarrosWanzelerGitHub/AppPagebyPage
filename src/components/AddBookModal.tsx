@@ -501,7 +501,6 @@ function resolveLanguage(code: string): string {
 interface Props {
   onClose: () => void;
   onAdd: (book: Book) => void;
-  onGoToSettings?: () => void;
   existingTags?: string[];
   existingStores?: string[];
   existingGenres?: string[];
@@ -538,7 +537,7 @@ const emptyForm = {
   quote: '',
 };
 
-export default function AddBookModal({ onClose, onAdd, onGoToSettings: _onGoToSettings, existingTags, existingStores, existingGenres, existingLanguages }: Props) {
+export default function AddBookModal({ onClose, onAdd, existingTags, existingStores, existingGenres, existingLanguages }: Props) {
   const [query, setQuery] = useState('');
   const [isbn, setIsbn] = useState('');
   const [results, setResults] = useState<GoogleBook[]>([]);

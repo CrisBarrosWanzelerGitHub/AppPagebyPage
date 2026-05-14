@@ -95,18 +95,6 @@ export default function GenreCombobox({ value, onChange, extraOptions = [] }: Pr
     }
   }, [active]);
 
-  // Close on outside click / blur
-  useEffect(() => {
-    function handler(e: MouseEvent) {
-      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
-        commitOrRevert();
-        setOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
-  });
-
   function commitOrRevert() {
     if (query.trim() === '') {
       onChange('');
@@ -122,6 +110,18 @@ export default function GenreCombobox({ value, onChange, extraOptions = [] }: Pr
       setQuery(value);
     }
   }
+
+  // Close on outside click / blur
+  useEffect(() => {
+    function handler(e: MouseEvent) {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
+        commitOrRevert();
+        setOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  });
 
   function select(genre: string) {
     onChange(genre);

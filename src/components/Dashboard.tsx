@@ -67,6 +67,7 @@ export default function Dashboard({ state, addLog, updateBook, deleteBook, start
   // Keep selectedYear valid when logs change
   useEffect(() => {
     if (!availableYears.includes(selectedYear)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedYear(availableYears[availableYears.length - 1] ?? currentYear);
     }
   }, [availableYears, selectedYear, currentYear]);

@@ -304,7 +304,6 @@ export default function History({ state, onNavigateToNextReads }: Props) {
   const emptyBar  = isDark ? '#3c3a3e' : '#ddd9d1';
 
   // Plugin: labels above monthly bars
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const barLabelPlugin = useMemo(() => ({
     id: 'barLabels',
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -337,7 +336,6 @@ export default function History({ state, onNavigateToNextReads }: Props) {
   }), [goalValues]);
 
   // Plugin: labels above yearly bars
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const yearBarPlugin = useMemo(() => ({
     id: 'yearBarLabels',
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -429,26 +427,28 @@ export default function History({ state, onNavigateToNextReads }: Props) {
           <p className={styles.heroSub}>Menos planilha e mais jornada</p>
         </div>
 
-        {/* Seletor alinhado à última coluna (card Hoje) */}
-        <div className={styles.heroToolbar}>
-          <select
-            className={`form-select ${styles.yearSelect}`}
-            value={selectedYear}
-            onChange={e => setSelectedYear(parseInt(e.target.value))}
-          >
-            {availableYears.map(y => <option key={y} value={y}>{y}</option>)}
-          </select>
+        {/* Seletor de ano + frase introdutória lado a lado */}
+        <div className={styles.heroYearRow}>
+          <div className={styles.heroYearGroup}>
+            <span className={styles.heroYearLabel}>Ano</span>
+            <select
+              className={`form-select ${styles.yearSelect}`}
+              value={selectedYear}
+              onChange={e => setSelectedYear(parseInt(e.target.value))}
+            >
+              {availableYears.map(y => <option key={y} value={y}>{y}</option>)}
+            </select>
+          </div>
+          {totalPages > 0 && (
+            <p className={styles.heroIntro}>
+              <em>
+                Sua jornada de leitura já acumula{' '}
+                <span className={styles.heroIntroNum}>{totalPages.toLocaleString('pt-BR')}</span>
+                {' passos em páginas.'}
+              </em>
+            </p>
+          )}
         </div>
-
-        {totalPages > 0 && (
-          <p className={styles.heroIntro}>
-            <em>
-              Sua jornada de leitura já acumula{' '}
-              <span className={styles.heroIntroNum}>{totalPages.toLocaleString('pt-BR')}</span>
-              {' passos em páginas.'}
-            </em>
-          </p>
-        )}
       </div>
 
       {/* ─── Stat Cards (funil horizontal + destaque do dia) ─────────── */}

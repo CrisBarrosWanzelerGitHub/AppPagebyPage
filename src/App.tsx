@@ -145,6 +145,22 @@ export default function App() {
     localStorage.setItem('pbp-theme', dark ? 'dark' : 'light');
   }, [dark]);
 
+  // ─── Atalho de teclado: "N" abre o modal de cadastro ──────────────────────
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      const tag = (e.target as HTMLElement).tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+      if ((e.target as HTMLElement).isContentEditable) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key === 'n' || e.key === 'N') {
+        e.preventDefault();
+        setShowAddBook(true);
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const showToast = useCallback((
     message: string,
     type: ToastType['type'] = 'success',
@@ -203,7 +219,7 @@ export default function App() {
     <div className={styles.app}>
       <header className={styles.header}>
         <div className={styles.headerInner}>
-          <div className={styles.brand}>
+          <div className={styles.brand} onClick={() => setActiveTab('dashboard')} style={{ cursor: 'pointer' }} title="Ir para Hoje" role="button" aria-label="Ir para página principal">
             {/* Open book logo */}
             <svg
               className={styles.brandLogo}
@@ -355,7 +371,7 @@ export default function App() {
       <button
         className={styles.fab}
         onClick={() => setShowAddBook(true)}
-        title="Adicionar livro"
+        title="Adicionar livro (N)"
         aria-label="Adicionar livro"
       >
         +
@@ -367,7 +383,6 @@ export default function App() {
           existingStores={Array.from(new Set(data.state.books.map(b => b.store).filter((s): s is string => !!s))).sort()}
           existingGenres={Array.from(new Set(data.state.books.map(b => b.genre).filter(Boolean))).sort()}
           onClose={() => setShowAddBook(false)}
-          onGoToSettings={() => { setShowAddBook(false); setActiveTab('settings'); }}
           onAdd={(book) => {
             data.addBook(book);
             setShowAddBook(false);

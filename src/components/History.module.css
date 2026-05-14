@@ -77,7 +77,8 @@
 
 
 .yearSelect {
-  width: 100%;
+  width: auto;
+  min-width: 6.5rem; /* ~16px a mais que o tamanho natural do "2026" */
   text-align: center;
   font-size: 0.88rem !important;
   padding-top: 0.3rem !important;
@@ -230,20 +231,30 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  margin-bottom: 2rem;
+  margin-bottom: 28px;
 }
 
-/* Toolbar espelha exatamente as colunas do statFunnelGrid */
-.heroToolbar {
-  display: grid;
-  grid-template-columns: 1.5fr 1.35fr 1.15fr 1.15fr 1fr;
-  gap: 1rem;
+/* Linha que junta seletor de ano + frase introdutória */
+.heroYearRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
 }
 
-/* Seletor na última coluna, mesmo tamanho do card Hoje */
-.heroToolbar > select {
-  grid-column: 5;
-  width: 100%;
+/* Grupo vertical: label "Ano" + <select> */
+.heroYearGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.heroYearLabel {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--warm-gray);
+  letter-spacing: 0.04em;
+  margin-left: 2px;
 }
 
 .heroTitle {
@@ -262,9 +273,9 @@
   margin: 0;
 }
 
-/* Frase introdutória em itálico, antes dos cards de métricas */
+/* Frase introdutória em itálico, ao lado do seletor de ano */
 .heroIntro {
-  margin: 1.5rem 0 0;
+  margin: 0;
   font-size: 0.82rem;
   color: var(--warm-gray);
   line-height: 1.6;
@@ -651,8 +662,7 @@
 @media (max-width: 640px) {
   .twoCol { grid-template-columns: 1fr; }
   .heroHeading { margin-bottom: 1rem; }
-  .heroToolbar { grid-template-columns: 1fr 1fr; }
-  .heroToolbar > select { grid-column: 2; }
+  .heroYearRow { flex-direction: column; align-items: flex-start; gap: 12px; }
   .statFunnelGrid { grid-template-columns: 1fr 1fr; }
   .heroTitle { font-size: 1.25rem; }
   .viradaCard { max-width: none; min-width: 0; width: 100%; align-self: stretch; }
