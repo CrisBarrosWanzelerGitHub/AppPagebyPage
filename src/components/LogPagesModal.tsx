@@ -61,7 +61,7 @@ export default function LogPagesModal({ book, logs, onClose, onLog }: Props) {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit}>
+          <form id="log-pages-form" onSubmit={handleSubmit}>
             <div className={styles.row2}>
               <div className="field">
                 <label className="label">Data</label>
@@ -88,15 +88,17 @@ export default function LogPagesModal({ book, logs, onClose, onLog }: Props) {
               </div>
             </div>
 
-            <div className={styles.actions}>
-              <button type="button" className="btn-secondary" onClick={onClose}>
-                Cancelar
-              </button>
-              <button type="submit" className="btn-primary">
-                Registrar
-              </button>
-            </div>
           </form>
+        </div>
+
+        {/* Footer — fora do scroll, sempre visível no celular */}
+        <div className={styles.footer}>
+          <button type="button" className="btn-secondary" onClick={onClose}>
+            Cancelar
+          </button>
+          <button type="submit" form="log-pages-form" className="btn-primary">
+            Registrar
+          </button>
         </div>
       </div>
     </div>

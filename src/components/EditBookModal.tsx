@@ -105,7 +105,7 @@ export default function EditBookModal({ book, onClose, onSave, existingTags, exi
         </div>
 
         <div className={styles.body}>
-          <form onSubmit={handleSubmit}>
+          <form id="edit-book-form" onSubmit={handleSubmit}>
 
             {/* Título */}
             <div className="field">
@@ -303,11 +303,13 @@ export default function EditBookModal({ book, onClose, onSave, existingTags, exi
               />
             </div>
 
-            <div className={styles.actions}>
-              <button type="button" className="btn-secondary" onClick={onClose}>Cancelar</button>
-              <button type="submit" className="btn-primary">Salvar alterações</button>
-            </div>
           </form>
+        </div>
+
+        {/* Footer — fora do scroll, sempre visível no celular */}
+        <div className={styles.footer}>
+          <button type="button" className="btn-secondary" onClick={onClose}>Cancelar</button>
+          <button type="submit" form="edit-book-form" className="btn-primary">Salvar alterações</button>
         </div>
       </div>
     </div>

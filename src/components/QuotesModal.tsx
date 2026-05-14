@@ -102,7 +102,7 @@ export default function QuotesModal({ book, onSave, onClose }: Props) {
                     >
                       Cancelar
                     </button>
-                    <button type="button" className="btn-primary" onClick={saveEdit}>
+                    <button type="button" className="btn-primary" onMouseDown={e => e.preventDefault()} onClick={saveEdit}>
                       Salvar
                     </button>
                   </div>
@@ -170,10 +170,10 @@ export default function QuotesModal({ book, onSave, onClose }: Props) {
           className={mStyles.actions}
           style={{ padding: '1rem 1.5rem 1.5rem', marginTop: 0 }}
         >
-          <button type="button" className="btn-secondary" onClick={onClose}>
+          <button type="button" className="btn-secondary" onMouseDown={e => e.preventDefault()} onClick={onClose}>
             Cancelar
           </button>
-          <button type="button" className="btn-primary" onClick={handleSave}>
+          <button type="button" className="btn-primary" onMouseDown={e => e.preventDefault()} onClick={handleSave}>
             Salvar trechos
           </button>
         </div>

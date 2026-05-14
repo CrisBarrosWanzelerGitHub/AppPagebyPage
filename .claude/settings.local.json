@@ -13,7 +13,14 @@
       "Bash(npm run *)",
       "Bash(sed -i '' \"s|from './Dashboard.module.css'|from './Dashboard2.module.css'|g\" \"/Users/crisbarroswanzeler/Desktop/Projetos Claude Code/pagebypage/src/components/Dashboard2.tsx\")",
       "Bash(sed -i '' \"s|export default function Dashboard\\(|export default function Dashboard2\\(|g\" \"/Users/crisbarroswanzeler/Desktop/Projetos Claude Code/pagebypage/src/components/Dashboard2.tsx\")",
-      "Bash(npx vite *)"
+      "Bash(npx vite *)",
+      "Read(//Users/crisbarroswanzeler/.claude/plugins/**)",
+      "mcp__claude_ai_Figma__get_figjam",
+      "mcp__plugin_figma_figma__get_design_context",
+      "mcp__plugin_figma_figma__get_metadata",
+      "mcp__plugin_figma_figma__use_figma",
+      "mcp__plugin_figma_figma__get_screenshot",
+      "Bash(git add *)"
     ]
   }
 }

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import type { LibraryPlace } from '../types';
 import styles from './Libraries.module.css';
 
@@ -32,6 +32,16 @@ export default function Libraries({ libraries, addLibrary, updateLibrary, delete
   const [tagInput, setTagInput]   = useState('');
   const [filterTag, setFilterTag] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  const formCardRef = useRef<HTMLDivElement>(null);
+
+  // Rola o formulário para o campo de visão quando abre (celular)
+  useEffect(() => {
+    if (showForm && formCardRef.current) {
+      setTimeout(() => {
+        formCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 80);
+    }
+  }, [showForm]);
 
   // Todas as tags usadas nas bibliotecas salvas
   const allTags = useMemo(() => {
@@ -159,12 +169,12 @@ export default function Libraries({ libraries, addLibrary, updateLibrary, delete
 
       {/* ─── Form ───────────────────────────────────────────────────── */}
       {showForm && (
-        <div className={`card ${styles.formCard}`}>
+        <div className={`card ${styles.formCard}`} ref={formCardRef}>
           <h3 className={styles.formTitle}>{editing ? 'Editar' : 'Nova biblioteca'}</h3>
 
           <div className="field">
             <label className="label">Nome *</label>
-            <input className="form-input" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="Ex: MEC Livros, Biblioteca Municipal…" autoFocus />
+            <input className="form-input" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="Ex: MEC Livros, Biblioteca Municipal…" />
           </div>
 
           <div className="field">
@@ -237,8 +247,8 @@ export default function Libraries({ libraries, addLibrary, updateLibrary, delete
           </div>
 
           <div className={styles.formActions}>
-            <button className="btn-secondary" onClick={cancel}>Cancelar</button>
-            <button className="btn-primary" onClick={handleSave} disabled={!form.name.trim()}>
+            <button className="btn-secondary" onMouseDown={e => e.preventDefault()} onClick={cancel}>Cancelar</button>
+            <button className="btn-primary" onMouseDown={e => e.preventDefault()} onClick={handleSave} disabled={!form.name.trim()}>
               {editing ? 'Salvar' : 'Adicionar'}
             </button>
           </div>

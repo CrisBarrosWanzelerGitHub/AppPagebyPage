@@ -44,6 +44,18 @@ const MONTHS = [
 export default function Settings({ state, setGoals, resetData, addLogs, addBooks, deleteLogs, importData, showToast }: Props) {
   const { goals, books, logs } = state;
 
+  // ── Google Books API Key ──────────────────────────────────────────────────
+  const [googleApiKey, setGoogleApiKey] = useState(() =>
+    localStorage.getItem('pbp-google-api-key') || ''
+  );
+  const [apiKeyVisible, setApiKeyVisible] = useState(false);
+
+  function handleSaveApiKey() {
+    const trimmed = googleApiKey.trim();
+    localStorage.setItem('pbp-google-api-key', trimmed);
+    showToast(trimmed ? 'Chave de API salva!' : 'Chave de API removida.');
+  }
+
   // ── Goals ────────────────────────────────────────────────────────────────
   const [yearPages,  setYearPages]  = useState(String(goals.yearPages));
   const [monthPages, setMonthPages] = useState(String(goals.monthPages));
@@ -402,6 +414,54 @@ export default function Settings({ state, setGoals, resetData, addLogs, addBooks
   return (
     <div className={styles.root}>
 
+      {/* ─── Google Books API Key ────────────────────────────────────── */}
+      <div className={`card ${styles.section}`}>
+        <h2 className={styles.sectionTitle}>Busca de livros</h2>
+        <p className={styles.hint} style={{ marginTop: 0, marginBottom: '1rem' }}>
+          A busca usa a API gratuita do Google Books. Sem chave de API, o limite é ~100 buscas/dia
+          compartilhadas pela sua rede. Com uma chave gratuita, você tem 1.000 buscas/dia exclusivas.{' '}
+          <a
+            href="https://console.cloud.google.com/apis/library/books.googleapis.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: 'var(--accent-text)', textDecoration: 'underline' }}
+          >
+            Criar chave gratuita →
+          </a>
+        </p>
+        <div className="field">
+          <label className="label">Chave da API do Google Books <span style={{ fontWeight: 400, color: 'var(--warm-gray)' }}>(opcional)</span></label>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <input
+              className="form-input"
+              type={apiKeyVisible ? 'text' : 'password'}
+              value={googleApiKey}
+              onChange={e => setGoogleApiKey(e.target.value)}
+              placeholder="AIza..."
+              style={{ flex: 1 }}
+            />
+            <button
+              type="button"
+              className="btn-secondary"
+              onClick={() => setApiKeyVisible(v => !v)}
+              style={{ flexShrink: 0, padding: '0 0.75rem' }}
+            >
+              {apiKeyVisible ? 'Ocultar' : 'Mostrar'}
+            </button>
+          </div>
+        </div>
+        <div className={styles.actions} style={{ justifyContent: 'flex-end' }}>
+          <button
+            type="button"
+            className="btn-primary"
+            onMouseDown={e => e.preventDefault()}
+            onClick={handleSaveApiKey}
+          >
+            Salvar chave
+          </button>
+        </div>
+      </div>
+
       {/* ─── Goals ──────────────────────────────────────────────────── */}
       <div className={`card ${styles.section}`}>
         <h2 className={styles.sectionTitle}>Metas de leitura</h2>
@@ -425,7 +485,7 @@ export default function Settings({ state, setGoals, resetData, addLogs, addBooks
             </div>
           </div>
           <div className={styles.actions}>
-            <button type="submit" className="btn-primary">Salvar meta anual</button>
+            <button type="submit" className="btn-primary" onMouseDown={e => e.preventDefault()}>Salvar meta anual</button>
           </div>
         </form>
       </div>
@@ -530,7 +590,7 @@ export default function Settings({ state, setGoals, resetData, addLogs, addBooks
             ))}
           </div>
           <div className={styles.actions} style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-            <button type="submit" className="btn-primary">Salvar metas mensais</button>
+            <button type="submit" className="btn-primary" onMouseDown={e => e.preventDefault()}>Salvar metas mensais</button>
             <div style={{ display: 'flex', gap: '0.4rem' }}>
               {/* Desfazer — reverte para o último "Salvar" explícito */}
               <button
@@ -641,7 +701,7 @@ export default function Settings({ state, setGoals, resetData, addLogs, addBooks
               ))}
 
               <div className={styles.histFooter}>
-                <button type="submit" className="btn-primary">Adicionar</button>
+                <button type="submit" className="btn-primary" onMouseDown={e => e.preventDefault()}>Adicionar</button>
               </div>
             </>
           ) : (
@@ -695,7 +755,7 @@ export default function Settings({ state, setGoals, resetData, addLogs, addBooks
               ))}
 
               <div className={styles.histFooter}>
-                <button type="submit" className="btn-primary">Adicionar</button>
+                <button type="submit" className="btn-primary" onMouseDown={e => e.preventDefault()}>Adicionar</button>
               </div>
             </>
           )}

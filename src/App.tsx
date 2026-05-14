@@ -367,6 +367,7 @@ export default function App() {
           existingStores={Array.from(new Set(data.state.books.map(b => b.store).filter((s): s is string => !!s))).sort()}
           existingGenres={Array.from(new Set(data.state.books.map(b => b.genre).filter(Boolean))).sort()}
           onClose={() => setShowAddBook(false)}
+          onGoToSettings={() => { setShowAddBook(false); setActiveTab('settings'); }}
           onAdd={(book) => {
             data.addBook(book);
             setShowAddBook(false);
