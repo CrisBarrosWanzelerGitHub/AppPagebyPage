@@ -384,6 +384,16 @@ export default function App() {
           existingGenres={Array.from(new Set(data.state.books.map(b => b.genre).filter(Boolean))).sort()}
           onClose={() => setShowAddBook(false)}
           onAdd={(book) => {
+            const duplicate = data.state.books.find(
+              b => b.title.trim().toLowerCase() === book.title.trim().toLowerCase() &&
+                   b.author.trim().toLowerCase() === book.author.trim().toLowerCase()
+            );
+            if (duplicate) {
+              const ok = window.confirm(
+                `"${book.title}" de ${book.author} já está na sua biblioteca. Deseja adicionar mesmo assim?`
+              );
+              if (!ok) return;
+            }
             data.addBook(book);
             setShowAddBook(false);
             showToast('Livro adicionado!');

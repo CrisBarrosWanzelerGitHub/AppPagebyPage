@@ -829,9 +829,8 @@ export function BookCard({
     ? computedPage >= effectiveMin && computedPage > minBackPage
     : (parseFloat(logPct) || 0) > currentPct && computedPage > minBackPage;
 
-  const lastLog = logs
-    .filter(l => l.bookId === book.id)
-    .sort((a, b) => b.date.localeCompare(a.date))[0];
+  const bookLogs = logs.filter(l => l.bookId === book.id);
+  const lastLog = [...bookLogs].sort((a, b) => b.date.localeCompare(a.date))[0];
 
   function handleCardClick(e: React.MouseEvent) {
     if ((e.target as HTMLElement).closest('button, select, input, label, a')) return;
@@ -1048,8 +1047,7 @@ export function BookCard({
               </div>
             </div>
             <div className={styles.backBookMeta}>
-              {book.author} · pg. {book.currentPage} / {book.pages}
-              {lastLog && <> · até {toDisplayDate(lastLog.date)}</>}
+              {book.author}
             </div>
 
             {/* Seletor de status + datas */}
@@ -1074,13 +1072,18 @@ export function BookCard({
                   </>
                 )}
               </select>
-              {(book.status === 'done' || book.status === 'reading' || book.status === 'rereading') && book.startDate && (
-                <span className={styles.cardDateRange}>
-                  {toDisplayDate(book.startDate)}
-                  {' → '}
-                  {book.status === 'done' ? (book.endDate ? toDisplayDate(book.endDate) : 'Hoje') : 'Hoje'}
-                </span>
-              )}
+              {(() => {
+                const firstLog = [...bookLogs].sort((a, b) => a.date.localeCompare(b.date))[0] ?? null;
+                if (!firstLog && !lastLog) return null;
+                const start = firstLog ? toDisplayDate(firstLog.date) : null;
+                const end = lastLog ? toDisplayDate(lastLog.date) : null;
+                if (!start && !end) return null;
+                return (
+                  <span className={styles.cardDateRange}>
+                    {start && end && start !== end ? `de ${start} até ${end}` : start || end}
+                  </span>
+                );
+              })()}
             </div>
           </div>
 

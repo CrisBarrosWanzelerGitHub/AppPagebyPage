@@ -8,6 +8,7 @@
 .header {
   background: var(--bg-surface);
   border-bottom: 0.5px solid var(--border-subtle);
+  box-shadow: 0 4px 18px rgba(92, 85, 77, 0.14);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -209,6 +210,7 @@
 .nav {
   background: var(--bg-surface);
   border-bottom: 0.5px solid var(--border-subtle);
+  box-shadow: 0 3px 10px rgba(92, 85, 77, 0.09);
   position: sticky;
   top: 112px; /* afastado do header para abrir espaço ao frame de blur */
   z-index: 99;

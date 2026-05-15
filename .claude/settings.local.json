@@ -20,7 +20,8 @@
       "mcp__plugin_figma_figma__get_metadata",
       "mcp__plugin_figma_figma__use_figma",
       "mcp__plugin_figma_figma__get_screenshot",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }
