@@ -944,6 +944,7 @@ export default function AddBookModal({ onClose, onAdd, existingTags, existingSto
                       value={query}
                       onChange={e => setQuery(e.target.value)}
                       onKeyDown={e => e.key === 'Enter' && search('query')}
+                      autoFocus
                     />
                     <button
                       className="btn-primary"

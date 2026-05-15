@@ -5,8 +5,8 @@
   color-scheme: light;
 
   /* Fonts */
-  --font-display: 'Questrial', sans-serif;
-  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Playfair Display', serif;
+  --font-body:    'Space Mono', monospace;
   --font-mono:    'JetBrains Mono', 'SF Mono', monospace;
 
   /* Surfaces */

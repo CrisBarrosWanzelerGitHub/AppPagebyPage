@@ -63,10 +63,11 @@
 }
 
 .totalValue {
+  font-family: var(--font-display);
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--accent-text);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   line-height: 1.1;
 }
 
@@ -201,10 +202,11 @@
 }
 
 .statValue {
+  font-family: var(--font-display);
   font-size: 1.75rem;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   width: 100%;
   text-align: right;
 }
@@ -260,10 +262,10 @@
 .heroTitle {
   font-family: var(--font-display);
   font-size: 1.55rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--accent-text);
   line-height: 1.2;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   margin: 0;
 }
 
@@ -420,7 +422,7 @@
 
 .viradaText {
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.35;
   margin: 0;
   font-family: var(--font-display);
@@ -525,7 +527,7 @@
 
 .insightTitle {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.25;
   margin: 0;
   font-family: var(--font-display);
@@ -556,12 +558,12 @@
 
 .nextChapterText {
   font-size: 1.45rem;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.25;
   color: var(--text-primary);
   margin: 0;
   font-family: var(--font-display);
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 /* ─── CTA ────────────────────────────────────────────────────────────────── */
@@ -607,7 +609,7 @@
   line-height: 1.7;
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.01em;
 }
 
@@ -771,9 +773,9 @@
 
 .yearChartTotal {
   font-size: 2.4rem;
-  font-weight: 800;
+  font-weight: 400;
   color: var(--accent-surface);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
   line-height: 1;
   margin: 0;
   font-family: var(--font-display);

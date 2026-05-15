@@ -1049,7 +1049,7 @@ export function BookCard({
             </div>
             <div className={styles.backBookMeta}>
               {book.author} · pg. {book.currentPage} / {book.pages}
-              {lastLog && <> · último: {toDisplayDate(lastLog.date)}</>}
+              {lastLog && <> · até {toDisplayDate(lastLog.date)}</>}
             </div>
 
             {/* Seletor de status + datas */}

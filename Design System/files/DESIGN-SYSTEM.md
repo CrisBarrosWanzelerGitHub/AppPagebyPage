@@ -4,7 +4,7 @@
 
 Sistema de design do PageByPage — um tracker de leitura editorial, minimalista e warm.
 
-**Versão:** 2.1 · **Última atualização:** Abril/2026
+**Versão:** 2.2 · **Última atualização:** Maio/2026
 
 ---
 
@@ -23,7 +23,7 @@ O PageByPage é um **diário de leitura**, não um dashboard corporativo. A est�
 - **Terracota** — editorial secundário pra numerações e tags raras
 
 **Princípios:**
-- **Tipografia geométrica leve** — Questrial nos títulos, Inter no corpo
+- **Tipografia editorial dupla** — Playfair Display (serif) nos títulos e palavras-chave em itálico, Space Mono (monospace) no corpo
 - **Respiro antes de densidade** — spacing generoso > informação amontoada
 - **Números protagonistas** — métricas grandes, labels pequenos em UPPERCASE
 - **Dual-mode equilibrado** — dark permanece vibrante, light ganha warmth de papel
@@ -35,37 +35,60 @@ O PageByPage é um **diário de leitura**, não um dashboard corporativo. A est�
 ### Famílias
 
 ```css
---font-display: 'Questrial', sans-serif;
---font-body: 'Inter', -apple-system, sans-serif;
---font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+--font-display: 'Playfair Display', serif;
+--font-body:    'Space Mono', monospace;
 ```
 
-**Questrial** (Joe Prince, 2011) é single-weight (400), geométrica humanista com terminações abertas. Manda na voz visual. **Inter** (Rasmus Andersson) cuida da UI com múltiplos pesos.
+**Playfair Display** (Claus Eggers Sørensen) é serif transitional clássica — alto contraste, terminações afiadas, voz editorial. Carregada **apenas no peso 400 (regular + italic)** para evitar bold sintético em terminações serifadas. Manda na voz visual.
 
-**Regra de ouro:** Questrial = *voz visual*, Inter = *voz funcional*.
+**Space Mono** (Colophon Foundry) é monospace geométrica com personalidade — cuida da UI funcional sem cair na frieza do mono técnico. Carregada em 400 e 700.
+
+**Regra de ouro:** Playfair = *voz visual e emocional*, Space Mono = *voz funcional e dado*.
+
+> **Atenção à largura do mono.** Space Mono é ~60% mais largo por caractere que Inter no mesmo `font-size`. Calibrar margens, larguras de container e `white-space: nowrap` com isso em mente — várias linhas que cabiam em Inter precisam de `text-overflow: ellipsis` agora.
+
+### Itálico semântico
+
+Regra única e obrigatória em frases editoriais (taglines, títulos de hero, subtítulos, frases introdutórias):
+
+- `<em>` aplicado a **uma única palavra por frase** — aquela com maior peso emocional/semântico
+- Nunca mais de uma palavra por frase
+- Títulos de livros em texto corrido **sempre em itálico**
+
+**Exemplos no produto:**
+- Tagline: "Não é sobre quantidade. É sobre *constância*."
+- Hero Performance: "Performance que conta uma *história*"
+- Subtítulo Performance: "Menos planilha e mais *jornada*"
+- Frase intro Performance: "Sua *jornada* de leitura já acumula..."
+- Dashboard: "Cada página que você lê vira parte de uma *história* única — a sua."
 
 ### Import
 
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Questrial&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 ```
 
 ### Escala tipográfica
 
+Todos os elementos display usam **`font-weight: 400`** — Playfair é carregada só nesse peso, e bold sintético em serifa transitional fica grosseiro.
+
 | Token | Tamanho | Família | Peso | Uso |
 |---|---|---|---|---|
-| `--text-display-xl` | 56px | Questrial | 400 | Números hero |
-| `--text-display` | 40px | Questrial | 400 | Números grandes (2.485) |
-| `--text-h1` | 28px | Questrial | 400 | Logo PageByPage |
-| `--text-h2` | 20px | Questrial | 400 | Títulos de seção |
-| `--text-h3` | 16px | Inter | 600 | Títulos de card |
-| `--text-body` | 14px | Inter | 400 | Texto corrido |
-| `--text-small` | 13px | Inter | 400 | Metadados |
-| `--text-label` | 11px | Inter | 600 | Labels UPPERCASE |
-| `--text-micro` | 10px | Inter | 600 | Badges |
-| `--text-editorial` | 14px | Questrial italic | 400 | Numerações terracota |
+| `--text-display-xl` | 2.4rem | Playfair Display | 400 | Números hero (total do ano) |
+| `--text-display`    | 2rem    | Playfair Display | 400 | Números grandes de stat cards |
+| `--text-h1`         | 1.75rem | Playfair Display | 400 | Métricas de Dashboard/History |
+| `--text-h2`         | 1.65rem | Playfair Display | 400 | Logo PageByPage |
+| `--text-h3`         | 1.55rem | Playfair Display | 400 | Hero Performance |
+| `--text-h4`         | 1.45rem | Playfair Display | 400 | Next chapter card |
+| `--text-h5`         | 1.25rem | Playfair Display | 400 | Insight cards |
+| `--text-card-title` | 1.15rem | Playfair Display | 400 | Título de livro na frente do card |
+| `--text-body`       | 0.88rem | Space Mono | 400 | Texto corrido |
+| `--text-tagline`    | 0.82rem | Playfair Display | 400 italic | Tagline da brand, frases editoriais |
+| `--text-small`      | 0.78rem | Space Mono | 400 | Metadados, autor |
+| `--text-label`      | 0.7rem  | Space Mono | 700 | Labels UPPERCASE |
+| `--text-micro`      | 0.65rem | Space Mono | 700 | Badges, hints |
 
 ---
 
@@ -203,6 +226,22 @@ No light sand, vermelho puro brigaria com a paleta quente — por isso danger vi
 
 ## 🧩 Componentes
 
+### Brand (header)
+
+A marca no cabeçalho — logo + nome + tagline editorial.
+
+- `.brandLogo` — width `2.8rem`, cor `--text-primary`
+- `.brandName` — Playfair Display, `1.65rem`, weight 400, letter-spacing `-0.01em`
+- `.brandTagline` — Playfair Display, `0.82rem`, weight 400, cor `--warm-gray`. Aplica regra do **itálico semântico**:
+
+```html
+<span class="brandTagline">
+  Não é sobre quantidade. É sobre <em>constância</em>.
+</span>
+```
+
+A tagline é exemplo canônico: uma única palavra (`constância`) carrega o peso emocional da frase inteira.
+
 ### Button
 
 | Variante | Uso |
@@ -237,9 +276,19 @@ No light sand, vermelho puro brigaria com a paleta quente — por isso danger vi
 | `filled-terracota` | Tags editoriais raras |
 | `outline-terracota` | Numerações, referências |
 
+### Hero Year Row (Performance tab)
+
+Cabeçalho da aba Performance combina seletor de ano à esquerda + frase introdutória à direita, na mesma linha.
+
+- `.heroYearRow` — `display: flex; align-items: flex-end; gap: 16px`
+- `.heroYearGroup` — coluna vertical com label "Ano" (`.heroYearLabel`) + `<select>` (`.yearSelect`), `gap: 3px`
+- `.heroHeading` — `margin-bottom: 28px` (distância título→linha do seletor)
+- `.heroIntro` — frase em Space Mono, com `<em>` na palavra-chave ("jornada")
+- **Mobile (≤640px):** `.heroYearRow` vira `flex-direction: column; align-items: flex-start; gap: 12px`
+
 ### Book Card (signature)
 
-- Título em Questrial
+- Título em Playfair Display, `1.15rem`, weight 400 (`.cardTitle`)
 - **Fita "LENDO": `--accent-surface`** (mostarda — é uma superfície visual)
 - Stat pill "Lido %": `--accent-text` (chocolate — é texto)
 - **Container da capa:** `background: var(--bg-primary)` · `border-radius: var(--radius-xl)` · `padding: var(--space-3)` · `margin: var(--space-4)` · `width/height: 130px` · `align-self: center` — centralizado verticalmente, com respiro de 16px em relação às bordas do card. Mobile: `80×80px` com `padding: var(--space-2)`. A fita de status permanece com `position: absolute`; a imagem interna recebe `border-radius: var(--radius-sm)` (raio interno = raio externo − padding).
@@ -248,6 +297,8 @@ No light sand, vermelho puro brigaria com a paleta quente — por isso danger vi
 - **Verso do card — layout geral:** `display: flex; flex-direction: column; justify-content: space-between` — distribui as 3 seções (info · campos · botões) verticalmente pelo espaço do card. Padding `0.65rem 1rem`.
 - **Verso — seção info (`backInfo`):** `display: flex; flex-direction: column`. Contém linha de título+botões (`justify-content: space-between; align-items: flex-start`), linha de autor (`margin-top: -6px` para compensar a altura extra do modeToggle e igualar a distância título→autor da frente) e linha de status+datas (`margin-top: 4px`).
 - **Verso — campos:** DATA e NOVA PÁGINA em grid `1fr 1fr` em todos os tamanhos de tela (sem colapso mobile). Labels com `margin-bottom: 0.15rem` (override do global `0.4rem`).
+- **Verso — título e meta:** título em Playfair (`.backBookTitle`, `0.95rem`, weight 400) com `text-overflow: ellipsis`. Linha de meta (`.backBookMeta`) usa "**até** DD/MM/AAAA" (não "último:") e precisa de `white-space: nowrap; overflow: hidden; text-overflow: ellipsis` por causa da largura do Space Mono.
+- **Mobile — anti-clipping 3D:** `.cardFlipInner { min-height: 230px }`. Sem isso, o contexto 3D criado por `perspective: 1000px` recorta a face de trás no tamanho da frente (~110px no mobile) e o verso fica invisível.
 - **Verso — botões:** CANCELAR e REGISTRAR em grid `1fr 1fr`.
 - **Botão Registrar disabled:** `opacity: 0.65` (override do global `0.45`) — mantém a cor `--accent-surface` (amarelo) reconhecível mesmo quando o input ainda não é válido.
 - **Toggle Pág/% no verso:** posicionado no canto superior direito da `backInfo`, ao lado dos botões de ação (releitura, ≡). Não ocupa linha própria — elimina espaço morto.
@@ -263,6 +314,16 @@ No light sand, vermelho puro brigaria com a paleta quente — por isso danger vi
 
 - **Células preenchidas: `--accent-surface`** (são superfícies visuais)
 - Gradiente de opacidade pros 4 níveis
+
+---
+
+## ⌨️ Atalhos de teclado
+
+| Tecla | Ação | Notas |
+|---|---|---|
+| **N** | Abre modal "Adicionar livro" e foca direto no campo de busca por título | Ignorado quando foco está em `INPUT`, `TEXTAREA`, `SELECT`, `[contenteditable]` ou quando há modificador (Cmd/Ctrl/Alt) |
+
+Implementação: `useEffect` global em `App.tsx` com listener `keydown` na `window`. O modal `AddBookModal` recebe `autoFocus` no primeiro `<input>` (busca por título) — o usuário começa a digitar de cara, sem precisar clicar.
 
 ---
 
@@ -340,7 +401,7 @@ Classnaming: BEM lite (`.card`, `.card--book`, `.card__title`).
 
 ## 📚 Referências visuais
 
-- **"3 Books Every Copywriter Must Read"** → escolha do **Questrial**
+- **Tipografia editorial clássica** → escolha do **Playfair Display** (serif transitional para a voz emocional) + **Space Mono** (mono geométrica para a voz funcional)
 - **App GTD editorial** → **sand mode** + **terracota editorial** + **chocolate de texto**
 - **Library App (Silent Echoes)** → **spacing** e **cards brancos**
 
@@ -348,7 +409,8 @@ Classnaming: BEM lite (`.card`, `.card--book`, `.card__title`).
 
 ## 🗺️ Changelog
 
-- **v2.1** (atual) — sistema dual de amarelo: chocolate pra textos, mostarda pra superfícies. Acessibilidade AAA.
+- **v2.2** (atual) — migração tipográfica para Playfair Display + Space Mono, regra do itálico semântico, novos componentes Brand e Hero Year Row, atalho de teclado **N**, "até" no verso do card.
+- **v2.1** — sistema dual de amarelo: chocolate pra textos, mostarda pra superfícies. Acessibilidade AAA.
 - **v2.0** — Sand Edition, Questrial, terracota editorial
 - **v1.0** — Estrutura inicial com amarelo único
 

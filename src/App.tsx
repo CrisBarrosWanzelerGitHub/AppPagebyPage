@@ -244,7 +244,7 @@ export default function App() {
             </svg>
             <div className={styles.brandText}>
               <span className={styles.brandName}>PageByPage</span>
-              <span className={styles.brandTagline}>Não é sobre quantidade. É sobre constância.</span>
+              <span className={styles.brandTagline}>Não é sobre quantidade. É sobre <em>constância</em>.</span>
             </div>
           </div>
 

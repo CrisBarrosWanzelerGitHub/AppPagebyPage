@@ -14,10 +14,11 @@
 }
 
 .totalValue {
+  font-family: var(--font-display);
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--accent-text);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   line-height: 1;
 }
 
@@ -40,10 +41,11 @@
 }
 
 .statValue {
+  font-family: var(--font-display);
   font-size: 1.75rem;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .statSub {

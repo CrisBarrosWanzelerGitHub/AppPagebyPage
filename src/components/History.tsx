@@ -320,14 +320,14 @@ export default function History({ state, onNavigateToNextReads }: Props) {
         const pct  = goal > 0 ? Math.round((v / goal) * 100) : null;
         ctx.save();
         ctx.fillStyle = textColor;
-        ctx.font = '600 10px Inter, sans-serif';
+        ctx.font = '600 10px Space Mono, monospace';
         ctx.textAlign = 'center';
         ctx.fillText(v.toLocaleString('pt-BR'), bar.x, bar.y - 4);
         if (pct !== null) {
           ctx.fillStyle = pct >= 100
             ? (dark ? 'rgba(245,196,0,0.9)' : 'rgba(165,135,0,0.9)')
             : textColor;
-          ctx.font = '500 9px Inter, sans-serif';
+          ctx.font = '500 9px Space Mono, monospace';
           ctx.fillText(`${pct}%`, bar.x, bar.y - 16);
         }
         ctx.restore();
@@ -350,7 +350,7 @@ export default function History({ state, onNavigateToNextReads }: Props) {
         if (!v) return;
         ctx.save();
         ctx.fillStyle = textColor;
-        ctx.font = '600 10px Inter, sans-serif';
+        ctx.font = '600 10px Space Mono, monospace';
         ctx.textAlign = 'center';
         ctx.fillText(v.toLocaleString('pt-BR'), bar.x, bar.y - 5);
         ctx.restore();
@@ -404,11 +404,11 @@ export default function History({ state, onNavigateToNextReads }: Props) {
     scales: {
       x: {
         grid: { display: false },
-        ticks: { font: { family: 'Inter', size: 10 }, color: tickColor, maxRotation: 0 },
+        ticks: { font: { family: 'Space Mono', size: 10 }, color: tickColor, maxRotation: 0 },
       },
       y: {
         grid: { color: gridColor },
-        ticks: { font: { family: 'Inter', size: 10 }, color: tickColor, stepSize: Math.ceil(maxMonthly / 4) },
+        ticks: { font: { family: 'Space Mono', size: 10 }, color: tickColor, stepSize: Math.ceil(maxMonthly / 4) },
         min: 0,
         suggestedMax: Math.ceil(maxMonthly * 1.2),
       },
@@ -423,8 +423,8 @@ export default function History({ state, onNavigateToNextReads }: Props) {
       <div className={styles.hero}>
         {/* Título + subtítulo: grupo visual coeso */}
         <div className={styles.heroHeading}>
-          <h1 className={styles.heroTitle}>Performance que conta uma história</h1>
-          <p className={styles.heroSub}>Menos planilha e mais jornada</p>
+          <h1 className={styles.heroTitle}>Performance que conta uma <em>história</em></h1>
+          <p className={styles.heroSub}>Menos planilha e mais <em>jornada</em></p>
         </div>
 
         {/* Seletor de ano + frase introdutória lado a lado */}
@@ -441,11 +441,9 @@ export default function History({ state, onNavigateToNextReads }: Props) {
           </div>
           {totalPages > 0 && (
             <p className={styles.heroIntro}>
-              <em>
-                Sua jornada de leitura já acumula{' '}
-                <span className={styles.heroIntroNum}>{totalPages.toLocaleString('pt-BR')}</span>
-                {' passos em páginas.'}
-              </em>
+              Sua <em>jornada</em> de leitura já acumula{' '}
+              <span className={styles.heroIntroNum}>{totalPages.toLocaleString('pt-BR')}</span>
+              {' passos em páginas.'}
             </p>
           )}
         </div>
@@ -644,7 +642,7 @@ export default function History({ state, onNavigateToNextReads }: Props) {
                               return { text: `${label} · ${pct}%`, fillStyle: bg, strokeStyle: bg, lineWidth: 0, hidden: false, index: i, datasetIndex: 0 };
                             });
                           },
-                          font: { family: 'Inter', size: 10 }, color: tickColor, padding: 6, boxWidth: 10,
+                          font: { family: 'Space Mono', size: 10 }, color: tickColor, padding: 6, boxWidth: 10,
                         },
                       },
                       tooltip: { callbacks: { label: (ctx) => ` ${ctx.label}: ${ctx.raw} livro(s)` } },
@@ -686,7 +684,7 @@ export default function History({ state, onNavigateToNextReads }: Props) {
                               return { text: `${label} · ${pct}%`, fillStyle: bg, strokeStyle: bg, lineWidth: 0, hidden: false, index: i, datasetIndex: 0 };
                             });
                           },
-                          font: { family: 'Inter', size: 10 }, color: tickColor, padding: 6, boxWidth: 10,
+                          font: { family: 'Space Mono', size: 10 }, color: tickColor, padding: 6, boxWidth: 10,
                         },
                       },
                       tooltip: { callbacks: { label: (ctx) => ` ${ctx.label}: ${ctx.raw} livro(s)` } },
@@ -728,7 +726,7 @@ export default function History({ state, onNavigateToNextReads }: Props) {
                               return { text: `${label} · ${pct}%`, fillStyle: bg, strokeStyle: bg, lineWidth: 0, hidden: false, index: i, datasetIndex: 0 };
                             });
                           },
-                          font: { family: 'Inter', size: 10 }, color: tickColor, padding: 6, boxWidth: 10,
+                          font: { family: 'Space Mono', size: 10 }, color: tickColor, padding: 6, boxWidth: 10,
                         },
                       },
                       tooltip: { callbacks: { label: (ctx) => ` ${ctx.label}: ${ctx.raw} livro(s)` } },
@@ -778,11 +776,11 @@ export default function History({ state, onNavigateToNextReads }: Props) {
                 scales: {
                   x: {
                     grid: { display: false },
-                    ticks: { font: { family: 'Inter', size: 11 }, color: tickColor },
+                    ticks: { font: { family: 'Space Mono', size: 11 }, color: tickColor },
                   },
                   y: {
                     grid: { color: gridColor },
-                    ticks: { font: { family: 'Inter', size: 10 }, color: tickColor },
+                    ticks: { font: { family: 'Space Mono', size: 10 }, color: tickColor },
                     min: 0,
                   },
                 },

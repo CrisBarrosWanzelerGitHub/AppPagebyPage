@@ -6,7 +6,7 @@
 <title>PageByPage · Design System v2.1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Questrial&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================
    TOKENS — DARK MODE (default)
@@ -39,8 +39,8 @@
   --danger: #EF5A5A;
   --danger-soft: rgba(239, 90, 90, 0.12);
 
-  --font-display: 'Questrial', sans-serif;
-  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Space Mono', monospace;
 
   --space-1: 4px; --space-2: 8px; --space-3: 12px;
   --space-4: 16px; --space-5: 20px; --space-6: 24px;
@@ -1388,41 +1388,143 @@ body {
   <div class="sb-section-kicker"><span class="edit-num">03</span> · Tokens</div>
   <h2 class="sb-section-heading">Tipografia</h2>
 
+  <p class="sb-section-desc"><strong>Playfair Display</strong> (serif transitional) carrega a voz emocional — só no peso 400 para evitar bold sintético. <strong>Space Mono</strong> (monospace geométrica) carrega a voz funcional, em 400 e 700.</p>
+
   <div class="card">
     <div class="type-row">
+      <div class="type-label">display-xl</div>
+      <div class="type-sample display" style="font-size:2.4rem;line-height:1.1;letter-spacing:-0.01em;color:var(--accent-text)">2.485</div>
+      <div class="type-meta">Playfair Display · 400</div>
+    </div>
+    <div class="type-row">
       <div class="type-label">display</div>
-      <div class="type-sample display" style="font-size:2.5rem;line-height:1.1;letter-spacing:-0.02em;color:var(--accent-text)">2.485</div>
-      <div class="type-meta">Questrial · 400</div>
+      <div class="type-sample display" style="font-size:2rem;line-height:1.1;letter-spacing:-0.01em">1.245</div>
+      <div class="type-meta">Playfair Display · 400</div>
     </div>
     <div class="type-row">
-      <div class="type-label">h1 · logo</div>
-      <div class="type-sample display" style="font-size:1.75rem;letter-spacing:-0.01em">PageByPage</div>
-      <div class="type-meta">Questrial · 400</div>
+      <div class="type-label">h1 · stat</div>
+      <div class="type-sample display" style="font-size:1.75rem;letter-spacing:-0.01em">156</div>
+      <div class="type-meta">Playfair Display · 400</div>
     </div>
     <div class="type-row">
-      <div class="type-label">h2 · seção</div>
-      <div class="type-sample display" style="font-size:1.25rem">Lendo agora</div>
-      <div class="type-meta">Questrial · 400</div>
+      <div class="type-label">h2 · logo</div>
+      <div class="type-sample display" style="font-size:1.65rem;letter-spacing:-0.01em">PageByPage</div>
+      <div class="type-meta">Playfair Display · 400</div>
     </div>
     <div class="type-row">
-      <div class="type-label">h3 · card</div>
-      <div class="type-sample" style="font-size:1rem;font-weight:600">21 lições para o século 21</div>
-      <div class="type-meta">Inter · 600</div>
+      <div class="type-label">h3 · hero</div>
+      <div class="type-sample display" style="font-size:1.55rem">Performance que conta uma <em>história</em></div>
+      <div class="type-meta">Playfair Display · 400</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">card-title</div>
+      <div class="type-sample display" style="font-size:1.15rem">21 lições para o século 21</div>
+      <div class="type-meta">Playfair Display · 400</div>
     </div>
     <div class="type-row">
       <div class="type-label">body</div>
-      <div class="type-sample" style="font-size:0.875rem">Não é sobre quantidade. É sobre constância.</div>
-      <div class="type-meta">Inter · 400</div>
+      <div class="type-sample" style="font-size:0.88rem">Cada página que você lê vira história.</div>
+      <div class="type-meta">Space Mono · 400</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">tagline</div>
+      <div class="type-sample display" style="font-size:0.82rem;font-style:italic">Não é sobre quantidade. É sobre <em style="font-style:italic">constância</em>.</div>
+      <div class="type-meta">Playfair Display · 400 italic</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">small · meta</div>
+      <div class="type-sample" style="font-size:0.78rem;color:var(--text-muted)">Yuval Noah Harari · pg. 218 / 320</div>
+      <div class="type-meta">Space Mono · 400</div>
     </div>
     <div class="type-row">
       <div class="type-label">label</div>
-      <div class="type-sample" style="font-size:0.6875rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted)">Páginas em 2026</div>
-      <div class="type-meta">Inter · 600 caps</div>
+      <div class="type-sample" style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted)">Páginas em 2026</div>
+      <div class="type-meta">Space Mono · 700 caps</div>
     </div>
-    <div class="type-row">
-      <div class="type-label">editorial</div>
-      <div class="type-sample display" style="font-size:1rem;font-style:italic;color:var(--accent-editorial)">01 · 02 · 03</div>
-      <div class="type-meta">Questrial italic</div>
+  </div>
+
+  <h3 style="margin-top:var(--space-8);margin-bottom:var(--space-3)">Regra do itálico semântico</h3>
+  <p class="sb-section-desc">Em frases editoriais (taglines, hero, intros), <code style="background:var(--accent-soft);padding:2px 6px;border-radius:4px;color:var(--accent-text);font-family:monospace;font-size:0.8125rem">&lt;em&gt;</code> envolve <strong>uma única palavra</strong> — a de maior peso emocional. Títulos de livros em texto corrido sempre em itálico.</p>
+
+  <div class="card">
+    <div style="display:flex;flex-direction:column;gap:var(--space-5)">
+      <div>
+        <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px">Sem itálico — frase achatada</div>
+        <div style="font-family:var(--font-display);font-size:1.55rem;color:var(--accent-text);opacity:0.55">Performance que conta uma história</div>
+      </div>
+      <div>
+        <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px">Com itálico semântico — uma palavra carrega o peso</div>
+        <div style="font-family:var(--font-display);font-size:1.55rem;color:var(--accent-text)">Performance que conta uma <em>história</em></div>
+      </div>
+      <div style="border-top:0.5px solid var(--border-subtle);padding-top:var(--space-4);display:flex;flex-direction:column;gap:var(--space-2)">
+        <div style="font-size:0.78rem;color:var(--text-muted)">Outros exemplos vivos no produto:</div>
+        <div style="font-family:var(--font-display);font-size:0.95rem;font-style:italic">Não é sobre quantidade. É sobre <em style="font-style:italic">constância</em>.</div>
+        <div style="font-family:var(--font-display);font-size:0.95rem">Menos planilha e mais <em>jornada</em></div>
+        <div style="font-family:var(--font-display);font-size:0.95rem">Sua <em>jornada</em> de leitura já acumula 2.485 páginas.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- BRAND -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">04</span> · Componentes</div>
+  <h2 class="sb-section-heading">Brand</h2>
+  <p class="sb-section-desc">Cabeçalho do app: logo + nome em Playfair + tagline editorial com itálico semântico.</p>
+
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:0.75rem">
+      <div style="width:2.8rem;height:2.8rem;border-radius:50%;background:var(--accent-surface);display:flex;align-items:center;justify-content:center;color:#1A1614;font-family:var(--font-display);font-size:1.5rem">P</div>
+      <div style="display:flex;flex-direction:column;gap:0.3rem">
+        <span style="font-family:var(--font-display);font-size:1.65rem;font-weight:400;letter-spacing:-0.01em;line-height:1;color:var(--text-primary)">PageByPage</span>
+        <span style="font-family:var(--font-display);font-size:0.82rem;font-weight:400;line-height:1;color:var(--text-muted);font-style:italic">Não é sobre quantidade. É sobre <em style="font-style:italic">constância</em>.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- HERO YEAR ROW -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">05</span> · Componentes</div>
+  <h2 class="sb-section-heading">Hero Year Row (Performance)</h2>
+  <p class="sb-section-desc">Cabeçalho da aba Performance: seletor de ano à esquerda, frase introdutória à direita, na mesma linha.</p>
+
+  <div class="card">
+    <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:28px">
+      <h1 style="font-family:var(--font-display);font-size:1.55rem;font-weight:400;color:var(--accent-text);margin:0">Performance que conta uma <em>história</em></h1>
+      <p style="font-size:0.83rem;color:var(--text-muted);margin:0">Menos planilha e mais <em>jornada</em></p>
+    </div>
+    <div style="display:flex;align-items:flex-end;gap:16px">
+      <div style="display:flex;flex-direction:column;gap:3px;flex-shrink:0">
+        <span style="font-size:0.72rem;font-weight:500;color:var(--text-muted);letter-spacing:0.04em;margin-left:2px">Ano</span>
+        <select style="font-family:var(--font-body);width:auto;min-width:6.5rem;text-align:center;font-size:0.88rem;padding:0.3rem 1.75rem 0.3rem 0.75rem;background:var(--bg-input);border:1px solid var(--border-default);border-radius:var(--radius-sm);color:var(--text-primary)">
+          <option>2026</option><option>2025</option>
+        </select>
+      </div>
+      <p style="margin:0;font-size:0.82rem;color:var(--text-muted);line-height:1.6;letter-spacing:0.01em"><em>Sua <em style="font-style:italic">jornada</em> de leitura já acumula 2.485 passos em páginas.</em></p>
+    </div>
+  </div>
+</section>
+
+<div class="sb-divider"></div>
+
+<!-- ATALHOS -->
+<section class="sb-section">
+  <div class="sb-section-kicker"><span class="edit-num">06</span> · Interação</div>
+  <h2 class="sb-section-heading">Atalhos de teclado</h2>
+  <p class="sb-section-desc">Atalhos globais — ignorados quando o foco está num campo de texto ou quando há modificador (Cmd/Ctrl/Alt).</p>
+
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:1rem">
+      <kbd style="font-family:var(--font-body);font-weight:700;font-size:0.9rem;background:var(--bg-input);border:1px solid var(--border-default);border-bottom-width:2px;border-radius:6px;padding:0.35rem 0.7rem;color:var(--text-primary);min-width:2.2rem;text-align:center">N</kbd>
+      <div style="display:flex;flex-direction:column;gap:0.2rem">
+        <div style="font-size:0.9rem;font-weight:500;color:var(--text-primary)">Adicionar livro</div>
+        <div style="font-size:0.78rem;color:var(--text-muted)">Abre o modal e foca direto no campo de busca por título.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1431,7 +1533,7 @@ body {
 
 <!-- BUTTONS -->
 <section class="sb-section">
-  <div class="sb-section-kicker"><span class="edit-num">04</span> · Componentes</div>
+  <div class="sb-section-kicker"><span class="edit-num">07</span> · Componentes</div>
   <h2 class="sb-section-heading">Buttons</h2>
   <p class="sb-section-desc">Botão primary usa <code style="background:var(--accent-soft);padding:2px 6px;border-radius:4px;color:var(--accent-text);font-family:monospace;font-size:0.8125rem">--accent-surface</code> — é uma superfície amarela com texto escuro. Contraste perfeito.</p>
 

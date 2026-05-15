@@ -359,7 +359,7 @@ export default function Dashboard({ state, addLog, updateBook, deleteBook, start
       {onNavigateToPerformance && (
         <div className={styles.perfInvite}>
           <p className={styles.perfInviteText}>
-            Cada página que você lê vira parte de uma história única — a sua.
+            Cada página que você lê vira parte de uma <em>história</em> única — a sua.
           </p>
           <button className={styles.perfInviteLink} onClick={onNavigateToPerformance}>
             Ver meu desempenho →
